@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URI")
+}
+
+model User {
+  id String @id @default(uuid())
+
+  email       String    @unique
+  password    String
+  username    String    @unique
+  firstName   String
+  lastName    String
+  bio         String?
+  dateOfBirth DateTime?
+  avatar      String?
+
+  isEmailVerified Boolean @default(false)
+
+  tokens               Token[]
+  notifications        Notification[]
+  notificationSettings NotificationSettings?
+
+  favoriteMusic   Song[] @relation(name: "favorite")
+  ownMusic        Song[] @relation(name: "uploader")
+  favoriteArtists Artist[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id String @id @default(uuid())
+
+  message    String
+  isRead     Boolean
+  userAvatar String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NotificationSettings {
+  id String @id @default(uuid())
+
+  webNotifications Boolean @default(true)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Token {
+  id String @id @default(uuid())
+
+  token     String    @unique
+  type      TokenType
+  expiresIn DateTime
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Song {
+  id String @id @default(uuid())
+
+  title   String
+  artists Artist[]
+
+  album   Album?  @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  albumId String?
+
+  duration Float
+  audioUrl String
+
+  status SongStatus @default(ON_COMPLETED)
+
+  genres String[]
+
+  lyrics Json?
+
+  coverUrl String?
+
+  users User[] @relation(name: "favorite")
+
+  uploader   User?   @relation(name: "uploader", fields: [uploaderId], references: [id], onDelete: Cascade)
+  uploaderId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Artist {
+  id String @id @default(uuid())
+
+  name      String
+  slug      String  @unique
+  avatarUrl String?
+
+  songs  Song[]
+  albums Album[]
+
+  followers User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Album {
+  id String @id @default(uuid())
+
+  title    String
+  coverUrl String?
+
+  songs Song[]
+
+  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  artistId String
+
+  releaseDate DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TokenType {
+  EMAIL_VERIFY
+  PASSWORD_RESET
+  DEACTIVATE_ACCOUNT
+}
+
+enum SongStatus {
+  IN_COMPLETED
+  MODERATION
+  ON_COMPLETED
+}

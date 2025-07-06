@@ -1,0 +1,241 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AlbumModel {
+  artistId: String!
+  coverUrl: String!
+  createdAt: DateTime!
+  id: String!
+  releaseDate: DateTime!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type ArtistModel {
+  albums: [AlbumModel!]!
+  avatarUrl: String
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  slug: String!
+  songs: [SongModel!]!
+  updatedAt: DateTime!
+}
+
+type AuthModel {
+  message: String
+  user: UserModel
+}
+
+input ChangeEmailInput {
+  email: String!
+}
+
+input ChangeInfoInput {
+  bio: String
+  dateOfBirth: DateTime!
+  firstName: String!
+  lastName: String!
+  username: String!
+}
+
+input ChangeNotificationSettingsInput {
+  webNotifications: Boolean!
+}
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+input CreateArtistInput {
+  name: String!
+}
+
+input CreateUserInput {
+  dateOfBirth: DateTime
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DeviceModel {
+  browser: String!
+  os: String!
+  type: String!
+}
+
+input EditSongInput {
+  artists: [String!]!
+  genres: [String!]!
+  id: String!
+  title: String!
+}
+
+input FiltersInput {
+  searchTerm: String
+  skip: Float
+  take: Float
+}
+
+input Line {
+  start: Float!
+  text: String!
+}
+
+type LocationModel {
+  city: String!
+  country: String!
+  latidute: Float!
+  longitide: Float!
+}
+
+input LoginInput {
+  login: String!
+  password: String!
+}
+
+type Mutation {
+  addSongLyrics(data: SongLyricsInput!): Boolean!
+  changeEmail(data: ChangeEmailInput!): Boolean!
+  changeNotificationSettings(data: ChangeNotificationSettingsInput!): NotificationSettingsModel!
+  changePassword(data: ChangePasswordInput!): Boolean!
+  changeProfileAvatar(avatar: Upload!): Boolean!
+  changeProfileInfo(data: ChangeInfoInput!): Boolean!
+  clearSessionCookie: Boolean!
+  createArtist(data: CreateArtistInput!): ArtistModel!
+  createUser(data: CreateUserInput!): Boolean!
+  ediSong(data: EditSongInput!): Boolean!
+  loginUser(data: LoginInput!): AuthModel!
+  logoutUser: Boolean!
+  newPassword(data: NewPasswordInput!): Boolean!
+  removeProfileAvatar: Boolean!
+  removeSession(id: String!): Boolean!
+  resetPassword(data: ResetPasswordInput!): Boolean!
+  uploadCover(cover: Upload!): String!
+  uploadSong(audio: Upload!): Boolean!
+  verifyAccount(data: VerificationInput!): AuthModel!
+}
+
+input NewPasswordInput {
+  password: String!
+  passwordRepeat: String!
+  token: String!
+}
+
+type NotificationModel {
+  createAt: DateTime!
+  id: String!
+  isRead: Boolean!
+  message: String!
+  updatedAt: DateTime!
+  user: UserModel!
+  userAvatar: String!
+  userId: String!
+}
+
+type NotificationSettingsModel {
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+  user: UserModel!
+  userId: String!
+  webNotifications: Boolean!
+}
+
+type Query {
+  findArtistsByTerm(filters: FiltersInput!): [ArtistModel!]!
+  findCurrentSession: SessionModel!
+  findProfile: UserModel!
+  findSessionsByUser: [SessionModel!]!
+  getAllArtists: [ArtistModel!]!
+  getFavoriteMusic(filters: FiltersInput!): [SongModel!]!
+  getNotificationsByUser: [NotificationModel!]!
+  getSongById(id: String!): SongModel!
+  getSongStreamUrl(id: String!): StreamModel!
+  getSongs(data: FiltersInput!): [SongModel!]!
+  getUnreadNotificationsCount: Float!
+}
+
+input ResetPasswordInput {
+  email: String!
+}
+
+type SessionMetadataModel {
+  device: DeviceModel!
+  ip: String!
+  location: LocationModel!
+}
+
+type SessionModel {
+  createdAt: String!
+  id: ID!
+  metadata: SessionMetadataModel!
+  userId: String!
+}
+
+input SongLyricsInput {
+  id: ID!
+  lines: [Line!]!
+}
+
+type SongModel {
+  album: AlbumModel!
+  albumId: String
+  artists: [ArtistModel!]!
+  audioUrl: String!
+  coverUrl: String
+  createdAt: DateTime!
+  duration: Float!
+  genres: [String!]!
+  id: String!
+  lyrics: String
+  status: SongStatus!
+  title: String!
+  updatedAt: DateTime!
+  uploader: UserModel!
+  uploaderId: String!
+  users: [UserModel!]!
+}
+
+enum SongStatus {
+  IN_COMPLETED
+  MODERATION
+  ON_COMPLETED
+}
+
+type StreamModel {
+  song: SongModel!
+  url: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type UserModel {
+  avatar: String
+  bio: String
+  createdAt: DateTime!
+  dateOfBirth: DateTime
+  email: String!
+  firstName: String!
+  id: String!
+  isEmailVerified: Boolean!
+  lastName: String!
+  notificationSettings: NotificationSettingsModel!
+  password: String!
+  updatedAt: DateTime!
+  username: String!
+}
+
+input VerificationInput {
+  token: String!
+}
