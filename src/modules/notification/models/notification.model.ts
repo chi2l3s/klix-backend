@@ -25,7 +25,7 @@ export class NotificationModel implements Notification {
 	userAvatar: string
 
 	@Field(() => Date)
-	createAt: Date
+	createdAt: Date
 
 	@Field(() => Date)
 	updatedAt: Date

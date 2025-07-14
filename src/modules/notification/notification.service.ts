@@ -36,7 +36,7 @@ export class NotificationService {
 				userId: user.id
 			},
 			orderBy: {
-				createAt: 'desc'
+				createdAt: 'desc'
 			}
 		})
 

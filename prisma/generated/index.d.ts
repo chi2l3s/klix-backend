@@ -3634,7 +3634,7 @@ export namespace Prisma {
     isRead: boolean | null
     userAvatar: string | null
     userId: string | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -3644,7 +3644,7 @@ export namespace Prisma {
     isRead: boolean | null
     userAvatar: string | null
     userId: string | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -3654,7 +3654,7 @@ export namespace Prisma {
     isRead: number
     userAvatar: number
     userId: number
-    createAt: number
+    createdAt: number
     updatedAt: number
     _all: number
   }
@@ -3666,7 +3666,7 @@ export namespace Prisma {
     isRead?: true
     userAvatar?: true
     userId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -3676,7 +3676,7 @@ export namespace Prisma {
     isRead?: true
     userAvatar?: true
     userId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -3686,7 +3686,7 @@ export namespace Prisma {
     isRead?: true
     userAvatar?: true
     userId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
     _all?: true
   }
@@ -3769,7 +3769,7 @@ export namespace Prisma {
     isRead: boolean
     userAvatar: string | null
     userId: string
-    createAt: Date
+    createdAt: Date
     updatedAt: Date
     _count: NotificationCountAggregateOutputType | null
     _min: NotificationMinAggregateOutputType | null
@@ -3796,7 +3796,7 @@ export namespace Prisma {
     isRead?: boolean
     userAvatar?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -3807,7 +3807,7 @@ export namespace Prisma {
     isRead?: boolean
     userAvatar?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -3818,7 +3818,7 @@ export namespace Prisma {
     isRead?: boolean
     userAvatar?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -3829,11 +3829,11 @@ export namespace Prisma {
     isRead?: boolean
     userAvatar?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "isRead" | "userAvatar" | "userId" | "createAt" | "updatedAt", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "isRead" | "userAvatar" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3855,7 +3855,7 @@ export namespace Prisma {
       isRead: boolean
       userAvatar: string | null
       userId: string
-      createAt: Date
+      createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["notification"]>
     composites: {}
@@ -4286,7 +4286,7 @@ export namespace Prisma {
     readonly isRead: FieldRef<"Notification", 'Boolean'>
     readonly userAvatar: FieldRef<"Notification", 'String'>
     readonly userId: FieldRef<"Notification", 'String'>
-    readonly createAt: FieldRef<"Notification", 'DateTime'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
     readonly updatedAt: FieldRef<"Notification", 'DateTime'>
   }
     
@@ -12660,7 +12660,7 @@ export namespace Prisma {
     type: $Enums.PlaylistType | null
     coverUrl: string | null
     creatorId: string | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -12671,7 +12671,7 @@ export namespace Prisma {
     type: $Enums.PlaylistType | null
     coverUrl: string | null
     creatorId: string | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -12682,7 +12682,7 @@ export namespace Prisma {
     type: number
     coverUrl: number
     creatorId: number
-    createAt: number
+    createdAt: number
     updatedAt: number
     _all: number
   }
@@ -12695,7 +12695,7 @@ export namespace Prisma {
     type?: true
     coverUrl?: true
     creatorId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -12706,7 +12706,7 @@ export namespace Prisma {
     type?: true
     coverUrl?: true
     creatorId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -12717,7 +12717,7 @@ export namespace Prisma {
     type?: true
     coverUrl?: true
     creatorId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
     _all?: true
   }
@@ -12801,7 +12801,7 @@ export namespace Prisma {
     type: $Enums.PlaylistType
     coverUrl: string | null
     creatorId: string
-    createAt: Date
+    createdAt: Date
     updatedAt: Date
     _count: PlaylistCountAggregateOutputType | null
     _min: PlaylistMinAggregateOutputType | null
@@ -12829,7 +12829,7 @@ export namespace Prisma {
     type?: boolean
     coverUrl?: boolean
     creatorId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     songs?: boolean | Playlist$songsArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -12844,7 +12844,7 @@ export namespace Prisma {
     type?: boolean
     coverUrl?: boolean
     creatorId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playlist"]>
@@ -12856,7 +12856,7 @@ export namespace Prisma {
     type?: boolean
     coverUrl?: boolean
     creatorId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playlist"]>
@@ -12868,11 +12868,11 @@ export namespace Prisma {
     type?: boolean
     coverUrl?: boolean
     creatorId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "coverUrl" | "creatorId" | "createAt" | "updatedAt", ExtArgs["result"]["playlist"]>
+  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "coverUrl" | "creatorId" | "createdAt" | "updatedAt", ExtArgs["result"]["playlist"]>
   export type PlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     songs?: boolean | Playlist$songsArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -12900,7 +12900,7 @@ export namespace Prisma {
       type: $Enums.PlaylistType
       coverUrl: string | null
       creatorId: string
-      createAt: Date
+      createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["playlist"]>
     composites: {}
@@ -13334,7 +13334,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Playlist", 'PlaylistType'>
     readonly coverUrl: FieldRef<"Playlist", 'String'>
     readonly creatorId: FieldRef<"Playlist", 'String'>
-    readonly createAt: FieldRef<"Playlist", 'DateTime'>
+    readonly createdAt: FieldRef<"Playlist", 'DateTime'>
     readonly updatedAt: FieldRef<"Playlist", 'DateTime'>
   }
     
@@ -14937,7 +14937,7 @@ export namespace Prisma {
     isRead: 'isRead',
     userAvatar: 'userAvatar',
     userId: 'userId',
-    createAt: 'createAt',
+    createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
@@ -15039,7 +15039,7 @@ export namespace Prisma {
     type: 'type',
     coverUrl: 'coverUrl',
     creatorId: 'creatorId',
-    createAt: 'createAt',
+    createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
@@ -15355,7 +15355,7 @@ export namespace Prisma {
     isRead?: BoolFilter<"Notification"> | boolean
     userAvatar?: StringNullableFilter<"Notification"> | string | null
     userId?: StringFilter<"Notification"> | string
-    createAt?: DateTimeFilter<"Notification"> | Date | string
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
     updatedAt?: DateTimeFilter<"Notification"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -15366,7 +15366,7 @@ export namespace Prisma {
     isRead?: SortOrder
     userAvatar?: SortOrderInput | SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -15380,7 +15380,7 @@ export namespace Prisma {
     isRead?: BoolFilter<"Notification"> | boolean
     userAvatar?: StringNullableFilter<"Notification"> | string | null
     userId?: StringFilter<"Notification"> | string
-    createAt?: DateTimeFilter<"Notification"> | Date | string
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
     updatedAt?: DateTimeFilter<"Notification"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -15391,7 +15391,7 @@ export namespace Prisma {
     isRead?: SortOrder
     userAvatar?: SortOrderInput | SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
     _max?: NotificationMaxOrderByAggregateInput
@@ -15407,7 +15407,7 @@ export namespace Prisma {
     isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
     userAvatar?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     userId?: StringWithAggregatesFilter<"Notification"> | string
-    createAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
@@ -15903,7 +15903,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFilter<"Playlist"> | $Enums.PlaylistType
     coverUrl?: StringNullableFilter<"Playlist"> | string | null
     creatorId?: StringFilter<"Playlist"> | string
-    createAt?: DateTimeFilter<"Playlist"> | Date | string
+    createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
     songs?: SongListRelationFilter
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15917,7 +15917,7 @@ export namespace Prisma {
     type?: SortOrder
     coverUrl?: SortOrderInput | SortOrder
     creatorId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     songs?: SongOrderByRelationAggregateInput
     creator?: UserOrderByWithRelationInput
@@ -15934,7 +15934,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFilter<"Playlist"> | $Enums.PlaylistType
     coverUrl?: StringNullableFilter<"Playlist"> | string | null
     creatorId?: StringFilter<"Playlist"> | string
-    createAt?: DateTimeFilter<"Playlist"> | Date | string
+    createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
     songs?: SongListRelationFilter
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15948,7 +15948,7 @@ export namespace Prisma {
     type?: SortOrder
     coverUrl?: SortOrderInput | SortOrder
     creatorId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PlaylistCountOrderByAggregateInput
     _max?: PlaylistMaxOrderByAggregateInput
@@ -15965,7 +15965,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeWithAggregatesFilter<"Playlist"> | $Enums.PlaylistType
     coverUrl?: StringNullableWithAggregatesFilter<"Playlist"> | string | null
     creatorId?: StringWithAggregatesFilter<"Playlist"> | string
-    createAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
   }
 
@@ -16186,7 +16186,7 @@ export namespace Prisma {
     message: string
     isRead: boolean
     userAvatar?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutNotificationsInput
   }
@@ -16197,7 +16197,7 @@ export namespace Prisma {
     isRead: boolean
     userAvatar?: string | null
     userId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -16206,7 +16206,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
   }
@@ -16217,7 +16217,7 @@ export namespace Prisma {
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16227,7 +16227,7 @@ export namespace Prisma {
     isRead: boolean
     userAvatar?: string | null
     userId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -16236,7 +16236,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16246,7 +16246,7 @@ export namespace Prisma {
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16756,7 +16756,7 @@ export namespace Prisma {
     description?: string | null
     type?: $Enums.PlaylistType
     coverUrl?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     songs?: SongCreateNestedManyWithoutPlaylistsInput
     creator: UserCreateNestedOneWithoutMyPlaylistsInput
@@ -16770,7 +16770,7 @@ export namespace Prisma {
     type?: $Enums.PlaylistType
     coverUrl?: string | null
     creatorId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     songs?: SongUncheckedCreateNestedManyWithoutPlaylistsInput
     users?: UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput
@@ -16782,7 +16782,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     songs?: SongUpdateManyWithoutPlaylistsNestedInput
     creator?: UserUpdateOneRequiredWithoutMyPlaylistsNestedInput
@@ -16796,7 +16796,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     songs?: SongUncheckedUpdateManyWithoutPlaylistsNestedInput
     users?: UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput
@@ -16809,7 +16809,7 @@ export namespace Prisma {
     type?: $Enums.PlaylistType
     coverUrl?: string | null
     creatorId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -16819,7 +16819,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16830,7 +16830,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17175,7 +17175,7 @@ export namespace Prisma {
     isRead?: SortOrder
     userAvatar?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17185,7 +17185,7 @@ export namespace Prisma {
     isRead?: SortOrder
     userAvatar?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17195,7 +17195,7 @@ export namespace Prisma {
     isRead?: SortOrder
     userAvatar?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17594,7 +17594,7 @@ export namespace Prisma {
     type?: SortOrder
     coverUrl?: SortOrder
     creatorId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17605,7 +17605,7 @@ export namespace Prisma {
     type?: SortOrder
     coverUrl?: SortOrder
     creatorId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17616,7 +17616,7 @@ export namespace Prisma {
     type?: SortOrder
     coverUrl?: SortOrder
     creatorId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -19109,7 +19109,7 @@ export namespace Prisma {
     message: string
     isRead: boolean
     userAvatar?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -19118,7 +19118,7 @@ export namespace Prisma {
     message: string
     isRead: boolean
     userAvatar?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -19351,7 +19351,7 @@ export namespace Prisma {
     description?: string | null
     type?: $Enums.PlaylistType
     coverUrl?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     songs?: SongCreateNestedManyWithoutPlaylistsInput
     users?: UserCreateNestedManyWithoutFavoritePlaylistsInput
@@ -19363,7 +19363,7 @@ export namespace Prisma {
     description?: string | null
     type?: $Enums.PlaylistType
     coverUrl?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     songs?: SongUncheckedCreateNestedManyWithoutPlaylistsInput
     users?: UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput
@@ -19385,7 +19385,7 @@ export namespace Prisma {
     description?: string | null
     type?: $Enums.PlaylistType
     coverUrl?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     songs?: SongCreateNestedManyWithoutPlaylistsInput
     creator: UserCreateNestedOneWithoutMyPlaylistsInput
@@ -19398,7 +19398,7 @@ export namespace Prisma {
     type?: $Enums.PlaylistType
     coverUrl?: string | null
     creatorId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     songs?: SongUncheckedCreateNestedManyWithoutPlaylistsInput
   }
@@ -19462,7 +19462,7 @@ export namespace Prisma {
     isRead?: BoolFilter<"Notification"> | boolean
     userAvatar?: StringNullableFilter<"Notification"> | string | null
     userId?: StringFilter<"Notification"> | string
-    createAt?: DateTimeFilter<"Notification"> | Date | string
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
     updatedAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
@@ -19676,7 +19676,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFilter<"Playlist"> | $Enums.PlaylistType
     coverUrl?: StringNullableFilter<"Playlist"> | string | null
     creatorId?: StringFilter<"Playlist"> | string
-    createAt?: DateTimeFilter<"Playlist"> | Date | string
+    createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
   }
 
@@ -20212,7 +20212,7 @@ export namespace Prisma {
     description?: string | null
     type?: $Enums.PlaylistType
     coverUrl?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     creator: UserCreateNestedOneWithoutMyPlaylistsInput
     users?: UserCreateNestedManyWithoutFavoritePlaylistsInput
@@ -20225,7 +20225,7 @@ export namespace Prisma {
     type?: $Enums.PlaylistType
     coverUrl?: string | null
     creatorId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput
   }
@@ -21654,7 +21654,7 @@ export namespace Prisma {
     message: string
     isRead: boolean
     userAvatar?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -21699,7 +21699,7 @@ export namespace Prisma {
     description?: string | null
     type?: $Enums.PlaylistType
     coverUrl?: string | null
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -21735,7 +21735,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21744,7 +21744,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21753,7 +21753,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     userAvatar?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21966,7 +21966,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     songs?: SongUpdateManyWithoutPlaylistsNestedInput
     users?: UserUpdateManyWithoutFavoritePlaylistsNestedInput
@@ -21978,7 +21978,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     songs?: SongUncheckedUpdateManyWithoutPlaylistsNestedInput
     users?: UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput
@@ -21990,7 +21990,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22000,7 +22000,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     songs?: SongUpdateManyWithoutPlaylistsNestedInput
     creator?: UserUpdateOneRequiredWithoutMyPlaylistsNestedInput
@@ -22013,7 +22013,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     songs?: SongUncheckedUpdateManyWithoutPlaylistsNestedInput
   }
@@ -22025,7 +22025,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22144,7 +22144,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UserUpdateOneRequiredWithoutMyPlaylistsNestedInput
     users?: UserUpdateManyWithoutFavoritePlaylistsNestedInput
@@ -22157,7 +22157,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput
   }
@@ -22169,7 +22169,7 @@ export namespace Prisma {
     type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

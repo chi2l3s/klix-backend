@@ -141,7 +141,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   isRead: 'isRead',
   userAvatar: 'userAvatar',
   userId: 'userId',
-  createAt: 'createAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -219,7 +219,7 @@ exports.Prisma.PlaylistScalarFieldEnum = {
   type: 'type',
   coverUrl: 'coverUrl',
   creatorId: 'creatorId',
-  createAt: 'createAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
