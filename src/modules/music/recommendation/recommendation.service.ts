@@ -119,7 +119,7 @@ export class RecommendationService {
 			})
 
 		await this.playlistService.create(user, {
-			title: `Для вас ${format(new Date(mix.createAt), "DD.MM.YYYY")}`,
+			title: `Для вас ${format(new Date(mix.createdAt), "DD.MM.YYYY")}`,
 			description: mix.description,
 			isPrivate: false,
 			songsIds: recommendations.map(rec => rec.song.id)

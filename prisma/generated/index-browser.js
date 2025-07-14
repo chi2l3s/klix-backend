@@ -228,7 +228,7 @@ exports.Prisma.RecommendationPlaylistScalarFieldEnum = {
   title: 'title',
   description: 'description',
   userId: 'userId',
-  createAt: 'createAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 

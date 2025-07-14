@@ -26,11 +26,12 @@ model User {
   notifications        Notification[]
   notificationSettings NotificationSettings?
 
-  favoriteMusic   Song[]           @relation(name: "favorite")
-  ownMusic        Song[]           @relation(name: "uploader")
+  favoriteMusic   Song[]                   @relation(name: "favorite")
+  ownMusic        Song[]                   @relation(name: "uploader")
   favoriteArtists Artist[]
   listenings      Listening[]
   recommendations Recommendation[]
+  mixes           RecommendationPlaylist[]
 
   myPlaylists       Playlist[] @relation("creator")
   favoritePlaylists Playlist[] @relation("follower")
@@ -135,6 +136,8 @@ model Recommendation {
   song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
   songId String
 
+  playlists RecommendationPlaylist[]
+
   score Float
 
   createdAt DateTime @default(now())
@@ -190,6 +193,24 @@ model Playlist {
   creatorId String
 
   users User[] @relation("follower")
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RecommendationPlaylist {
+  id String @id @default(uuid())
+
+  title       String
+  description String
+
+  recommendations Recommendation[]
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum PlaylistType {

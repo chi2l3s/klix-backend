@@ -13813,7 +13813,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     userId: string | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -13822,7 +13822,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     userId: string | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -13831,7 +13831,7 @@ export namespace Prisma {
     title: number
     description: number
     userId: number
-    createAt: number
+    createdAt: number
     updatedAt: number
     _all: number
   }
@@ -13842,7 +13842,7 @@ export namespace Prisma {
     title?: true
     description?: true
     userId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -13851,7 +13851,7 @@ export namespace Prisma {
     title?: true
     description?: true
     userId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -13860,7 +13860,7 @@ export namespace Prisma {
     title?: true
     description?: true
     userId?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
     _all?: true
   }
@@ -13942,7 +13942,7 @@ export namespace Prisma {
     title: string
     description: string
     userId: string
-    createAt: Date
+    createdAt: Date
     updatedAt: Date
     _count: RecommendationPlaylistCountAggregateOutputType | null
     _min: RecommendationPlaylistMinAggregateOutputType | null
@@ -13968,7 +13968,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     recommendations?: boolean | RecommendationPlaylist$recommendationsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13980,7 +13980,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recommendationPlaylist"]>
@@ -13990,7 +13990,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recommendationPlaylist"]>
@@ -14000,11 +14000,11 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     userId?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type RecommendationPlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "userId" | "createAt" | "updatedAt", ExtArgs["result"]["recommendationPlaylist"]>
+  export type RecommendationPlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["recommendationPlaylist"]>
   export type RecommendationPlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     recommendations?: boolean | RecommendationPlaylist$recommendationsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14028,7 +14028,7 @@ export namespace Prisma {
       title: string
       description: string
       userId: string
-      createAt: Date
+      createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["recommendationPlaylist"]>
     composites: {}
@@ -14459,7 +14459,7 @@ export namespace Prisma {
     readonly title: FieldRef<"RecommendationPlaylist", 'String'>
     readonly description: FieldRef<"RecommendationPlaylist", 'String'>
     readonly userId: FieldRef<"RecommendationPlaylist", 'String'>
-    readonly createAt: FieldRef<"RecommendationPlaylist", 'DateTime'>
+    readonly createdAt: FieldRef<"RecommendationPlaylist", 'DateTime'>
     readonly updatedAt: FieldRef<"RecommendationPlaylist", 'DateTime'>
   }
     
@@ -15051,7 +15051,7 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     userId: 'userId',
-    createAt: 'createAt',
+    createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
@@ -15977,7 +15977,7 @@ export namespace Prisma {
     title?: StringFilter<"RecommendationPlaylist"> | string
     description?: StringFilter<"RecommendationPlaylist"> | string
     userId?: StringFilter<"RecommendationPlaylist"> | string
-    createAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    createdAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
     updatedAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
     recommendations?: RecommendationListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15988,7 +15988,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     recommendations?: RecommendationOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
@@ -16002,7 +16002,7 @@ export namespace Prisma {
     title?: StringFilter<"RecommendationPlaylist"> | string
     description?: StringFilter<"RecommendationPlaylist"> | string
     userId?: StringFilter<"RecommendationPlaylist"> | string
-    createAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    createdAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
     updatedAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
     recommendations?: RecommendationListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -16013,7 +16013,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: RecommendationPlaylistCountOrderByAggregateInput
     _max?: RecommendationPlaylistMaxOrderByAggregateInput
@@ -16028,7 +16028,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
     description?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
     userId?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
-    createAt?: DateTimeWithAggregatesFilter<"RecommendationPlaylist"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"RecommendationPlaylist"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"RecommendationPlaylist"> | Date | string
   }
 
@@ -16838,7 +16838,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     recommendations?: RecommendationCreateNestedManyWithoutPlaylistsInput
     user: UserCreateNestedOneWithoutMixesInput
@@ -16849,7 +16849,7 @@ export namespace Prisma {
     title: string
     description: string
     userId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     recommendations?: RecommendationUncheckedCreateNestedManyWithoutPlaylistsInput
   }
@@ -16858,7 +16858,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recommendations?: RecommendationUpdateManyWithoutPlaylistsNestedInput
     user?: UserUpdateOneRequiredWithoutMixesNestedInput
@@ -16869,7 +16869,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recommendations?: RecommendationUncheckedUpdateManyWithoutPlaylistsNestedInput
   }
@@ -16879,7 +16879,7 @@ export namespace Prisma {
     title: string
     description: string
     userId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -16887,7 +16887,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16896,7 +16896,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17635,7 +17635,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17644,7 +17644,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17653,7 +17653,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     userId?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -19321,7 +19321,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     recommendations?: RecommendationCreateNestedManyWithoutPlaylistsInput
   }
@@ -19330,7 +19330,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     recommendations?: RecommendationUncheckedCreateNestedManyWithoutPlaylistsInput
   }
@@ -19646,7 +19646,7 @@ export namespace Prisma {
     title?: StringFilter<"RecommendationPlaylist"> | string
     description?: StringFilter<"RecommendationPlaylist"> | string
     userId?: StringFilter<"RecommendationPlaylist"> | string
-    createAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    createdAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
     updatedAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
   }
 
@@ -20783,7 +20783,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutMixesInput
   }
@@ -20793,7 +20793,7 @@ export namespace Prisma {
     title: string
     description: string
     userId: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -21689,7 +21689,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -21938,7 +21938,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recommendations?: RecommendationUpdateManyWithoutPlaylistsNestedInput
   }
@@ -21947,7 +21947,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recommendations?: RecommendationUncheckedUpdateManyWithoutPlaylistsNestedInput
   }
@@ -21956,7 +21956,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22218,7 +22218,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMixesNestedInput
   }
@@ -22228,7 +22228,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22237,7 +22237,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
