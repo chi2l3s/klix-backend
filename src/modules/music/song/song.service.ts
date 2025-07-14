@@ -1,5 +1,6 @@
 import {
 	BadRequestException,
+	ConflictException,
 	Injectable,
 	NotFoundException,
 	StreamableFile
@@ -61,6 +62,11 @@ export class SongService {
 				duration,
 				audioUrl: fileName,
 				uploader: { connect: { id: user.id } },
+				users: {
+					connect: {
+						id: user.id
+					}
+				},
 				coverUrl
 			}
 		})
@@ -109,8 +115,71 @@ export class SongService {
 		return filename
 	}
 
+	async isSongInFavorite(user: User, songId: string) {
+		const exists = await this.prismaService.song.findUnique({
+			where: {
+				id: songId,
+				users: {
+					some: {
+						id: user.id
+					}
+				}
+			},
+			include: {
+				users: true
+			}
+		})
+
+		return exists ? true : false
+	}
+
+	async saveSong(user: User, songId: string) {
+		const song = await this.prismaService.song.findUnique({
+			where: {
+				id: songId
+			}
+		});
+	
+		if (!song) {
+			throw new NotFoundException('Трек не найден');
+		}
+	
+		const existsInFavorites = await this.prismaService.song.findUnique({
+			where: {
+				id: songId,
+				users: {
+					some: {
+						id: user.id
+					}
+				}
+			},
+			include: {
+				users: true
+			}
+		});
+	
+		if (existsInFavorites) {
+			throw new ConflictException('Трек уже сохранён');
+		}
+	
+		await this.prismaService.user.update({
+			where: {
+				id: user.id
+			},
+			data: {
+				favoriteMusic: {
+					connect: {
+						id: songId
+					}
+				}
+			}
+		});
+	
+		return true;
+	}
+
 	async getFavorites(user: User, filters: FiltersInput = {}) {
-		const { take, skip, searchTerm } = filters
+		const { take, skip, searchTerm, sortTerm, sortValue } = filters
 
 		const whereClause = searchTerm ? this.search(searchTerm) : undefined
 
@@ -137,7 +206,7 @@ export class SongService {
 				].filter(Boolean)
 			},
 			orderBy: {
-				createdAt: 'desc'
+				[sortTerm]: sortValue
 			},
 			include: {
 				artists: true
@@ -149,7 +218,6 @@ export class SongService {
 
 	async addLyrics(input: SongLyricsInput) {
 		const { lines, id } = input
-
 		const song = await this.prismaService.song.findUnique({ where: { id } })
 
 		if (!song) {
@@ -159,15 +227,30 @@ export class SongService {
 		const lyrics = JSON.stringify(lines)
 
 		await this.prismaService.song.update({
-			where: {
-				id,
-			},
-			data: {
-				lyrics
-			}
+			where: { id },
+			data: { lyrics }
 		})
 
 		return true
+	}
+
+	async getLyricsById(id: string) {
+		const song = await this.prismaService.song.findUnique({
+			where: { id },
+			select: { lyrics: true }
+		})
+
+		if (!song || !song.lyrics) {
+			return { lines: [] }
+		}
+
+		try {
+			const parsedLyrics = JSON.parse(song.lyrics as string)
+			return { lines: Array.isArray(parsedLyrics) ? parsedLyrics : [] }
+		} catch (error) {
+			console.error('Error parsing lyrics JSON:', error)
+			return { lines: [] }
+		}
 	}
 
 	async getSongs(input: FiltersInput = {}) {
@@ -196,7 +279,9 @@ export class SongService {
 					title: {
 						contains: searchTerm,
 						mode: 'insensitive'
-					},
+					}
+				},
+				{
 					artists: {
 						some: {
 							name: {

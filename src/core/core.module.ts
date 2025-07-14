@@ -17,6 +17,12 @@ import { NotificationModule } from '../modules/notification/notification.module'
 import { ArtistModule } from '../modules/music/artist/artist.module';
 import { SongModule } from '../modules/music/song/song.module';
 import { AlbumModule } from '../modules/music/album/album.module';
+import { PlaylistModule } from '../modules/music/playlist/playlist.module';
+import { HttpModule } from '@nestjs/axios';
+import { RecommendationModule } from '../modules/music/recommendation/recommendation.module';
+import { ScheduleModule } from '@nestjs/schedule'
+import { LogModule } from '../modules/music/log/log.module';
+import { ProxyModule } from '../modules/proxy/proxy.module';
 
 @Module({
   imports: [
@@ -30,6 +36,13 @@ import { AlbumModule } from '../modules/music/album/album.module';
       useFactory: getGraphqlConfig,
       inject: [ConfigService]
     }),
+    HttpModule.registerAsync({
+      useFactory: () => ({
+        timeout: 5000,
+        maxRedirects: 5
+      })
+    }),
+    ScheduleModule.forRoot(),
     RedisModule,
     PrismaModule,
     SessionModule,
@@ -42,7 +55,11 @@ import { AlbumModule } from '../modules/music/album/album.module';
     NotificationModule,
     ArtistModule,
     SongModule,
-    AlbumModule
+    AlbumModule,
+    PlaylistModule,
+    RecommendationModule,
+    LogModule,
+    ProxyModule
   ],
 })
 export class CoreModule {}

@@ -26,9 +26,14 @@ model User {
   notifications        Notification[]
   notificationSettings NotificationSettings?
 
-  favoriteMusic   Song[]   @relation(name: "favorite")
-  ownMusic        Song[]   @relation(name: "uploader")
+  favoriteMusic   Song[]           @relation(name: "favorite")
+  ownMusic        Song[]           @relation(name: "uploader")
   favoriteArtists Artist[]
+  listenings      Listening[]
+  recommendations Recommendation[]
+
+  myPlaylists       Playlist[] @relation("creator")
+  favoritePlaylists Playlist[] @relation("follower")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -83,10 +88,14 @@ model Song {
   album   Album?  @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId String?
 
-  duration Int
+  duration Float
   audioUrl String
 
+  status SongStatus @default(ON_COMPLETED)
+
   genres String[]
+
+  lyrics Json?
 
   coverUrl String?
 
@@ -95,8 +104,42 @@ model Song {
   uploader   User?   @relation(name: "uploader", fields: [uploaderId], references: [id], onDelete: Cascade)
   uploaderId String?
 
+  playlists       Playlist[]
+  listenings      Listening[]
+  recommendations Recommendation[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Listening {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
+  songId String
+
+  timestamp DateTime @default(now())
+
+  @@unique([userId, songId])
+}
+
+model Recommendation {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
+  songId String
+
+  score Float
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, songId])
 }
 
 model Artist {
@@ -132,9 +175,36 @@ model Album {
   updatedAt DateTime @updatedAt
 }
 
+model Playlist {
+  id String @id @default(uuid())
+
+  title       String
+  description String?
+  type        PlaylistType @default(PUBLIC)
+
+  coverUrl String?
+
+  songs Song[]
+
+  creator   User   @relation("creator", fields: [creatorId], references: [id])
+  creatorId String
+
+  users User[] @relation("follower")
+}
+
+enum PlaylistType {
+  PUBLIC
+  PRIVATE
+}
+
 enum TokenType {
   EMAIL_VERIFY
   PASSWORD_RESET
   DEACTIVATE_ACCOUNT
-  TELEGRAM_AUTH
+}
+
+enum SongStatus {
+  IN_COMPLETED
+  MODERATION
+  ON_COMPLETED
 }

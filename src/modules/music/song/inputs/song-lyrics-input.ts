@@ -1,7 +1,17 @@
-import { Field, ID, InputType } from '@nestjs/graphql'
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql'
+import { IsNumber } from 'class-validator'
 
 @InputType()
-export class Line {
+export class LineInput {
+	@Field(() => Number)
+	start: number
+
+	@Field(() => String)
+	text: string
+}
+
+@ObjectType()
+export class LineModel {
 	@Field(() => Number)
 	start: number
 
@@ -14,6 +24,6 @@ export class SongLyricsInput {
 	@Field(() => ID)
 	id: string
 
-	@Field(() => [Line])
-	lines: Line[]
+	@Field(() => [LineInput])
+	lines: LineInput[]
 }

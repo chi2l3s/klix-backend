@@ -15,6 +15,7 @@ import { SongService } from './song.service'
 import { EditSongInput } from './inputs/create-song.input'
 import { StreamModel } from './models/stream.model'
 import { SongLyricsInput } from './inputs/song-lyrics-input'
+import { LyricsModel } from './models/lyrics.model'
 
 @Resolver('Song')
 export class SongResolver {
@@ -40,6 +41,11 @@ export class SongResolver {
 	@Mutation(() => Boolean, { name: 'addSongLyrics' })
 	async addLyrics(@Args('data') input: SongLyricsInput) {
 		return this.songService.addLyrics(input)
+	}
+
+	@Query(() => LyricsModel, { name: "getLyricsById" })
+	async getLyricsById(@Args('id') id: string) {
+		return this.songService.getLyricsById(id)
 	}
 
 	@Authorization()
@@ -78,5 +84,23 @@ export class SongResolver {
 		@Args('data') input: EditSongInput
 	) {
 		return this.songService.editSong(user, input)
+	}
+
+	@Authorization()
+	@Mutation(() => Boolean, { name: 'saveSongToFavorite' })
+	async saveSong(
+		@Authorized() user: User,
+		@Args('songId') songId: string
+	) {
+		return this.songService.saveSong(user, songId)
+	}
+
+	@Authorization()
+	@Query(() => Boolean, { name: 'isSongInFavorite' })
+	async isSongInFavorite(
+		@Authorized() user: User,
+		@Args('songId') songId: string
+	) {
+		return this.songService.isSongInFavorite(user, songId)
 	}
 }

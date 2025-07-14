@@ -53,6 +53,14 @@ input CreateArtistInput {
   name: String!
 }
 
+input CreatePlaylistInput {
+  coverUrl: String
+  description: String
+  isPrivate: Boolean!
+  songsIds: [String!]!
+  title: String!
+}
+
 input CreateUserInput {
   dateOfBirth: DateTime
   email: String!
@@ -83,10 +91,17 @@ input EditSongInput {
 input FiltersInput {
   searchTerm: String
   skip: Float
+  sortTerm: String
+  sortValue: String
   take: Float
 }
 
-input Line {
+input LineInput {
+  start: Float!
+  text: String!
+}
+
+type LineModel {
   start: Float!
   text: String!
 }
@@ -103,6 +118,21 @@ input LoginInput {
   password: String!
 }
 
+type LyricsModel {
+  lines: [LineModel!]!
+}
+
+type MixModel {
+  createAt: DateTime!
+  description: String!
+  id: String!
+  recommendations: [RecomendationsRequest!]!
+  title: String!
+  updatedAt: DateTime!
+  user: UserModel!
+  userId: String!
+}
+
 type Mutation {
   addSongLyrics(data: SongLyricsInput!): Boolean!
   changeEmail(data: ChangeEmailInput!): Boolean!
@@ -112,15 +142,20 @@ type Mutation {
   changeProfileInfo(data: ChangeInfoInput!): Boolean!
   clearSessionCookie: Boolean!
   createArtist(data: CreateArtistInput!): ArtistModel!
+  createPlaylist(data: CreatePlaylistInput!): Boolean!
   createUser(data: CreateUserInput!): Boolean!
   ediSong(data: EditSongInput!): Boolean!
+  logListeningMusic(songId: String!): Boolean!
   loginUser(data: LoginInput!): AuthModel!
   logoutUser: Boolean!
   newPassword(data: NewPasswordInput!): Boolean!
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
+  saveMixPlaylist(mixId: String!): Boolean!
+  saveSongToFavorite(songId: String!): Boolean!
   uploadCover(cover: Upload!): String!
+  uploadPlaylistCover(cover: Upload!): String!
   uploadSong(audio: Upload!): Boolean!
   verifyAccount(data: VerificationInput!): AuthModel!
 }
@@ -158,11 +193,31 @@ type Query {
   findSessionsByUser: [SessionModel!]!
   getAllArtists: [ArtistModel!]!
   getFavoriteMusic(filters: FiltersInput!): [SongModel!]!
+  getLyricsById(id: String!): LyricsModel!
+  getMixPlaylists(mixId: String!): MixModel!
   getNotificationsByUser: [NotificationModel!]!
+  getRecommendationsForMusic(limit: Float!): [RecommendationResponse!]!
   getSongById(id: String!): SongModel!
   getSongStreamUrl(id: String!): StreamModel!
   getSongs(data: FiltersInput!): [SongModel!]!
   getUnreadNotificationsCount: Float!
+  getUserRecommendations: [MixModel!]!
+  isSongInFavorite(songId: String!): Boolean!
+}
+
+type RecomendationsRequest {
+  createdAt: DateTime!
+  id: String!
+  score: Float!
+  song: SongModel!
+  songId: String!
+  user: UserModel!
+  userId: String!
+}
+
+type RecommendationResponse {
+  score: Float!
+  song_id: String!
 }
 
 input ResetPasswordInput {
@@ -184,7 +239,7 @@ type SessionModel {
 
 input SongLyricsInput {
   id: ID!
-  lines: [Line!]!
+  lines: [LineInput!]!
 }
 
 type SongModel {

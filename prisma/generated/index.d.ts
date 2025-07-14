@@ -39,6 +39,16 @@ export type Token = $Result.DefaultSelection<Prisma.$TokenPayload>
  */
 export type Song = $Result.DefaultSelection<Prisma.$SongPayload>
 /**
+ * Model Listening
+ * 
+ */
+export type Listening = $Result.DefaultSelection<Prisma.$ListeningPayload>
+/**
+ * Model Recommendation
+ * 
+ */
+export type Recommendation = $Result.DefaultSelection<Prisma.$RecommendationPayload>
+/**
  * Model Artist
  * 
  */
@@ -48,12 +58,30 @@ export type Artist = $Result.DefaultSelection<Prisma.$ArtistPayload>
  * 
  */
 export type Album = $Result.DefaultSelection<Prisma.$AlbumPayload>
+/**
+ * Model Playlist
+ * 
+ */
+export type Playlist = $Result.DefaultSelection<Prisma.$PlaylistPayload>
+/**
+ * Model RecommendationPlaylist
+ * 
+ */
+export type RecommendationPlaylist = $Result.DefaultSelection<Prisma.$RecommendationPlaylistPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const TokenType: {
+  export const PlaylistType: {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+};
+
+export type PlaylistType = (typeof PlaylistType)[keyof typeof PlaylistType]
+
+
+export const TokenType: {
   EMAIL_VERIFY: 'EMAIL_VERIFY',
   PASSWORD_RESET: 'PASSWORD_RESET',
   DEACTIVATE_ACCOUNT: 'DEACTIVATE_ACCOUNT'
@@ -71,6 +99,10 @@ export const SongStatus: {
 export type SongStatus = (typeof SongStatus)[keyof typeof SongStatus]
 
 }
+
+export type PlaylistType = $Enums.PlaylistType
+
+export const PlaylistType: typeof $Enums.PlaylistType
 
 export type TokenType = $Enums.TokenType
 
@@ -256,6 +288,26 @@ export class PrismaClient<
   get song(): Prisma.SongDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.listening`: Exposes CRUD operations for the **Listening** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Listenings
+    * const listenings = await prisma.listening.findMany()
+    * ```
+    */
+  get listening(): Prisma.ListeningDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.recommendation`: Exposes CRUD operations for the **Recommendation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Recommendations
+    * const recommendations = await prisma.recommendation.findMany()
+    * ```
+    */
+  get recommendation(): Prisma.RecommendationDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.artist`: Exposes CRUD operations for the **Artist** model.
     * Example usage:
     * ```ts
@@ -274,6 +326,26 @@ export class PrismaClient<
     * ```
     */
   get album(): Prisma.AlbumDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.playlist`: Exposes CRUD operations for the **Playlist** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Playlists
+    * const playlists = await prisma.playlist.findMany()
+    * ```
+    */
+  get playlist(): Prisma.PlaylistDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.recommendationPlaylist`: Exposes CRUD operations for the **RecommendationPlaylist** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RecommendationPlaylists
+    * const recommendationPlaylists = await prisma.recommendationPlaylist.findMany()
+    * ```
+    */
+  get recommendationPlaylist(): Prisma.RecommendationPlaylistDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -719,8 +791,12 @@ export namespace Prisma {
     NotificationSettings: 'NotificationSettings',
     Token: 'Token',
     Song: 'Song',
+    Listening: 'Listening',
+    Recommendation: 'Recommendation',
     Artist: 'Artist',
-    Album: 'Album'
+    Album: 'Album',
+    Playlist: 'Playlist',
+    RecommendationPlaylist: 'RecommendationPlaylist'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -739,7 +815,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "notification" | "notificationSettings" | "token" | "song" | "artist" | "album"
+      modelProps: "user" | "notification" | "notificationSettings" | "token" | "song" | "listening" | "recommendation" | "artist" | "album" | "playlist" | "recommendationPlaylist"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1113,6 +1189,154 @@ export namespace Prisma {
           }
         }
       }
+      Listening: {
+        payload: Prisma.$ListeningPayload<ExtArgs>
+        fields: Prisma.ListeningFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ListeningFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ListeningFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>
+          }
+          findFirst: {
+            args: Prisma.ListeningFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ListeningFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>
+          }
+          findMany: {
+            args: Prisma.ListeningFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>[]
+          }
+          create: {
+            args: Prisma.ListeningCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>
+          }
+          createMany: {
+            args: Prisma.ListeningCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ListeningCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>[]
+          }
+          delete: {
+            args: Prisma.ListeningDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>
+          }
+          update: {
+            args: Prisma.ListeningUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>
+          }
+          deleteMany: {
+            args: Prisma.ListeningDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ListeningUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ListeningUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>[]
+          }
+          upsert: {
+            args: Prisma.ListeningUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListeningPayload>
+          }
+          aggregate: {
+            args: Prisma.ListeningAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateListening>
+          }
+          groupBy: {
+            args: Prisma.ListeningGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ListeningGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ListeningCountArgs<ExtArgs>
+            result: $Utils.Optional<ListeningCountAggregateOutputType> | number
+          }
+        }
+      }
+      Recommendation: {
+        payload: Prisma.$RecommendationPayload<ExtArgs>
+        fields: Prisma.RecommendationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RecommendationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RecommendationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>
+          }
+          findFirst: {
+            args: Prisma.RecommendationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RecommendationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>
+          }
+          findMany: {
+            args: Prisma.RecommendationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>[]
+          }
+          create: {
+            args: Prisma.RecommendationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>
+          }
+          createMany: {
+            args: Prisma.RecommendationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RecommendationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>[]
+          }
+          delete: {
+            args: Prisma.RecommendationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>
+          }
+          update: {
+            args: Prisma.RecommendationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>
+          }
+          deleteMany: {
+            args: Prisma.RecommendationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RecommendationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RecommendationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>[]
+          }
+          upsert: {
+            args: Prisma.RecommendationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPayload>
+          }
+          aggregate: {
+            args: Prisma.RecommendationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecommendation>
+          }
+          groupBy: {
+            args: Prisma.RecommendationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RecommendationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RecommendationCountArgs<ExtArgs>
+            result: $Utils.Optional<RecommendationCountAggregateOutputType> | number
+          }
+        }
+      }
       Artist: {
         payload: Prisma.$ArtistPayload<ExtArgs>
         fields: Prisma.ArtistFieldRefs
@@ -1261,6 +1485,154 @@ export namespace Prisma {
           }
         }
       }
+      Playlist: {
+        payload: Prisma.$PlaylistPayload<ExtArgs>
+        fields: Prisma.PlaylistFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlaylistFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlaylistFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>
+          }
+          findFirst: {
+            args: Prisma.PlaylistFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlaylistFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>
+          }
+          findMany: {
+            args: Prisma.PlaylistFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>[]
+          }
+          create: {
+            args: Prisma.PlaylistCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>
+          }
+          createMany: {
+            args: Prisma.PlaylistCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlaylistCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>[]
+          }
+          delete: {
+            args: Prisma.PlaylistDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>
+          }
+          update: {
+            args: Prisma.PlaylistUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlaylistDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlaylistUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlaylistUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlaylistUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaylistPayload>
+          }
+          aggregate: {
+            args: Prisma.PlaylistAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlaylist>
+          }
+          groupBy: {
+            args: Prisma.PlaylistGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlaylistGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlaylistCountArgs<ExtArgs>
+            result: $Utils.Optional<PlaylistCountAggregateOutputType> | number
+          }
+        }
+      }
+      RecommendationPlaylist: {
+        payload: Prisma.$RecommendationPlaylistPayload<ExtArgs>
+        fields: Prisma.RecommendationPlaylistFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RecommendationPlaylistFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RecommendationPlaylistFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>
+          }
+          findFirst: {
+            args: Prisma.RecommendationPlaylistFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RecommendationPlaylistFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>
+          }
+          findMany: {
+            args: Prisma.RecommendationPlaylistFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>[]
+          }
+          create: {
+            args: Prisma.RecommendationPlaylistCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>
+          }
+          createMany: {
+            args: Prisma.RecommendationPlaylistCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RecommendationPlaylistCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>[]
+          }
+          delete: {
+            args: Prisma.RecommendationPlaylistDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>
+          }
+          update: {
+            args: Prisma.RecommendationPlaylistUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>
+          }
+          deleteMany: {
+            args: Prisma.RecommendationPlaylistDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RecommendationPlaylistUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RecommendationPlaylistUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>[]
+          }
+          upsert: {
+            args: Prisma.RecommendationPlaylistUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecommendationPlaylistPayload>
+          }
+          aggregate: {
+            args: Prisma.RecommendationPlaylistAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecommendationPlaylist>
+          }
+          groupBy: {
+            args: Prisma.RecommendationPlaylistGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RecommendationPlaylistGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RecommendationPlaylistCountArgs<ExtArgs>
+            result: $Utils.Optional<RecommendationPlaylistCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1350,8 +1722,12 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsOmit
     token?: TokenOmit
     song?: SongOmit
+    listening?: ListeningOmit
+    recommendation?: RecommendationOmit
     artist?: ArtistOmit
     album?: AlbumOmit
+    playlist?: PlaylistOmit
+    recommendationPlaylist?: RecommendationPlaylistOmit
   }
 
   /* Types for Logging */
@@ -1451,6 +1827,11 @@ export namespace Prisma {
     favoriteMusic: number
     ownMusic: number
     favoriteArtists: number
+    listenings: number
+    recommendations: number
+    mixes: number
+    myPlaylists: number
+    favoritePlaylists: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1459,6 +1840,11 @@ export namespace Prisma {
     favoriteMusic?: boolean | UserCountOutputTypeCountFavoriteMusicArgs
     ownMusic?: boolean | UserCountOutputTypeCountOwnMusicArgs
     favoriteArtists?: boolean | UserCountOutputTypeCountFavoriteArtistsArgs
+    listenings?: boolean | UserCountOutputTypeCountListeningsArgs
+    recommendations?: boolean | UserCountOutputTypeCountRecommendationsArgs
+    mixes?: boolean | UserCountOutputTypeCountMixesArgs
+    myPlaylists?: boolean | UserCountOutputTypeCountMyPlaylistsArgs
+    favoritePlaylists?: boolean | UserCountOutputTypeCountFavoritePlaylistsArgs
   }
 
   // Custom InputTypes
@@ -1507,6 +1893,41 @@ export namespace Prisma {
     where?: ArtistWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountListeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListeningWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMixesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationPlaylistWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMyPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaylistWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFavoritePlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaylistWhereInput
+  }
+
 
   /**
    * Count Type SongCountOutputType
@@ -1515,11 +1936,17 @@ export namespace Prisma {
   export type SongCountOutputType = {
     artists: number
     users: number
+    playlists: number
+    listenings: number
+    recommendations: number
   }
 
   export type SongCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     artists?: boolean | SongCountOutputTypeCountArtistsArgs
     users?: boolean | SongCountOutputTypeCountUsersArgs
+    playlists?: boolean | SongCountOutputTypeCountPlaylistsArgs
+    listenings?: boolean | SongCountOutputTypeCountListeningsArgs
+    recommendations?: boolean | SongCountOutputTypeCountRecommendationsArgs
   }
 
   // Custom InputTypes
@@ -1545,6 +1972,58 @@ export namespace Prisma {
    */
   export type SongCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+  /**
+   * SongCountOutputType without action
+   */
+  export type SongCountOutputTypeCountPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaylistWhereInput
+  }
+
+  /**
+   * SongCountOutputType without action
+   */
+  export type SongCountOutputTypeCountListeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListeningWhereInput
+  }
+
+  /**
+   * SongCountOutputType without action
+   */
+  export type SongCountOutputTypeCountRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationWhereInput
+  }
+
+
+  /**
+   * Count Type RecommendationCountOutputType
+   */
+
+  export type RecommendationCountOutputType = {
+    playlists: number
+  }
+
+  export type RecommendationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playlists?: boolean | RecommendationCountOutputTypeCountPlaylistsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RecommendationCountOutputType without action
+   */
+  export type RecommendationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationCountOutputType
+     */
+    select?: RecommendationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RecommendationCountOutputType without action
+   */
+  export type RecommendationCountOutputTypeCountPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationPlaylistWhereInput
   }
 
 
@@ -1625,6 +2104,77 @@ export namespace Prisma {
    */
   export type AlbumCountOutputTypeCountSongsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SongWhereInput
+  }
+
+
+  /**
+   * Count Type PlaylistCountOutputType
+   */
+
+  export type PlaylistCountOutputType = {
+    songs: number
+    users: number
+  }
+
+  export type PlaylistCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    songs?: boolean | PlaylistCountOutputTypeCountSongsArgs
+    users?: boolean | PlaylistCountOutputTypeCountUsersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlaylistCountOutputType without action
+   */
+  export type PlaylistCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaylistCountOutputType
+     */
+    select?: PlaylistCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlaylistCountOutputType without action
+   */
+  export type PlaylistCountOutputTypeCountSongsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SongWhereInput
+  }
+
+  /**
+   * PlaylistCountOutputType without action
+   */
+  export type PlaylistCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * Count Type RecommendationPlaylistCountOutputType
+   */
+
+  export type RecommendationPlaylistCountOutputType = {
+    recommendations: number
+  }
+
+  export type RecommendationPlaylistCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recommendations?: boolean | RecommendationPlaylistCountOutputTypeCountRecommendationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RecommendationPlaylistCountOutputType without action
+   */
+  export type RecommendationPlaylistCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylistCountOutputType
+     */
+    select?: RecommendationPlaylistCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RecommendationPlaylistCountOutputType without action
+   */
+  export type RecommendationPlaylistCountOutputTypeCountRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationWhereInput
   }
 
 
@@ -1858,6 +2408,11 @@ export namespace Prisma {
     favoriteMusic?: boolean | User$favoriteMusicArgs<ExtArgs>
     ownMusic?: boolean | User$ownMusicArgs<ExtArgs>
     favoriteArtists?: boolean | User$favoriteArtistsArgs<ExtArgs>
+    listenings?: boolean | User$listeningsArgs<ExtArgs>
+    recommendations?: boolean | User$recommendationsArgs<ExtArgs>
+    mixes?: boolean | User$mixesArgs<ExtArgs>
+    myPlaylists?: boolean | User$myPlaylistsArgs<ExtArgs>
+    favoritePlaylists?: boolean | User$favoritePlaylistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1914,6 +2469,11 @@ export namespace Prisma {
     favoriteMusic?: boolean | User$favoriteMusicArgs<ExtArgs>
     ownMusic?: boolean | User$ownMusicArgs<ExtArgs>
     favoriteArtists?: boolean | User$favoriteArtistsArgs<ExtArgs>
+    listenings?: boolean | User$listeningsArgs<ExtArgs>
+    recommendations?: boolean | User$recommendationsArgs<ExtArgs>
+    mixes?: boolean | User$mixesArgs<ExtArgs>
+    myPlaylists?: boolean | User$myPlaylistsArgs<ExtArgs>
+    favoritePlaylists?: boolean | User$favoritePlaylistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1928,6 +2488,11 @@ export namespace Prisma {
       favoriteMusic: Prisma.$SongPayload<ExtArgs>[]
       ownMusic: Prisma.$SongPayload<ExtArgs>[]
       favoriteArtists: Prisma.$ArtistPayload<ExtArgs>[]
+      listenings: Prisma.$ListeningPayload<ExtArgs>[]
+      recommendations: Prisma.$RecommendationPayload<ExtArgs>[]
+      mixes: Prisma.$RecommendationPlaylistPayload<ExtArgs>[]
+      myPlaylists: Prisma.$PlaylistPayload<ExtArgs>[]
+      favoritePlaylists: Prisma.$PlaylistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2342,6 +2907,11 @@ export namespace Prisma {
     favoriteMusic<T extends User$favoriteMusicArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteMusicArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ownMusic<T extends User$ownMusicArgs<ExtArgs> = {}>(args?: Subset<T, User$ownMusicArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favoriteArtists<T extends User$favoriteArtistsArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteArtistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    listenings<T extends User$listeningsArgs<ExtArgs> = {}>(args?: Subset<T, User$listeningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    recommendations<T extends User$recommendationsArgs<ExtArgs> = {}>(args?: Subset<T, User$recommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mixes<T extends User$mixesArgs<ExtArgs> = {}>(args?: Subset<T, User$mixesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    myPlaylists<T extends User$myPlaylistsArgs<ExtArgs> = {}>(args?: Subset<T, User$myPlaylistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    favoritePlaylists<T extends User$favoritePlaylistsArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritePlaylistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2907,6 +3477,126 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ArtistScalarFieldEnum | ArtistScalarFieldEnum[]
+  }
+
+  /**
+   * User.listenings
+   */
+  export type User$listeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    where?: ListeningWhereInput
+    orderBy?: ListeningOrderByWithRelationInput | ListeningOrderByWithRelationInput[]
+    cursor?: ListeningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ListeningScalarFieldEnum | ListeningScalarFieldEnum[]
+  }
+
+  /**
+   * User.recommendations
+   */
+  export type User$recommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    where?: RecommendationWhereInput
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    cursor?: RecommendationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecommendationScalarFieldEnum | RecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * User.mixes
+   */
+  export type User$mixesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    where?: RecommendationPlaylistWhereInput
+    orderBy?: RecommendationPlaylistOrderByWithRelationInput | RecommendationPlaylistOrderByWithRelationInput[]
+    cursor?: RecommendationPlaylistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecommendationPlaylistScalarFieldEnum | RecommendationPlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * User.myPlaylists
+   */
+  export type User$myPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    where?: PlaylistWhereInput
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    cursor?: PlaylistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * User.favoritePlaylists
+   */
+  export type User$favoritePlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    where?: PlaylistWhereInput
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    cursor?: PlaylistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
   }
 
   /**
@@ -6404,6 +7094,9 @@ export namespace Prisma {
     album?: boolean | Song$albumArgs<ExtArgs>
     users?: boolean | Song$usersArgs<ExtArgs>
     uploader?: boolean | Song$uploaderArgs<ExtArgs>
+    playlists?: boolean | Song$playlistsArgs<ExtArgs>
+    listenings?: boolean | Song$listeningsArgs<ExtArgs>
+    recommendations?: boolean | Song$recommendationsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["song"]>
 
@@ -6462,6 +7155,9 @@ export namespace Prisma {
     album?: boolean | Song$albumArgs<ExtArgs>
     users?: boolean | Song$usersArgs<ExtArgs>
     uploader?: boolean | Song$uploaderArgs<ExtArgs>
+    playlists?: boolean | Song$playlistsArgs<ExtArgs>
+    listenings?: boolean | Song$listeningsArgs<ExtArgs>
+    recommendations?: boolean | Song$recommendationsArgs<ExtArgs>
     _count?: boolean | SongCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SongIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6480,6 +7176,9 @@ export namespace Prisma {
       album: Prisma.$AlbumPayload<ExtArgs> | null
       users: Prisma.$UserPayload<ExtArgs>[]
       uploader: Prisma.$UserPayload<ExtArgs> | null
+      playlists: Prisma.$PlaylistPayload<ExtArgs>[]
+      listenings: Prisma.$ListeningPayload<ExtArgs>[]
+      recommendations: Prisma.$RecommendationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6892,6 +7591,9 @@ export namespace Prisma {
     album<T extends Song$albumArgs<ExtArgs> = {}>(args?: Subset<T, Song$albumArgs<ExtArgs>>): Prisma__AlbumClient<$Result.GetResult<Prisma.$AlbumPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     users<T extends Song$usersArgs<ExtArgs> = {}>(args?: Subset<T, Song$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     uploader<T extends Song$uploaderArgs<ExtArgs> = {}>(args?: Subset<T, Song$uploaderArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    playlists<T extends Song$playlistsArgs<ExtArgs> = {}>(args?: Subset<T, Song$playlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    listenings<T extends Song$listeningsArgs<ExtArgs> = {}>(args?: Subset<T, Song$listeningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    recommendations<T extends Song$recommendationsArgs<ExtArgs> = {}>(args?: Subset<T, Song$recommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7415,6 +8117,78 @@ export namespace Prisma {
   }
 
   /**
+   * Song.playlists
+   */
+  export type Song$playlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    where?: PlaylistWhereInput
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    cursor?: PlaylistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * Song.listenings
+   */
+  export type Song$listeningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    where?: ListeningWhereInput
+    orderBy?: ListeningOrderByWithRelationInput | ListeningOrderByWithRelationInput[]
+    cursor?: ListeningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ListeningScalarFieldEnum | ListeningScalarFieldEnum[]
+  }
+
+  /**
+   * Song.recommendations
+   */
+  export type Song$recommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    where?: RecommendationWhereInput
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    cursor?: RecommendationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecommendationScalarFieldEnum | RecommendationScalarFieldEnum[]
+  }
+
+  /**
    * Song without action
    */
   export type SongDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7430,6 +8204,2189 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SongInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Listening
+   */
+
+  export type AggregateListening = {
+    _count: ListeningCountAggregateOutputType | null
+    _min: ListeningMinAggregateOutputType | null
+    _max: ListeningMaxAggregateOutputType | null
+  }
+
+  export type ListeningMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    songId: string | null
+    timestamp: Date | null
+  }
+
+  export type ListeningMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    songId: string | null
+    timestamp: Date | null
+  }
+
+  export type ListeningCountAggregateOutputType = {
+    id: number
+    userId: number
+    songId: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type ListeningMinAggregateInputType = {
+    id?: true
+    userId?: true
+    songId?: true
+    timestamp?: true
+  }
+
+  export type ListeningMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    songId?: true
+    timestamp?: true
+  }
+
+  export type ListeningCountAggregateInputType = {
+    id?: true
+    userId?: true
+    songId?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type ListeningAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Listening to aggregate.
+     */
+    where?: ListeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listenings to fetch.
+     */
+    orderBy?: ListeningOrderByWithRelationInput | ListeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ListeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Listenings
+    **/
+    _count?: true | ListeningCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ListeningMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ListeningMaxAggregateInputType
+  }
+
+  export type GetListeningAggregateType<T extends ListeningAggregateArgs> = {
+        [P in keyof T & keyof AggregateListening]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateListening[P]>
+      : GetScalarType<T[P], AggregateListening[P]>
+  }
+
+
+
+
+  export type ListeningGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListeningWhereInput
+    orderBy?: ListeningOrderByWithAggregationInput | ListeningOrderByWithAggregationInput[]
+    by: ListeningScalarFieldEnum[] | ListeningScalarFieldEnum
+    having?: ListeningScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ListeningCountAggregateInputType | true
+    _min?: ListeningMinAggregateInputType
+    _max?: ListeningMaxAggregateInputType
+  }
+
+  export type ListeningGroupByOutputType = {
+    id: string
+    userId: string
+    songId: string
+    timestamp: Date
+    _count: ListeningCountAggregateOutputType | null
+    _min: ListeningMinAggregateOutputType | null
+    _max: ListeningMaxAggregateOutputType | null
+  }
+
+  type GetListeningGroupByPayload<T extends ListeningGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ListeningGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ListeningGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ListeningGroupByOutputType[P]>
+            : GetScalarType<T[P], ListeningGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ListeningSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["listening"]>
+
+  export type ListeningSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["listening"]>
+
+  export type ListeningSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["listening"]>
+
+  export type ListeningSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    timestamp?: boolean
+  }
+
+  export type ListeningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "songId" | "timestamp", ExtArgs["result"]["listening"]>
+  export type ListeningInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type ListeningIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type ListeningIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+
+  export type $ListeningPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Listening"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      song: Prisma.$SongPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      songId: string
+      timestamp: Date
+    }, ExtArgs["result"]["listening"]>
+    composites: {}
+  }
+
+  type ListeningGetPayload<S extends boolean | null | undefined | ListeningDefaultArgs> = $Result.GetResult<Prisma.$ListeningPayload, S>
+
+  type ListeningCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ListeningFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ListeningCountAggregateInputType | true
+    }
+
+  export interface ListeningDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Listening'], meta: { name: 'Listening' } }
+    /**
+     * Find zero or one Listening that matches the filter.
+     * @param {ListeningFindUniqueArgs} args - Arguments to find a Listening
+     * @example
+     * // Get one Listening
+     * const listening = await prisma.listening.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ListeningFindUniqueArgs>(args: SelectSubset<T, ListeningFindUniqueArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Listening that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ListeningFindUniqueOrThrowArgs} args - Arguments to find a Listening
+     * @example
+     * // Get one Listening
+     * const listening = await prisma.listening.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ListeningFindUniqueOrThrowArgs>(args: SelectSubset<T, ListeningFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Listening that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningFindFirstArgs} args - Arguments to find a Listening
+     * @example
+     * // Get one Listening
+     * const listening = await prisma.listening.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ListeningFindFirstArgs>(args?: SelectSubset<T, ListeningFindFirstArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Listening that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningFindFirstOrThrowArgs} args - Arguments to find a Listening
+     * @example
+     * // Get one Listening
+     * const listening = await prisma.listening.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ListeningFindFirstOrThrowArgs>(args?: SelectSubset<T, ListeningFindFirstOrThrowArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Listenings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Listenings
+     * const listenings = await prisma.listening.findMany()
+     * 
+     * // Get first 10 Listenings
+     * const listenings = await prisma.listening.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const listeningWithIdOnly = await prisma.listening.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ListeningFindManyArgs>(args?: SelectSubset<T, ListeningFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Listening.
+     * @param {ListeningCreateArgs} args - Arguments to create a Listening.
+     * @example
+     * // Create one Listening
+     * const Listening = await prisma.listening.create({
+     *   data: {
+     *     // ... data to create a Listening
+     *   }
+     * })
+     * 
+     */
+    create<T extends ListeningCreateArgs>(args: SelectSubset<T, ListeningCreateArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Listenings.
+     * @param {ListeningCreateManyArgs} args - Arguments to create many Listenings.
+     * @example
+     * // Create many Listenings
+     * const listening = await prisma.listening.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ListeningCreateManyArgs>(args?: SelectSubset<T, ListeningCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Listenings and returns the data saved in the database.
+     * @param {ListeningCreateManyAndReturnArgs} args - Arguments to create many Listenings.
+     * @example
+     * // Create many Listenings
+     * const listening = await prisma.listening.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Listenings and only return the `id`
+     * const listeningWithIdOnly = await prisma.listening.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ListeningCreateManyAndReturnArgs>(args?: SelectSubset<T, ListeningCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Listening.
+     * @param {ListeningDeleteArgs} args - Arguments to delete one Listening.
+     * @example
+     * // Delete one Listening
+     * const Listening = await prisma.listening.delete({
+     *   where: {
+     *     // ... filter to delete one Listening
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ListeningDeleteArgs>(args: SelectSubset<T, ListeningDeleteArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Listening.
+     * @param {ListeningUpdateArgs} args - Arguments to update one Listening.
+     * @example
+     * // Update one Listening
+     * const listening = await prisma.listening.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ListeningUpdateArgs>(args: SelectSubset<T, ListeningUpdateArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Listenings.
+     * @param {ListeningDeleteManyArgs} args - Arguments to filter Listenings to delete.
+     * @example
+     * // Delete a few Listenings
+     * const { count } = await prisma.listening.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ListeningDeleteManyArgs>(args?: SelectSubset<T, ListeningDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Listenings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Listenings
+     * const listening = await prisma.listening.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ListeningUpdateManyArgs>(args: SelectSubset<T, ListeningUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Listenings and returns the data updated in the database.
+     * @param {ListeningUpdateManyAndReturnArgs} args - Arguments to update many Listenings.
+     * @example
+     * // Update many Listenings
+     * const listening = await prisma.listening.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Listenings and only return the `id`
+     * const listeningWithIdOnly = await prisma.listening.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ListeningUpdateManyAndReturnArgs>(args: SelectSubset<T, ListeningUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Listening.
+     * @param {ListeningUpsertArgs} args - Arguments to update or create a Listening.
+     * @example
+     * // Update or create a Listening
+     * const listening = await prisma.listening.upsert({
+     *   create: {
+     *     // ... data to create a Listening
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Listening we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ListeningUpsertArgs>(args: SelectSubset<T, ListeningUpsertArgs<ExtArgs>>): Prisma__ListeningClient<$Result.GetResult<Prisma.$ListeningPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Listenings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningCountArgs} args - Arguments to filter Listenings to count.
+     * @example
+     * // Count the number of Listenings
+     * const count = await prisma.listening.count({
+     *   where: {
+     *     // ... the filter for the Listenings we want to count
+     *   }
+     * })
+    **/
+    count<T extends ListeningCountArgs>(
+      args?: Subset<T, ListeningCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ListeningCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Listening.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ListeningAggregateArgs>(args: Subset<T, ListeningAggregateArgs>): Prisma.PrismaPromise<GetListeningAggregateType<T>>
+
+    /**
+     * Group by Listening.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListeningGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ListeningGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ListeningGroupByArgs['orderBy'] }
+        : { orderBy?: ListeningGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ListeningGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetListeningGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Listening model
+   */
+  readonly fields: ListeningFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Listening.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ListeningClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    song<T extends SongDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SongDefaultArgs<ExtArgs>>): Prisma__SongClient<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Listening model
+   */
+  interface ListeningFieldRefs {
+    readonly id: FieldRef<"Listening", 'String'>
+    readonly userId: FieldRef<"Listening", 'String'>
+    readonly songId: FieldRef<"Listening", 'String'>
+    readonly timestamp: FieldRef<"Listening", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Listening findUnique
+   */
+  export type ListeningFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Listening to fetch.
+     */
+    where: ListeningWhereUniqueInput
+  }
+
+  /**
+   * Listening findUniqueOrThrow
+   */
+  export type ListeningFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Listening to fetch.
+     */
+    where: ListeningWhereUniqueInput
+  }
+
+  /**
+   * Listening findFirst
+   */
+  export type ListeningFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Listening to fetch.
+     */
+    where?: ListeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listenings to fetch.
+     */
+    orderBy?: ListeningOrderByWithRelationInput | ListeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Listenings.
+     */
+    cursor?: ListeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Listenings.
+     */
+    distinct?: ListeningScalarFieldEnum | ListeningScalarFieldEnum[]
+  }
+
+  /**
+   * Listening findFirstOrThrow
+   */
+  export type ListeningFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Listening to fetch.
+     */
+    where?: ListeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listenings to fetch.
+     */
+    orderBy?: ListeningOrderByWithRelationInput | ListeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Listenings.
+     */
+    cursor?: ListeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Listenings.
+     */
+    distinct?: ListeningScalarFieldEnum | ListeningScalarFieldEnum[]
+  }
+
+  /**
+   * Listening findMany
+   */
+  export type ListeningFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * Filter, which Listenings to fetch.
+     */
+    where?: ListeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listenings to fetch.
+     */
+    orderBy?: ListeningOrderByWithRelationInput | ListeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Listenings.
+     */
+    cursor?: ListeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listenings.
+     */
+    skip?: number
+    distinct?: ListeningScalarFieldEnum | ListeningScalarFieldEnum[]
+  }
+
+  /**
+   * Listening create
+   */
+  export type ListeningCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Listening.
+     */
+    data: XOR<ListeningCreateInput, ListeningUncheckedCreateInput>
+  }
+
+  /**
+   * Listening createMany
+   */
+  export type ListeningCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Listenings.
+     */
+    data: ListeningCreateManyInput | ListeningCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Listening createManyAndReturn
+   */
+  export type ListeningCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * The data used to create many Listenings.
+     */
+    data: ListeningCreateManyInput | ListeningCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Listening update
+   */
+  export type ListeningUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Listening.
+     */
+    data: XOR<ListeningUpdateInput, ListeningUncheckedUpdateInput>
+    /**
+     * Choose, which Listening to update.
+     */
+    where: ListeningWhereUniqueInput
+  }
+
+  /**
+   * Listening updateMany
+   */
+  export type ListeningUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Listenings.
+     */
+    data: XOR<ListeningUpdateManyMutationInput, ListeningUncheckedUpdateManyInput>
+    /**
+     * Filter which Listenings to update
+     */
+    where?: ListeningWhereInput
+    /**
+     * Limit how many Listenings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Listening updateManyAndReturn
+   */
+  export type ListeningUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * The data used to update Listenings.
+     */
+    data: XOR<ListeningUpdateManyMutationInput, ListeningUncheckedUpdateManyInput>
+    /**
+     * Filter which Listenings to update
+     */
+    where?: ListeningWhereInput
+    /**
+     * Limit how many Listenings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Listening upsert
+   */
+  export type ListeningUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Listening to update in case it exists.
+     */
+    where: ListeningWhereUniqueInput
+    /**
+     * In case the Listening found by the `where` argument doesn't exist, create a new Listening with this data.
+     */
+    create: XOR<ListeningCreateInput, ListeningUncheckedCreateInput>
+    /**
+     * In case the Listening was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ListeningUpdateInput, ListeningUncheckedUpdateInput>
+  }
+
+  /**
+   * Listening delete
+   */
+  export type ListeningDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+    /**
+     * Filter which Listening to delete.
+     */
+    where: ListeningWhereUniqueInput
+  }
+
+  /**
+   * Listening deleteMany
+   */
+  export type ListeningDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Listenings to delete
+     */
+    where?: ListeningWhereInput
+    /**
+     * Limit how many Listenings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Listening without action
+   */
+  export type ListeningDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listening
+     */
+    select?: ListeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listening
+     */
+    omit?: ListeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListeningInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Recommendation
+   */
+
+  export type AggregateRecommendation = {
+    _count: RecommendationCountAggregateOutputType | null
+    _avg: RecommendationAvgAggregateOutputType | null
+    _sum: RecommendationSumAggregateOutputType | null
+    _min: RecommendationMinAggregateOutputType | null
+    _max: RecommendationMaxAggregateOutputType | null
+  }
+
+  export type RecommendationAvgAggregateOutputType = {
+    score: number | null
+  }
+
+  export type RecommendationSumAggregateOutputType = {
+    score: number | null
+  }
+
+  export type RecommendationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    songId: string | null
+    score: number | null
+    createdAt: Date | null
+  }
+
+  export type RecommendationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    songId: string | null
+    score: number | null
+    createdAt: Date | null
+  }
+
+  export type RecommendationCountAggregateOutputType = {
+    id: number
+    userId: number
+    songId: number
+    score: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RecommendationAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type RecommendationSumAggregateInputType = {
+    score?: true
+  }
+
+  export type RecommendationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    songId?: true
+    score?: true
+    createdAt?: true
+  }
+
+  export type RecommendationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    songId?: true
+    score?: true
+    createdAt?: true
+  }
+
+  export type RecommendationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    songId?: true
+    score?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RecommendationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Recommendation to aggregate.
+     */
+    where?: RecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recommendations to fetch.
+     */
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recommendations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Recommendations
+    **/
+    _count?: true | RecommendationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RecommendationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RecommendationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RecommendationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RecommendationMaxAggregateInputType
+  }
+
+  export type GetRecommendationAggregateType<T extends RecommendationAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecommendation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecommendation[P]>
+      : GetScalarType<T[P], AggregateRecommendation[P]>
+  }
+
+
+
+
+  export type RecommendationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationWhereInput
+    orderBy?: RecommendationOrderByWithAggregationInput | RecommendationOrderByWithAggregationInput[]
+    by: RecommendationScalarFieldEnum[] | RecommendationScalarFieldEnum
+    having?: RecommendationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RecommendationCountAggregateInputType | true
+    _avg?: RecommendationAvgAggregateInputType
+    _sum?: RecommendationSumAggregateInputType
+    _min?: RecommendationMinAggregateInputType
+    _max?: RecommendationMaxAggregateInputType
+  }
+
+  export type RecommendationGroupByOutputType = {
+    id: string
+    userId: string
+    songId: string
+    score: number
+    createdAt: Date
+    _count: RecommendationCountAggregateOutputType | null
+    _avg: RecommendationAvgAggregateOutputType | null
+    _sum: RecommendationSumAggregateOutputType | null
+    _min: RecommendationMinAggregateOutputType | null
+    _max: RecommendationMaxAggregateOutputType | null
+  }
+
+  type GetRecommendationGroupByPayload<T extends RecommendationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RecommendationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RecommendationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RecommendationGroupByOutputType[P]>
+            : GetScalarType<T[P], RecommendationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RecommendationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    score?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+    playlists?: boolean | Recommendation$playlistsArgs<ExtArgs>
+    _count?: boolean | RecommendationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommendation"]>
+
+  export type RecommendationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    score?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommendation"]>
+
+  export type RecommendationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    score?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommendation"]>
+
+  export type RecommendationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    songId?: boolean
+    score?: boolean
+    createdAt?: boolean
+  }
+
+  export type RecommendationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "songId" | "score" | "createdAt", ExtArgs["result"]["recommendation"]>
+  export type RecommendationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+    playlists?: boolean | Recommendation$playlistsArgs<ExtArgs>
+    _count?: boolean | RecommendationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RecommendationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+  export type RecommendationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    song?: boolean | SongDefaultArgs<ExtArgs>
+  }
+
+  export type $RecommendationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Recommendation"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      song: Prisma.$SongPayload<ExtArgs>
+      playlists: Prisma.$RecommendationPlaylistPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      songId: string
+      score: number
+      createdAt: Date
+    }, ExtArgs["result"]["recommendation"]>
+    composites: {}
+  }
+
+  type RecommendationGetPayload<S extends boolean | null | undefined | RecommendationDefaultArgs> = $Result.GetResult<Prisma.$RecommendationPayload, S>
+
+  type RecommendationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RecommendationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RecommendationCountAggregateInputType | true
+    }
+
+  export interface RecommendationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Recommendation'], meta: { name: 'Recommendation' } }
+    /**
+     * Find zero or one Recommendation that matches the filter.
+     * @param {RecommendationFindUniqueArgs} args - Arguments to find a Recommendation
+     * @example
+     * // Get one Recommendation
+     * const recommendation = await prisma.recommendation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RecommendationFindUniqueArgs>(args: SelectSubset<T, RecommendationFindUniqueArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Recommendation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RecommendationFindUniqueOrThrowArgs} args - Arguments to find a Recommendation
+     * @example
+     * // Get one Recommendation
+     * const recommendation = await prisma.recommendation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RecommendationFindUniqueOrThrowArgs>(args: SelectSubset<T, RecommendationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recommendation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationFindFirstArgs} args - Arguments to find a Recommendation
+     * @example
+     * // Get one Recommendation
+     * const recommendation = await prisma.recommendation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RecommendationFindFirstArgs>(args?: SelectSubset<T, RecommendationFindFirstArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recommendation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationFindFirstOrThrowArgs} args - Arguments to find a Recommendation
+     * @example
+     * // Get one Recommendation
+     * const recommendation = await prisma.recommendation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RecommendationFindFirstOrThrowArgs>(args?: SelectSubset<T, RecommendationFindFirstOrThrowArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Recommendations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Recommendations
+     * const recommendations = await prisma.recommendation.findMany()
+     * 
+     * // Get first 10 Recommendations
+     * const recommendations = await prisma.recommendation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recommendationWithIdOnly = await prisma.recommendation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RecommendationFindManyArgs>(args?: SelectSubset<T, RecommendationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Recommendation.
+     * @param {RecommendationCreateArgs} args - Arguments to create a Recommendation.
+     * @example
+     * // Create one Recommendation
+     * const Recommendation = await prisma.recommendation.create({
+     *   data: {
+     *     // ... data to create a Recommendation
+     *   }
+     * })
+     * 
+     */
+    create<T extends RecommendationCreateArgs>(args: SelectSubset<T, RecommendationCreateArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Recommendations.
+     * @param {RecommendationCreateManyArgs} args - Arguments to create many Recommendations.
+     * @example
+     * // Create many Recommendations
+     * const recommendation = await prisma.recommendation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RecommendationCreateManyArgs>(args?: SelectSubset<T, RecommendationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Recommendations and returns the data saved in the database.
+     * @param {RecommendationCreateManyAndReturnArgs} args - Arguments to create many Recommendations.
+     * @example
+     * // Create many Recommendations
+     * const recommendation = await prisma.recommendation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Recommendations and only return the `id`
+     * const recommendationWithIdOnly = await prisma.recommendation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RecommendationCreateManyAndReturnArgs>(args?: SelectSubset<T, RecommendationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Recommendation.
+     * @param {RecommendationDeleteArgs} args - Arguments to delete one Recommendation.
+     * @example
+     * // Delete one Recommendation
+     * const Recommendation = await prisma.recommendation.delete({
+     *   where: {
+     *     // ... filter to delete one Recommendation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RecommendationDeleteArgs>(args: SelectSubset<T, RecommendationDeleteArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Recommendation.
+     * @param {RecommendationUpdateArgs} args - Arguments to update one Recommendation.
+     * @example
+     * // Update one Recommendation
+     * const recommendation = await prisma.recommendation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RecommendationUpdateArgs>(args: SelectSubset<T, RecommendationUpdateArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Recommendations.
+     * @param {RecommendationDeleteManyArgs} args - Arguments to filter Recommendations to delete.
+     * @example
+     * // Delete a few Recommendations
+     * const { count } = await prisma.recommendation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RecommendationDeleteManyArgs>(args?: SelectSubset<T, RecommendationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recommendations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Recommendations
+     * const recommendation = await prisma.recommendation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RecommendationUpdateManyArgs>(args: SelectSubset<T, RecommendationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recommendations and returns the data updated in the database.
+     * @param {RecommendationUpdateManyAndReturnArgs} args - Arguments to update many Recommendations.
+     * @example
+     * // Update many Recommendations
+     * const recommendation = await prisma.recommendation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Recommendations and only return the `id`
+     * const recommendationWithIdOnly = await prisma.recommendation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RecommendationUpdateManyAndReturnArgs>(args: SelectSubset<T, RecommendationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Recommendation.
+     * @param {RecommendationUpsertArgs} args - Arguments to update or create a Recommendation.
+     * @example
+     * // Update or create a Recommendation
+     * const recommendation = await prisma.recommendation.upsert({
+     *   create: {
+     *     // ... data to create a Recommendation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Recommendation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RecommendationUpsertArgs>(args: SelectSubset<T, RecommendationUpsertArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Recommendations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationCountArgs} args - Arguments to filter Recommendations to count.
+     * @example
+     * // Count the number of Recommendations
+     * const count = await prisma.recommendation.count({
+     *   where: {
+     *     // ... the filter for the Recommendations we want to count
+     *   }
+     * })
+    **/
+    count<T extends RecommendationCountArgs>(
+      args?: Subset<T, RecommendationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RecommendationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Recommendation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RecommendationAggregateArgs>(args: Subset<T, RecommendationAggregateArgs>): Prisma.PrismaPromise<GetRecommendationAggregateType<T>>
+
+    /**
+     * Group by Recommendation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RecommendationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RecommendationGroupByArgs['orderBy'] }
+        : { orderBy?: RecommendationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RecommendationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecommendationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Recommendation model
+   */
+  readonly fields: RecommendationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Recommendation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RecommendationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    song<T extends SongDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SongDefaultArgs<ExtArgs>>): Prisma__SongClient<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    playlists<T extends Recommendation$playlistsArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$playlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Recommendation model
+   */
+  interface RecommendationFieldRefs {
+    readonly id: FieldRef<"Recommendation", 'String'>
+    readonly userId: FieldRef<"Recommendation", 'String'>
+    readonly songId: FieldRef<"Recommendation", 'String'>
+    readonly score: FieldRef<"Recommendation", 'Float'>
+    readonly createdAt: FieldRef<"Recommendation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Recommendation findUnique
+   */
+  export type RecommendationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which Recommendation to fetch.
+     */
+    where: RecommendationWhereUniqueInput
+  }
+
+  /**
+   * Recommendation findUniqueOrThrow
+   */
+  export type RecommendationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which Recommendation to fetch.
+     */
+    where: RecommendationWhereUniqueInput
+  }
+
+  /**
+   * Recommendation findFirst
+   */
+  export type RecommendationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which Recommendation to fetch.
+     */
+    where?: RecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recommendations to fetch.
+     */
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Recommendations.
+     */
+    cursor?: RecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recommendations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Recommendations.
+     */
+    distinct?: RecommendationScalarFieldEnum | RecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * Recommendation findFirstOrThrow
+   */
+  export type RecommendationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which Recommendation to fetch.
+     */
+    where?: RecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recommendations to fetch.
+     */
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Recommendations.
+     */
+    cursor?: RecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recommendations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Recommendations.
+     */
+    distinct?: RecommendationScalarFieldEnum | RecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * Recommendation findMany
+   */
+  export type RecommendationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which Recommendations to fetch.
+     */
+    where?: RecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recommendations to fetch.
+     */
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Recommendations.
+     */
+    cursor?: RecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recommendations.
+     */
+    skip?: number
+    distinct?: RecommendationScalarFieldEnum | RecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * Recommendation create
+   */
+  export type RecommendationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Recommendation.
+     */
+    data: XOR<RecommendationCreateInput, RecommendationUncheckedCreateInput>
+  }
+
+  /**
+   * Recommendation createMany
+   */
+  export type RecommendationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Recommendations.
+     */
+    data: RecommendationCreateManyInput | RecommendationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Recommendation createManyAndReturn
+   */
+  export type RecommendationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Recommendations.
+     */
+    data: RecommendationCreateManyInput | RecommendationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Recommendation update
+   */
+  export type RecommendationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Recommendation.
+     */
+    data: XOR<RecommendationUpdateInput, RecommendationUncheckedUpdateInput>
+    /**
+     * Choose, which Recommendation to update.
+     */
+    where: RecommendationWhereUniqueInput
+  }
+
+  /**
+   * Recommendation updateMany
+   */
+  export type RecommendationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Recommendations.
+     */
+    data: XOR<RecommendationUpdateManyMutationInput, RecommendationUncheckedUpdateManyInput>
+    /**
+     * Filter which Recommendations to update
+     */
+    where?: RecommendationWhereInput
+    /**
+     * Limit how many Recommendations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Recommendation updateManyAndReturn
+   */
+  export type RecommendationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * The data used to update Recommendations.
+     */
+    data: XOR<RecommendationUpdateManyMutationInput, RecommendationUncheckedUpdateManyInput>
+    /**
+     * Filter which Recommendations to update
+     */
+    where?: RecommendationWhereInput
+    /**
+     * Limit how many Recommendations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Recommendation upsert
+   */
+  export type RecommendationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Recommendation to update in case it exists.
+     */
+    where: RecommendationWhereUniqueInput
+    /**
+     * In case the Recommendation found by the `where` argument doesn't exist, create a new Recommendation with this data.
+     */
+    create: XOR<RecommendationCreateInput, RecommendationUncheckedCreateInput>
+    /**
+     * In case the Recommendation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RecommendationUpdateInput, RecommendationUncheckedUpdateInput>
+  }
+
+  /**
+   * Recommendation delete
+   */
+  export type RecommendationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    /**
+     * Filter which Recommendation to delete.
+     */
+    where: RecommendationWhereUniqueInput
+  }
+
+  /**
+   * Recommendation deleteMany
+   */
+  export type RecommendationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Recommendations to delete
+     */
+    where?: RecommendationWhereInput
+    /**
+     * Limit how many Recommendations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Recommendation.playlists
+   */
+  export type Recommendation$playlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    where?: RecommendationPlaylistWhereInput
+    orderBy?: RecommendationPlaylistOrderByWithRelationInput | RecommendationPlaylistOrderByWithRelationInput[]
+    cursor?: RecommendationPlaylistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecommendationPlaylistScalarFieldEnum | RecommendationPlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * Recommendation without action
+   */
+  export type RecommendationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
   }
 
 
@@ -9687,6 +12644,2262 @@ export namespace Prisma {
 
 
   /**
+   * Model Playlist
+   */
+
+  export type AggregatePlaylist = {
+    _count: PlaylistCountAggregateOutputType | null
+    _min: PlaylistMinAggregateOutputType | null
+    _max: PlaylistMaxAggregateOutputType | null
+  }
+
+  export type PlaylistMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    type: $Enums.PlaylistType | null
+    coverUrl: string | null
+    creatorId: string | null
+    createAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlaylistMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    type: $Enums.PlaylistType | null
+    coverUrl: string | null
+    creatorId: string | null
+    createAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlaylistCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    type: number
+    coverUrl: number
+    creatorId: number
+    createAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PlaylistMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    coverUrl?: true
+    creatorId?: true
+    createAt?: true
+    updatedAt?: true
+  }
+
+  export type PlaylistMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    coverUrl?: true
+    creatorId?: true
+    createAt?: true
+    updatedAt?: true
+  }
+
+  export type PlaylistCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    coverUrl?: true
+    creatorId?: true
+    createAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PlaylistAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Playlist to aggregate.
+     */
+    where?: PlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playlists to fetch.
+     */
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playlists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Playlists
+    **/
+    _count?: true | PlaylistCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlaylistMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlaylistMaxAggregateInputType
+  }
+
+  export type GetPlaylistAggregateType<T extends PlaylistAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlaylist]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlaylist[P]>
+      : GetScalarType<T[P], AggregatePlaylist[P]>
+  }
+
+
+
+
+  export type PlaylistGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaylistWhereInput
+    orderBy?: PlaylistOrderByWithAggregationInput | PlaylistOrderByWithAggregationInput[]
+    by: PlaylistScalarFieldEnum[] | PlaylistScalarFieldEnum
+    having?: PlaylistScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlaylistCountAggregateInputType | true
+    _min?: PlaylistMinAggregateInputType
+    _max?: PlaylistMaxAggregateInputType
+  }
+
+  export type PlaylistGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    type: $Enums.PlaylistType
+    coverUrl: string | null
+    creatorId: string
+    createAt: Date
+    updatedAt: Date
+    _count: PlaylistCountAggregateOutputType | null
+    _min: PlaylistMinAggregateOutputType | null
+    _max: PlaylistMaxAggregateOutputType | null
+  }
+
+  type GetPlaylistGroupByPayload<T extends PlaylistGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlaylistGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlaylistGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlaylistGroupByOutputType[P]>
+            : GetScalarType<T[P], PlaylistGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlaylistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    coverUrl?: boolean
+    creatorId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+    songs?: boolean | Playlist$songsArgs<ExtArgs>
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    users?: boolean | Playlist$usersArgs<ExtArgs>
+    _count?: boolean | PlaylistCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playlist"]>
+
+  export type PlaylistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    coverUrl?: boolean
+    creatorId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playlist"]>
+
+  export type PlaylistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    coverUrl?: boolean
+    creatorId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playlist"]>
+
+  export type PlaylistSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    coverUrl?: boolean
+    creatorId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "coverUrl" | "creatorId" | "createAt" | "updatedAt", ExtArgs["result"]["playlist"]>
+  export type PlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    songs?: boolean | Playlist$songsArgs<ExtArgs>
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    users?: boolean | Playlist$usersArgs<ExtArgs>
+    _count?: boolean | PlaylistCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlaylistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PlaylistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PlaylistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Playlist"
+    objects: {
+      songs: Prisma.$SongPayload<ExtArgs>[]
+      creator: Prisma.$UserPayload<ExtArgs>
+      users: Prisma.$UserPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      type: $Enums.PlaylistType
+      coverUrl: string | null
+      creatorId: string
+      createAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["playlist"]>
+    composites: {}
+  }
+
+  type PlaylistGetPayload<S extends boolean | null | undefined | PlaylistDefaultArgs> = $Result.GetResult<Prisma.$PlaylistPayload, S>
+
+  type PlaylistCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlaylistFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlaylistCountAggregateInputType | true
+    }
+
+  export interface PlaylistDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Playlist'], meta: { name: 'Playlist' } }
+    /**
+     * Find zero or one Playlist that matches the filter.
+     * @param {PlaylistFindUniqueArgs} args - Arguments to find a Playlist
+     * @example
+     * // Get one Playlist
+     * const playlist = await prisma.playlist.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlaylistFindUniqueArgs>(args: SelectSubset<T, PlaylistFindUniqueArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Playlist that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlaylistFindUniqueOrThrowArgs} args - Arguments to find a Playlist
+     * @example
+     * // Get one Playlist
+     * const playlist = await prisma.playlist.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlaylistFindUniqueOrThrowArgs>(args: SelectSubset<T, PlaylistFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Playlist that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistFindFirstArgs} args - Arguments to find a Playlist
+     * @example
+     * // Get one Playlist
+     * const playlist = await prisma.playlist.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlaylistFindFirstArgs>(args?: SelectSubset<T, PlaylistFindFirstArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Playlist that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistFindFirstOrThrowArgs} args - Arguments to find a Playlist
+     * @example
+     * // Get one Playlist
+     * const playlist = await prisma.playlist.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlaylistFindFirstOrThrowArgs>(args?: SelectSubset<T, PlaylistFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Playlists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Playlists
+     * const playlists = await prisma.playlist.findMany()
+     * 
+     * // Get first 10 Playlists
+     * const playlists = await prisma.playlist.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playlistWithIdOnly = await prisma.playlist.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlaylistFindManyArgs>(args?: SelectSubset<T, PlaylistFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Playlist.
+     * @param {PlaylistCreateArgs} args - Arguments to create a Playlist.
+     * @example
+     * // Create one Playlist
+     * const Playlist = await prisma.playlist.create({
+     *   data: {
+     *     // ... data to create a Playlist
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlaylistCreateArgs>(args: SelectSubset<T, PlaylistCreateArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Playlists.
+     * @param {PlaylistCreateManyArgs} args - Arguments to create many Playlists.
+     * @example
+     * // Create many Playlists
+     * const playlist = await prisma.playlist.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlaylistCreateManyArgs>(args?: SelectSubset<T, PlaylistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Playlists and returns the data saved in the database.
+     * @param {PlaylistCreateManyAndReturnArgs} args - Arguments to create many Playlists.
+     * @example
+     * // Create many Playlists
+     * const playlist = await prisma.playlist.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Playlists and only return the `id`
+     * const playlistWithIdOnly = await prisma.playlist.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlaylistCreateManyAndReturnArgs>(args?: SelectSubset<T, PlaylistCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Playlist.
+     * @param {PlaylistDeleteArgs} args - Arguments to delete one Playlist.
+     * @example
+     * // Delete one Playlist
+     * const Playlist = await prisma.playlist.delete({
+     *   where: {
+     *     // ... filter to delete one Playlist
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlaylistDeleteArgs>(args: SelectSubset<T, PlaylistDeleteArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Playlist.
+     * @param {PlaylistUpdateArgs} args - Arguments to update one Playlist.
+     * @example
+     * // Update one Playlist
+     * const playlist = await prisma.playlist.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlaylistUpdateArgs>(args: SelectSubset<T, PlaylistUpdateArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Playlists.
+     * @param {PlaylistDeleteManyArgs} args - Arguments to filter Playlists to delete.
+     * @example
+     * // Delete a few Playlists
+     * const { count } = await prisma.playlist.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlaylistDeleteManyArgs>(args?: SelectSubset<T, PlaylistDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Playlists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Playlists
+     * const playlist = await prisma.playlist.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlaylistUpdateManyArgs>(args: SelectSubset<T, PlaylistUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Playlists and returns the data updated in the database.
+     * @param {PlaylistUpdateManyAndReturnArgs} args - Arguments to update many Playlists.
+     * @example
+     * // Update many Playlists
+     * const playlist = await prisma.playlist.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Playlists and only return the `id`
+     * const playlistWithIdOnly = await prisma.playlist.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlaylistUpdateManyAndReturnArgs>(args: SelectSubset<T, PlaylistUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Playlist.
+     * @param {PlaylistUpsertArgs} args - Arguments to update or create a Playlist.
+     * @example
+     * // Update or create a Playlist
+     * const playlist = await prisma.playlist.upsert({
+     *   create: {
+     *     // ... data to create a Playlist
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Playlist we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlaylistUpsertArgs>(args: SelectSubset<T, PlaylistUpsertArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Playlists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistCountArgs} args - Arguments to filter Playlists to count.
+     * @example
+     * // Count the number of Playlists
+     * const count = await prisma.playlist.count({
+     *   where: {
+     *     // ... the filter for the Playlists we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlaylistCountArgs>(
+      args?: Subset<T, PlaylistCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlaylistCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Playlist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlaylistAggregateArgs>(args: Subset<T, PlaylistAggregateArgs>): Prisma.PrismaPromise<GetPlaylistAggregateType<T>>
+
+    /**
+     * Group by Playlist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaylistGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlaylistGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlaylistGroupByArgs['orderBy'] }
+        : { orderBy?: PlaylistGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlaylistGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlaylistGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Playlist model
+   */
+  readonly fields: PlaylistFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Playlist.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlaylistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    songs<T extends Playlist$songsArgs<ExtArgs> = {}>(args?: Subset<T, Playlist$songsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SongPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    users<T extends Playlist$usersArgs<ExtArgs> = {}>(args?: Subset<T, Playlist$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Playlist model
+   */
+  interface PlaylistFieldRefs {
+    readonly id: FieldRef<"Playlist", 'String'>
+    readonly title: FieldRef<"Playlist", 'String'>
+    readonly description: FieldRef<"Playlist", 'String'>
+    readonly type: FieldRef<"Playlist", 'PlaylistType'>
+    readonly coverUrl: FieldRef<"Playlist", 'String'>
+    readonly creatorId: FieldRef<"Playlist", 'String'>
+    readonly createAt: FieldRef<"Playlist", 'DateTime'>
+    readonly updatedAt: FieldRef<"Playlist", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Playlist findUnique
+   */
+  export type PlaylistFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which Playlist to fetch.
+     */
+    where: PlaylistWhereUniqueInput
+  }
+
+  /**
+   * Playlist findUniqueOrThrow
+   */
+  export type PlaylistFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which Playlist to fetch.
+     */
+    where: PlaylistWhereUniqueInput
+  }
+
+  /**
+   * Playlist findFirst
+   */
+  export type PlaylistFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which Playlist to fetch.
+     */
+    where?: PlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playlists to fetch.
+     */
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Playlists.
+     */
+    cursor?: PlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playlists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Playlists.
+     */
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * Playlist findFirstOrThrow
+   */
+  export type PlaylistFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which Playlist to fetch.
+     */
+    where?: PlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playlists to fetch.
+     */
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Playlists.
+     */
+    cursor?: PlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playlists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Playlists.
+     */
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * Playlist findMany
+   */
+  export type PlaylistFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which Playlists to fetch.
+     */
+    where?: PlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playlists to fetch.
+     */
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Playlists.
+     */
+    cursor?: PlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playlists.
+     */
+    skip?: number
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * Playlist create
+   */
+  export type PlaylistCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Playlist.
+     */
+    data: XOR<PlaylistCreateInput, PlaylistUncheckedCreateInput>
+  }
+
+  /**
+   * Playlist createMany
+   */
+  export type PlaylistCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Playlists.
+     */
+    data: PlaylistCreateManyInput | PlaylistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Playlist createManyAndReturn
+   */
+  export type PlaylistCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * The data used to create many Playlists.
+     */
+    data: PlaylistCreateManyInput | PlaylistCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Playlist update
+   */
+  export type PlaylistUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Playlist.
+     */
+    data: XOR<PlaylistUpdateInput, PlaylistUncheckedUpdateInput>
+    /**
+     * Choose, which Playlist to update.
+     */
+    where: PlaylistWhereUniqueInput
+  }
+
+  /**
+   * Playlist updateMany
+   */
+  export type PlaylistUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Playlists.
+     */
+    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyInput>
+    /**
+     * Filter which Playlists to update
+     */
+    where?: PlaylistWhereInput
+    /**
+     * Limit how many Playlists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Playlist updateManyAndReturn
+   */
+  export type PlaylistUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * The data used to update Playlists.
+     */
+    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyInput>
+    /**
+     * Filter which Playlists to update
+     */
+    where?: PlaylistWhereInput
+    /**
+     * Limit how many Playlists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Playlist upsert
+   */
+  export type PlaylistUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Playlist to update in case it exists.
+     */
+    where: PlaylistWhereUniqueInput
+    /**
+     * In case the Playlist found by the `where` argument doesn't exist, create a new Playlist with this data.
+     */
+    create: XOR<PlaylistCreateInput, PlaylistUncheckedCreateInput>
+    /**
+     * In case the Playlist was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlaylistUpdateInput, PlaylistUncheckedUpdateInput>
+  }
+
+  /**
+   * Playlist delete
+   */
+  export type PlaylistDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    /**
+     * Filter which Playlist to delete.
+     */
+    where: PlaylistWhereUniqueInput
+  }
+
+  /**
+   * Playlist deleteMany
+   */
+  export type PlaylistDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Playlists to delete
+     */
+    where?: PlaylistWhereInput
+    /**
+     * Limit how many Playlists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Playlist.songs
+   */
+  export type Playlist$songsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Song
+     */
+    select?: SongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Song
+     */
+    omit?: SongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SongInclude<ExtArgs> | null
+    where?: SongWhereInput
+    orderBy?: SongOrderByWithRelationInput | SongOrderByWithRelationInput[]
+    cursor?: SongWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SongScalarFieldEnum | SongScalarFieldEnum[]
+  }
+
+  /**
+   * Playlist.users
+   */
+  export type Playlist$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Playlist without action
+   */
+  export type PlaylistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RecommendationPlaylist
+   */
+
+  export type AggregateRecommendationPlaylist = {
+    _count: RecommendationPlaylistCountAggregateOutputType | null
+    _min: RecommendationPlaylistMinAggregateOutputType | null
+    _max: RecommendationPlaylistMaxAggregateOutputType | null
+  }
+
+  export type RecommendationPlaylistMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    userId: string | null
+    createAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RecommendationPlaylistMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    userId: string | null
+    createAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RecommendationPlaylistCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    userId: number
+    createAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RecommendationPlaylistMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    userId?: true
+    createAt?: true
+    updatedAt?: true
+  }
+
+  export type RecommendationPlaylistMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    userId?: true
+    createAt?: true
+    updatedAt?: true
+  }
+
+  export type RecommendationPlaylistCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    userId?: true
+    createAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RecommendationPlaylistAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RecommendationPlaylist to aggregate.
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RecommendationPlaylists to fetch.
+     */
+    orderBy?: RecommendationPlaylistOrderByWithRelationInput | RecommendationPlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RecommendationPlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RecommendationPlaylists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RecommendationPlaylists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RecommendationPlaylists
+    **/
+    _count?: true | RecommendationPlaylistCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RecommendationPlaylistMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RecommendationPlaylistMaxAggregateInputType
+  }
+
+  export type GetRecommendationPlaylistAggregateType<T extends RecommendationPlaylistAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecommendationPlaylist]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecommendationPlaylist[P]>
+      : GetScalarType<T[P], AggregateRecommendationPlaylist[P]>
+  }
+
+
+
+
+  export type RecommendationPlaylistGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecommendationPlaylistWhereInput
+    orderBy?: RecommendationPlaylistOrderByWithAggregationInput | RecommendationPlaylistOrderByWithAggregationInput[]
+    by: RecommendationPlaylistScalarFieldEnum[] | RecommendationPlaylistScalarFieldEnum
+    having?: RecommendationPlaylistScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RecommendationPlaylistCountAggregateInputType | true
+    _min?: RecommendationPlaylistMinAggregateInputType
+    _max?: RecommendationPlaylistMaxAggregateInputType
+  }
+
+  export type RecommendationPlaylistGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    userId: string
+    createAt: Date
+    updatedAt: Date
+    _count: RecommendationPlaylistCountAggregateOutputType | null
+    _min: RecommendationPlaylistMinAggregateOutputType | null
+    _max: RecommendationPlaylistMaxAggregateOutputType | null
+  }
+
+  type GetRecommendationPlaylistGroupByPayload<T extends RecommendationPlaylistGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RecommendationPlaylistGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RecommendationPlaylistGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RecommendationPlaylistGroupByOutputType[P]>
+            : GetScalarType<T[P], RecommendationPlaylistGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RecommendationPlaylistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    userId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+    recommendations?: boolean | RecommendationPlaylist$recommendationsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | RecommendationPlaylistCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommendationPlaylist"]>
+
+  export type RecommendationPlaylistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    userId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommendationPlaylist"]>
+
+  export type RecommendationPlaylistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    userId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommendationPlaylist"]>
+
+  export type RecommendationPlaylistSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    userId?: boolean
+    createAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RecommendationPlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "userId" | "createAt" | "updatedAt", ExtArgs["result"]["recommendationPlaylist"]>
+  export type RecommendationPlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recommendations?: boolean | RecommendationPlaylist$recommendationsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | RecommendationPlaylistCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RecommendationPlaylistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RecommendationPlaylistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $RecommendationPlaylistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RecommendationPlaylist"
+    objects: {
+      recommendations: Prisma.$RecommendationPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      userId: string
+      createAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["recommendationPlaylist"]>
+    composites: {}
+  }
+
+  type RecommendationPlaylistGetPayload<S extends boolean | null | undefined | RecommendationPlaylistDefaultArgs> = $Result.GetResult<Prisma.$RecommendationPlaylistPayload, S>
+
+  type RecommendationPlaylistCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RecommendationPlaylistFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RecommendationPlaylistCountAggregateInputType | true
+    }
+
+  export interface RecommendationPlaylistDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RecommendationPlaylist'], meta: { name: 'RecommendationPlaylist' } }
+    /**
+     * Find zero or one RecommendationPlaylist that matches the filter.
+     * @param {RecommendationPlaylistFindUniqueArgs} args - Arguments to find a RecommendationPlaylist
+     * @example
+     * // Get one RecommendationPlaylist
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RecommendationPlaylistFindUniqueArgs>(args: SelectSubset<T, RecommendationPlaylistFindUniqueArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RecommendationPlaylist that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RecommendationPlaylistFindUniqueOrThrowArgs} args - Arguments to find a RecommendationPlaylist
+     * @example
+     * // Get one RecommendationPlaylist
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RecommendationPlaylistFindUniqueOrThrowArgs>(args: SelectSubset<T, RecommendationPlaylistFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RecommendationPlaylist that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistFindFirstArgs} args - Arguments to find a RecommendationPlaylist
+     * @example
+     * // Get one RecommendationPlaylist
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RecommendationPlaylistFindFirstArgs>(args?: SelectSubset<T, RecommendationPlaylistFindFirstArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RecommendationPlaylist that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistFindFirstOrThrowArgs} args - Arguments to find a RecommendationPlaylist
+     * @example
+     * // Get one RecommendationPlaylist
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RecommendationPlaylistFindFirstOrThrowArgs>(args?: SelectSubset<T, RecommendationPlaylistFindFirstOrThrowArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RecommendationPlaylists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RecommendationPlaylists
+     * const recommendationPlaylists = await prisma.recommendationPlaylist.findMany()
+     * 
+     * // Get first 10 RecommendationPlaylists
+     * const recommendationPlaylists = await prisma.recommendationPlaylist.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recommendationPlaylistWithIdOnly = await prisma.recommendationPlaylist.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RecommendationPlaylistFindManyArgs>(args?: SelectSubset<T, RecommendationPlaylistFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RecommendationPlaylist.
+     * @param {RecommendationPlaylistCreateArgs} args - Arguments to create a RecommendationPlaylist.
+     * @example
+     * // Create one RecommendationPlaylist
+     * const RecommendationPlaylist = await prisma.recommendationPlaylist.create({
+     *   data: {
+     *     // ... data to create a RecommendationPlaylist
+     *   }
+     * })
+     * 
+     */
+    create<T extends RecommendationPlaylistCreateArgs>(args: SelectSubset<T, RecommendationPlaylistCreateArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RecommendationPlaylists.
+     * @param {RecommendationPlaylistCreateManyArgs} args - Arguments to create many RecommendationPlaylists.
+     * @example
+     * // Create many RecommendationPlaylists
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RecommendationPlaylistCreateManyArgs>(args?: SelectSubset<T, RecommendationPlaylistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RecommendationPlaylists and returns the data saved in the database.
+     * @param {RecommendationPlaylistCreateManyAndReturnArgs} args - Arguments to create many RecommendationPlaylists.
+     * @example
+     * // Create many RecommendationPlaylists
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RecommendationPlaylists and only return the `id`
+     * const recommendationPlaylistWithIdOnly = await prisma.recommendationPlaylist.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RecommendationPlaylistCreateManyAndReturnArgs>(args?: SelectSubset<T, RecommendationPlaylistCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RecommendationPlaylist.
+     * @param {RecommendationPlaylistDeleteArgs} args - Arguments to delete one RecommendationPlaylist.
+     * @example
+     * // Delete one RecommendationPlaylist
+     * const RecommendationPlaylist = await prisma.recommendationPlaylist.delete({
+     *   where: {
+     *     // ... filter to delete one RecommendationPlaylist
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RecommendationPlaylistDeleteArgs>(args: SelectSubset<T, RecommendationPlaylistDeleteArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RecommendationPlaylist.
+     * @param {RecommendationPlaylistUpdateArgs} args - Arguments to update one RecommendationPlaylist.
+     * @example
+     * // Update one RecommendationPlaylist
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RecommendationPlaylistUpdateArgs>(args: SelectSubset<T, RecommendationPlaylistUpdateArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RecommendationPlaylists.
+     * @param {RecommendationPlaylistDeleteManyArgs} args - Arguments to filter RecommendationPlaylists to delete.
+     * @example
+     * // Delete a few RecommendationPlaylists
+     * const { count } = await prisma.recommendationPlaylist.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RecommendationPlaylistDeleteManyArgs>(args?: SelectSubset<T, RecommendationPlaylistDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RecommendationPlaylists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RecommendationPlaylists
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RecommendationPlaylistUpdateManyArgs>(args: SelectSubset<T, RecommendationPlaylistUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RecommendationPlaylists and returns the data updated in the database.
+     * @param {RecommendationPlaylistUpdateManyAndReturnArgs} args - Arguments to update many RecommendationPlaylists.
+     * @example
+     * // Update many RecommendationPlaylists
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RecommendationPlaylists and only return the `id`
+     * const recommendationPlaylistWithIdOnly = await prisma.recommendationPlaylist.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RecommendationPlaylistUpdateManyAndReturnArgs>(args: SelectSubset<T, RecommendationPlaylistUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RecommendationPlaylist.
+     * @param {RecommendationPlaylistUpsertArgs} args - Arguments to update or create a RecommendationPlaylist.
+     * @example
+     * // Update or create a RecommendationPlaylist
+     * const recommendationPlaylist = await prisma.recommendationPlaylist.upsert({
+     *   create: {
+     *     // ... data to create a RecommendationPlaylist
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RecommendationPlaylist we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RecommendationPlaylistUpsertArgs>(args: SelectSubset<T, RecommendationPlaylistUpsertArgs<ExtArgs>>): Prisma__RecommendationPlaylistClient<$Result.GetResult<Prisma.$RecommendationPlaylistPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RecommendationPlaylists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistCountArgs} args - Arguments to filter RecommendationPlaylists to count.
+     * @example
+     * // Count the number of RecommendationPlaylists
+     * const count = await prisma.recommendationPlaylist.count({
+     *   where: {
+     *     // ... the filter for the RecommendationPlaylists we want to count
+     *   }
+     * })
+    **/
+    count<T extends RecommendationPlaylistCountArgs>(
+      args?: Subset<T, RecommendationPlaylistCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RecommendationPlaylistCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RecommendationPlaylist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RecommendationPlaylistAggregateArgs>(args: Subset<T, RecommendationPlaylistAggregateArgs>): Prisma.PrismaPromise<GetRecommendationPlaylistAggregateType<T>>
+
+    /**
+     * Group by RecommendationPlaylist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecommendationPlaylistGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RecommendationPlaylistGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RecommendationPlaylistGroupByArgs['orderBy'] }
+        : { orderBy?: RecommendationPlaylistGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RecommendationPlaylistGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecommendationPlaylistGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RecommendationPlaylist model
+   */
+  readonly fields: RecommendationPlaylistFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RecommendationPlaylist.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RecommendationPlaylistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    recommendations<T extends RecommendationPlaylist$recommendationsArgs<ExtArgs> = {}>(args?: Subset<T, RecommendationPlaylist$recommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RecommendationPlaylist model
+   */
+  interface RecommendationPlaylistFieldRefs {
+    readonly id: FieldRef<"RecommendationPlaylist", 'String'>
+    readonly title: FieldRef<"RecommendationPlaylist", 'String'>
+    readonly description: FieldRef<"RecommendationPlaylist", 'String'>
+    readonly userId: FieldRef<"RecommendationPlaylist", 'String'>
+    readonly createAt: FieldRef<"RecommendationPlaylist", 'DateTime'>
+    readonly updatedAt: FieldRef<"RecommendationPlaylist", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RecommendationPlaylist findUnique
+   */
+  export type RecommendationPlaylistFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which RecommendationPlaylist to fetch.
+     */
+    where: RecommendationPlaylistWhereUniqueInput
+  }
+
+  /**
+   * RecommendationPlaylist findUniqueOrThrow
+   */
+  export type RecommendationPlaylistFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which RecommendationPlaylist to fetch.
+     */
+    where: RecommendationPlaylistWhereUniqueInput
+  }
+
+  /**
+   * RecommendationPlaylist findFirst
+   */
+  export type RecommendationPlaylistFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which RecommendationPlaylist to fetch.
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RecommendationPlaylists to fetch.
+     */
+    orderBy?: RecommendationPlaylistOrderByWithRelationInput | RecommendationPlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RecommendationPlaylists.
+     */
+    cursor?: RecommendationPlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RecommendationPlaylists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RecommendationPlaylists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RecommendationPlaylists.
+     */
+    distinct?: RecommendationPlaylistScalarFieldEnum | RecommendationPlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * RecommendationPlaylist findFirstOrThrow
+   */
+  export type RecommendationPlaylistFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which RecommendationPlaylist to fetch.
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RecommendationPlaylists to fetch.
+     */
+    orderBy?: RecommendationPlaylistOrderByWithRelationInput | RecommendationPlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RecommendationPlaylists.
+     */
+    cursor?: RecommendationPlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RecommendationPlaylists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RecommendationPlaylists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RecommendationPlaylists.
+     */
+    distinct?: RecommendationPlaylistScalarFieldEnum | RecommendationPlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * RecommendationPlaylist findMany
+   */
+  export type RecommendationPlaylistFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * Filter, which RecommendationPlaylists to fetch.
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RecommendationPlaylists to fetch.
+     */
+    orderBy?: RecommendationPlaylistOrderByWithRelationInput | RecommendationPlaylistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RecommendationPlaylists.
+     */
+    cursor?: RecommendationPlaylistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RecommendationPlaylists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RecommendationPlaylists.
+     */
+    skip?: number
+    distinct?: RecommendationPlaylistScalarFieldEnum | RecommendationPlaylistScalarFieldEnum[]
+  }
+
+  /**
+   * RecommendationPlaylist create
+   */
+  export type RecommendationPlaylistCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RecommendationPlaylist.
+     */
+    data: XOR<RecommendationPlaylistCreateInput, RecommendationPlaylistUncheckedCreateInput>
+  }
+
+  /**
+   * RecommendationPlaylist createMany
+   */
+  export type RecommendationPlaylistCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RecommendationPlaylists.
+     */
+    data: RecommendationPlaylistCreateManyInput | RecommendationPlaylistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RecommendationPlaylist createManyAndReturn
+   */
+  export type RecommendationPlaylistCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * The data used to create many RecommendationPlaylists.
+     */
+    data: RecommendationPlaylistCreateManyInput | RecommendationPlaylistCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RecommendationPlaylist update
+   */
+  export type RecommendationPlaylistUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RecommendationPlaylist.
+     */
+    data: XOR<RecommendationPlaylistUpdateInput, RecommendationPlaylistUncheckedUpdateInput>
+    /**
+     * Choose, which RecommendationPlaylist to update.
+     */
+    where: RecommendationPlaylistWhereUniqueInput
+  }
+
+  /**
+   * RecommendationPlaylist updateMany
+   */
+  export type RecommendationPlaylistUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RecommendationPlaylists.
+     */
+    data: XOR<RecommendationPlaylistUpdateManyMutationInput, RecommendationPlaylistUncheckedUpdateManyInput>
+    /**
+     * Filter which RecommendationPlaylists to update
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * Limit how many RecommendationPlaylists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RecommendationPlaylist updateManyAndReturn
+   */
+  export type RecommendationPlaylistUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * The data used to update RecommendationPlaylists.
+     */
+    data: XOR<RecommendationPlaylistUpdateManyMutationInput, RecommendationPlaylistUncheckedUpdateManyInput>
+    /**
+     * Filter which RecommendationPlaylists to update
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * Limit how many RecommendationPlaylists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RecommendationPlaylist upsert
+   */
+  export type RecommendationPlaylistUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RecommendationPlaylist to update in case it exists.
+     */
+    where: RecommendationPlaylistWhereUniqueInput
+    /**
+     * In case the RecommendationPlaylist found by the `where` argument doesn't exist, create a new RecommendationPlaylist with this data.
+     */
+    create: XOR<RecommendationPlaylistCreateInput, RecommendationPlaylistUncheckedCreateInput>
+    /**
+     * In case the RecommendationPlaylist was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RecommendationPlaylistUpdateInput, RecommendationPlaylistUncheckedUpdateInput>
+  }
+
+  /**
+   * RecommendationPlaylist delete
+   */
+  export type RecommendationPlaylistDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+    /**
+     * Filter which RecommendationPlaylist to delete.
+     */
+    where: RecommendationPlaylistWhereUniqueInput
+  }
+
+  /**
+   * RecommendationPlaylist deleteMany
+   */
+  export type RecommendationPlaylistDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RecommendationPlaylists to delete
+     */
+    where?: RecommendationPlaylistWhereInput
+    /**
+     * Limit how many RecommendationPlaylists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RecommendationPlaylist.recommendations
+   */
+  export type RecommendationPlaylist$recommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recommendation
+     */
+    select?: RecommendationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recommendation
+     */
+    omit?: RecommendationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationInclude<ExtArgs> | null
+    where?: RecommendationWhereInput
+    orderBy?: RecommendationOrderByWithRelationInput | RecommendationOrderByWithRelationInput[]
+    cursor?: RecommendationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecommendationScalarFieldEnum | RecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * RecommendationPlaylist without action
+   */
+  export type RecommendationPlaylistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecommendationPlaylist
+     */
+    select?: RecommendationPlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RecommendationPlaylist
+     */
+    omit?: RecommendationPlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecommendationPlaylistInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9773,6 +14986,27 @@ export namespace Prisma {
   export type SongScalarFieldEnum = (typeof SongScalarFieldEnum)[keyof typeof SongScalarFieldEnum]
 
 
+  export const ListeningScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    songId: 'songId',
+    timestamp: 'timestamp'
+  };
+
+  export type ListeningScalarFieldEnum = (typeof ListeningScalarFieldEnum)[keyof typeof ListeningScalarFieldEnum]
+
+
+  export const RecommendationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    songId: 'songId',
+    score: 'score',
+    createdAt: 'createdAt'
+  };
+
+  export type RecommendationScalarFieldEnum = (typeof RecommendationScalarFieldEnum)[keyof typeof RecommendationScalarFieldEnum]
+
+
   export const ArtistScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -9796,6 +15030,32 @@ export namespace Prisma {
   };
 
   export type AlbumScalarFieldEnum = (typeof AlbumScalarFieldEnum)[keyof typeof AlbumScalarFieldEnum]
+
+
+  export const PlaylistScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    type: 'type',
+    coverUrl: 'coverUrl',
+    creatorId: 'creatorId',
+    createAt: 'createAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PlaylistScalarFieldEnum = (typeof PlaylistScalarFieldEnum)[keyof typeof PlaylistScalarFieldEnum]
+
+
+  export const RecommendationPlaylistScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    userId: 'userId',
+    createAt: 'createAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RecommendationPlaylistScalarFieldEnum = (typeof RecommendationPlaylistScalarFieldEnum)[keyof typeof RecommendationPlaylistScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9936,6 +15196,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PlaylistType'
+   */
+  export type EnumPlaylistTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlaylistType'>
+    
+
+
+  /**
+   * Reference to a field of type 'PlaylistType[]'
+   */
+  export type ListEnumPlaylistTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlaylistType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -9974,6 +15248,11 @@ export namespace Prisma {
     favoriteMusic?: SongListRelationFilter
     ownMusic?: SongListRelationFilter
     favoriteArtists?: ArtistListRelationFilter
+    listenings?: ListeningListRelationFilter
+    recommendations?: RecommendationListRelationFilter
+    mixes?: RecommendationPlaylistListRelationFilter
+    myPlaylists?: PlaylistListRelationFilter
+    favoritePlaylists?: PlaylistListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9995,6 +15274,11 @@ export namespace Prisma {
     favoriteMusic?: SongOrderByRelationAggregateInput
     ownMusic?: SongOrderByRelationAggregateInput
     favoriteArtists?: ArtistOrderByRelationAggregateInput
+    listenings?: ListeningOrderByRelationAggregateInput
+    recommendations?: RecommendationOrderByRelationAggregateInput
+    mixes?: RecommendationPlaylistOrderByRelationAggregateInput
+    myPlaylists?: PlaylistOrderByRelationAggregateInput
+    favoritePlaylists?: PlaylistOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10019,6 +15303,11 @@ export namespace Prisma {
     favoriteMusic?: SongListRelationFilter
     ownMusic?: SongListRelationFilter
     favoriteArtists?: ArtistListRelationFilter
+    listenings?: ListeningListRelationFilter
+    recommendations?: RecommendationListRelationFilter
+    mixes?: RecommendationPlaylistListRelationFilter
+    myPlaylists?: PlaylistListRelationFilter
+    favoritePlaylists?: PlaylistListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -10262,6 +15551,9 @@ export namespace Prisma {
     album?: XOR<AlbumNullableScalarRelationFilter, AlbumWhereInput> | null
     users?: UserListRelationFilter
     uploader?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    playlists?: PlaylistListRelationFilter
+    listenings?: ListeningListRelationFilter
+    recommendations?: RecommendationListRelationFilter
   }
 
   export type SongOrderByWithRelationInput = {
@@ -10281,6 +15573,9 @@ export namespace Prisma {
     album?: AlbumOrderByWithRelationInput
     users?: UserOrderByRelationAggregateInput
     uploader?: UserOrderByWithRelationInput
+    playlists?: PlaylistOrderByRelationAggregateInput
+    listenings?: ListeningOrderByRelationAggregateInput
+    recommendations?: RecommendationOrderByRelationAggregateInput
   }
 
   export type SongWhereUniqueInput = Prisma.AtLeast<{
@@ -10303,6 +15598,9 @@ export namespace Prisma {
     album?: XOR<AlbumNullableScalarRelationFilter, AlbumWhereInput> | null
     users?: UserListRelationFilter
     uploader?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    playlists?: PlaylistListRelationFilter
+    listenings?: ListeningListRelationFilter
+    recommendations?: RecommendationListRelationFilter
   }, "id">
 
   export type SongOrderByWithAggregationInput = {
@@ -10341,6 +15639,124 @@ export namespace Prisma {
     uploaderId?: StringNullableWithAggregatesFilter<"Song"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Song"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Song"> | Date | string
+  }
+
+  export type ListeningWhereInput = {
+    AND?: ListeningWhereInput | ListeningWhereInput[]
+    OR?: ListeningWhereInput[]
+    NOT?: ListeningWhereInput | ListeningWhereInput[]
+    id?: StringFilter<"Listening"> | string
+    userId?: StringFilter<"Listening"> | string
+    songId?: StringFilter<"Listening"> | string
+    timestamp?: DateTimeFilter<"Listening"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+  }
+
+  export type ListeningOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    timestamp?: SortOrder
+    user?: UserOrderByWithRelationInput
+    song?: SongOrderByWithRelationInput
+  }
+
+  export type ListeningWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_songId?: ListeningUserIdSongIdCompoundUniqueInput
+    AND?: ListeningWhereInput | ListeningWhereInput[]
+    OR?: ListeningWhereInput[]
+    NOT?: ListeningWhereInput | ListeningWhereInput[]
+    userId?: StringFilter<"Listening"> | string
+    songId?: StringFilter<"Listening"> | string
+    timestamp?: DateTimeFilter<"Listening"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+  }, "id" | "userId_songId">
+
+  export type ListeningOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    timestamp?: SortOrder
+    _count?: ListeningCountOrderByAggregateInput
+    _max?: ListeningMaxOrderByAggregateInput
+    _min?: ListeningMinOrderByAggregateInput
+  }
+
+  export type ListeningScalarWhereWithAggregatesInput = {
+    AND?: ListeningScalarWhereWithAggregatesInput | ListeningScalarWhereWithAggregatesInput[]
+    OR?: ListeningScalarWhereWithAggregatesInput[]
+    NOT?: ListeningScalarWhereWithAggregatesInput | ListeningScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Listening"> | string
+    userId?: StringWithAggregatesFilter<"Listening"> | string
+    songId?: StringWithAggregatesFilter<"Listening"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"Listening"> | Date | string
+  }
+
+  export type RecommendationWhereInput = {
+    AND?: RecommendationWhereInput | RecommendationWhereInput[]
+    OR?: RecommendationWhereInput[]
+    NOT?: RecommendationWhereInput | RecommendationWhereInput[]
+    id?: StringFilter<"Recommendation"> | string
+    userId?: StringFilter<"Recommendation"> | string
+    songId?: StringFilter<"Recommendation"> | string
+    score?: FloatFilter<"Recommendation"> | number
+    createdAt?: DateTimeFilter<"Recommendation"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+    playlists?: RecommendationPlaylistListRelationFilter
+  }
+
+  export type RecommendationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    score?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    song?: SongOrderByWithRelationInput
+    playlists?: RecommendationPlaylistOrderByRelationAggregateInput
+  }
+
+  export type RecommendationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_songId?: RecommendationUserIdSongIdCompoundUniqueInput
+    AND?: RecommendationWhereInput | RecommendationWhereInput[]
+    OR?: RecommendationWhereInput[]
+    NOT?: RecommendationWhereInput | RecommendationWhereInput[]
+    userId?: StringFilter<"Recommendation"> | string
+    songId?: StringFilter<"Recommendation"> | string
+    score?: FloatFilter<"Recommendation"> | number
+    createdAt?: DateTimeFilter<"Recommendation"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    song?: XOR<SongScalarRelationFilter, SongWhereInput>
+    playlists?: RecommendationPlaylistListRelationFilter
+  }, "id" | "userId_songId">
+
+  export type RecommendationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    score?: SortOrder
+    createdAt?: SortOrder
+    _count?: RecommendationCountOrderByAggregateInput
+    _avg?: RecommendationAvgOrderByAggregateInput
+    _max?: RecommendationMaxOrderByAggregateInput
+    _min?: RecommendationMinOrderByAggregateInput
+    _sum?: RecommendationSumOrderByAggregateInput
+  }
+
+  export type RecommendationScalarWhereWithAggregatesInput = {
+    AND?: RecommendationScalarWhereWithAggregatesInput | RecommendationScalarWhereWithAggregatesInput[]
+    OR?: RecommendationScalarWhereWithAggregatesInput[]
+    NOT?: RecommendationScalarWhereWithAggregatesInput | RecommendationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Recommendation"> | string
+    userId?: StringWithAggregatesFilter<"Recommendation"> | string
+    songId?: StringWithAggregatesFilter<"Recommendation"> | string
+    score?: FloatWithAggregatesFilter<"Recommendation"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Recommendation"> | Date | string
   }
 
   export type ArtistWhereInput = {
@@ -10477,6 +15893,145 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Album"> | Date | string
   }
 
+  export type PlaylistWhereInput = {
+    AND?: PlaylistWhereInput | PlaylistWhereInput[]
+    OR?: PlaylistWhereInput[]
+    NOT?: PlaylistWhereInput | PlaylistWhereInput[]
+    id?: StringFilter<"Playlist"> | string
+    title?: StringFilter<"Playlist"> | string
+    description?: StringNullableFilter<"Playlist"> | string | null
+    type?: EnumPlaylistTypeFilter<"Playlist"> | $Enums.PlaylistType
+    coverUrl?: StringNullableFilter<"Playlist"> | string | null
+    creatorId?: StringFilter<"Playlist"> | string
+    createAt?: DateTimeFilter<"Playlist"> | Date | string
+    updatedAt?: DateTimeFilter<"Playlist"> | Date | string
+    songs?: SongListRelationFilter
+    creator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    users?: UserListRelationFilter
+  }
+
+  export type PlaylistOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrder
+    coverUrl?: SortOrderInput | SortOrder
+    creatorId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+    songs?: SongOrderByRelationAggregateInput
+    creator?: UserOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
+  }
+
+  export type PlaylistWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlaylistWhereInput | PlaylistWhereInput[]
+    OR?: PlaylistWhereInput[]
+    NOT?: PlaylistWhereInput | PlaylistWhereInput[]
+    title?: StringFilter<"Playlist"> | string
+    description?: StringNullableFilter<"Playlist"> | string | null
+    type?: EnumPlaylistTypeFilter<"Playlist"> | $Enums.PlaylistType
+    coverUrl?: StringNullableFilter<"Playlist"> | string | null
+    creatorId?: StringFilter<"Playlist"> | string
+    createAt?: DateTimeFilter<"Playlist"> | Date | string
+    updatedAt?: DateTimeFilter<"Playlist"> | Date | string
+    songs?: SongListRelationFilter
+    creator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    users?: UserListRelationFilter
+  }, "id">
+
+  export type PlaylistOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrder
+    coverUrl?: SortOrderInput | SortOrder
+    creatorId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PlaylistCountOrderByAggregateInput
+    _max?: PlaylistMaxOrderByAggregateInput
+    _min?: PlaylistMinOrderByAggregateInput
+  }
+
+  export type PlaylistScalarWhereWithAggregatesInput = {
+    AND?: PlaylistScalarWhereWithAggregatesInput | PlaylistScalarWhereWithAggregatesInput[]
+    OR?: PlaylistScalarWhereWithAggregatesInput[]
+    NOT?: PlaylistScalarWhereWithAggregatesInput | PlaylistScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Playlist"> | string
+    title?: StringWithAggregatesFilter<"Playlist"> | string
+    description?: StringNullableWithAggregatesFilter<"Playlist"> | string | null
+    type?: EnumPlaylistTypeWithAggregatesFilter<"Playlist"> | $Enums.PlaylistType
+    coverUrl?: StringNullableWithAggregatesFilter<"Playlist"> | string | null
+    creatorId?: StringWithAggregatesFilter<"Playlist"> | string
+    createAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
+  }
+
+  export type RecommendationPlaylistWhereInput = {
+    AND?: RecommendationPlaylistWhereInput | RecommendationPlaylistWhereInput[]
+    OR?: RecommendationPlaylistWhereInput[]
+    NOT?: RecommendationPlaylistWhereInput | RecommendationPlaylistWhereInput[]
+    id?: StringFilter<"RecommendationPlaylist"> | string
+    title?: StringFilter<"RecommendationPlaylist"> | string
+    description?: StringFilter<"RecommendationPlaylist"> | string
+    userId?: StringFilter<"RecommendationPlaylist"> | string
+    createAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    updatedAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    recommendations?: RecommendationListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type RecommendationPlaylistOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+    recommendations?: RecommendationOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type RecommendationPlaylistWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RecommendationPlaylistWhereInput | RecommendationPlaylistWhereInput[]
+    OR?: RecommendationPlaylistWhereInput[]
+    NOT?: RecommendationPlaylistWhereInput | RecommendationPlaylistWhereInput[]
+    title?: StringFilter<"RecommendationPlaylist"> | string
+    description?: StringFilter<"RecommendationPlaylist"> | string
+    userId?: StringFilter<"RecommendationPlaylist"> | string
+    createAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    updatedAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    recommendations?: RecommendationListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type RecommendationPlaylistOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RecommendationPlaylistCountOrderByAggregateInput
+    _max?: RecommendationPlaylistMaxOrderByAggregateInput
+    _min?: RecommendationPlaylistMinOrderByAggregateInput
+  }
+
+  export type RecommendationPlaylistScalarWhereWithAggregatesInput = {
+    AND?: RecommendationPlaylistScalarWhereWithAggregatesInput | RecommendationPlaylistScalarWhereWithAggregatesInput[]
+    OR?: RecommendationPlaylistScalarWhereWithAggregatesInput[]
+    NOT?: RecommendationPlaylistScalarWhereWithAggregatesInput | RecommendationPlaylistScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
+    title?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
+    description?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
+    userId?: StringWithAggregatesFilter<"RecommendationPlaylist"> | string
+    createAt?: DateTimeWithAggregatesFilter<"RecommendationPlaylist"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RecommendationPlaylist"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -10496,6 +16051,11 @@ export namespace Prisma {
     favoriteMusic?: SongCreateNestedManyWithoutUsersInput
     ownMusic?: SongCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10517,6 +16077,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
     ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserUpdateInput = {
@@ -10538,6 +16103,11 @@ export namespace Prisma {
     favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10559,6 +16129,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10814,6 +16389,9 @@ export namespace Prisma {
     album?: AlbumCreateNestedOneWithoutSongsInput
     users?: UserCreateNestedManyWithoutFavoriteMusicInput
     uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateInput = {
@@ -10831,6 +16409,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
     users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongUpdateInput = {
@@ -10848,6 +16429,9 @@ export namespace Prisma {
     album?: AlbumUpdateOneWithoutSongsNestedInput
     users?: UserUpdateManyWithoutFavoriteMusicNestedInput
     uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateInput = {
@@ -10865,6 +16449,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
     users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongCreateManyInput = {
@@ -10908,6 +16495,111 @@ export namespace Prisma {
     uploaderId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningCreateInput = {
+    id?: string
+    timestamp?: Date | string
+    user: UserCreateNestedOneWithoutListeningsInput
+    song: SongCreateNestedOneWithoutListeningsInput
+  }
+
+  export type ListeningUncheckedCreateInput = {
+    id?: string
+    userId: string
+    songId: string
+    timestamp?: Date | string
+  }
+
+  export type ListeningUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutListeningsNestedInput
+    song?: SongUpdateOneRequiredWithoutListeningsNestedInput
+  }
+
+  export type ListeningUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningCreateManyInput = {
+    id?: string
+    userId: string
+    songId: string
+    timestamp?: Date | string
+  }
+
+  export type ListeningUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationCreateInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRecommendationsInput
+    song: SongCreateNestedOneWithoutRecommendationsInput
+    playlists?: RecommendationPlaylistCreateNestedManyWithoutRecommendationsInput
+  }
+
+  export type RecommendationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    songId: string
+    score: number
+    createdAt?: Date | string
+    playlists?: RecommendationPlaylistUncheckedCreateNestedManyWithoutRecommendationsInput
+  }
+
+  export type RecommendationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRecommendationsNestedInput
+    song?: SongUpdateOneRequiredWithoutRecommendationsNestedInput
+    playlists?: RecommendationPlaylistUpdateManyWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlists?: RecommendationPlaylistUncheckedUpdateManyWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationCreateManyInput = {
+    id?: string
+    userId: string
+    songId: string
+    score: number
+    createdAt?: Date | string
+  }
+
+  export type RecommendationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ArtistCreateInput = {
@@ -11058,6 +16750,156 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlaylistCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    createAt?: Date | string
+    updatedAt?: Date | string
+    songs?: SongCreateNestedManyWithoutPlaylistsInput
+    creator: UserCreateNestedOneWithoutMyPlaylistsInput
+    users?: UserCreateNestedManyWithoutFavoritePlaylistsInput
+  }
+
+  export type PlaylistUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    creatorId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    songs?: SongUncheckedCreateNestedManyWithoutPlaylistsInput
+    users?: UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput
+  }
+
+  export type PlaylistUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: SongUpdateManyWithoutPlaylistsNestedInput
+    creator?: UserUpdateOneRequiredWithoutMyPlaylistsNestedInput
+    users?: UserUpdateManyWithoutFavoritePlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: SongUncheckedUpdateManyWithoutPlaylistsNestedInput
+    users?: UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput
+  }
+
+  export type PlaylistCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    creatorId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlaylistUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlaylistUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationPlaylistCreateInput = {
+    id?: string
+    title: string
+    description: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    recommendations?: RecommendationCreateNestedManyWithoutPlaylistsInput
+    user: UserCreateNestedOneWithoutMixesInput
+  }
+
+  export type RecommendationPlaylistUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    userId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutPlaylistsInput
+  }
+
+  export type RecommendationPlaylistUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recommendations?: RecommendationUpdateManyWithoutPlaylistsNestedInput
+    user?: UserUpdateOneRequiredWithoutMixesNestedInput
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recommendations?: RecommendationUncheckedUpdateManyWithoutPlaylistsNestedInput
+  }
+
+  export type RecommendationPlaylistCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    userId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RecommendationPlaylistUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11144,6 +16986,30 @@ export namespace Prisma {
     none?: ArtistWhereInput
   }
 
+  export type ListeningListRelationFilter = {
+    every?: ListeningWhereInput
+    some?: ListeningWhereInput
+    none?: ListeningWhereInput
+  }
+
+  export type RecommendationListRelationFilter = {
+    every?: RecommendationWhereInput
+    some?: RecommendationWhereInput
+    none?: RecommendationWhereInput
+  }
+
+  export type RecommendationPlaylistListRelationFilter = {
+    every?: RecommendationPlaylistWhereInput
+    some?: RecommendationPlaylistWhereInput
+    none?: RecommendationPlaylistWhereInput
+  }
+
+  export type PlaylistListRelationFilter = {
+    every?: PlaylistWhereInput
+    some?: PlaylistWhereInput
+    none?: PlaylistWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11162,6 +17028,22 @@ export namespace Prisma {
   }
 
   export type ArtistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ListeningOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RecommendationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RecommendationPlaylistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlaylistOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11558,6 +17440,74 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type SongScalarRelationFilter = {
+    is?: SongWhereInput
+    isNot?: SongWhereInput
+  }
+
+  export type ListeningUserIdSongIdCompoundUniqueInput = {
+    userId: string
+    songId: string
+  }
+
+  export type ListeningCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type ListeningMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type ListeningMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type RecommendationUserIdSongIdCompoundUniqueInput = {
+    userId: string
+    songId: string
+  }
+
+  export type RecommendationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    score?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RecommendationAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type RecommendationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    score?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RecommendationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    songId?: SortOrder
+    score?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RecommendationSumOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
   export type AlbumListRelationFilter = {
     every?: AlbumWhereInput
     some?: AlbumWhereInput
@@ -11630,6 +17580,83 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumPlaylistTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaylistType | EnumPlaylistTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaylistTypeFilter<$PrismaModel> | $Enums.PlaylistType
+  }
+
+  export type PlaylistCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    coverUrl?: SortOrder
+    creatorId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlaylistMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    coverUrl?: SortOrder
+    creatorId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlaylistMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    coverUrl?: SortOrder
+    creatorId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumPlaylistTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaylistType | EnumPlaylistTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaylistTypeWithAggregatesFilter<$PrismaModel> | $Enums.PlaylistType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPlaylistTypeFilter<$PrismaModel>
+    _max?: NestedEnumPlaylistTypeFilter<$PrismaModel>
+  }
+
+  export type RecommendationPlaylistCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RecommendationPlaylistMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RecommendationPlaylistMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    createAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type TokenCreateNestedManyWithoutUserInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -11669,6 +17696,40 @@ export namespace Prisma {
     connect?: ArtistWhereUniqueInput | ArtistWhereUniqueInput[]
   }
 
+  export type ListeningCreateNestedManyWithoutUserInput = {
+    create?: XOR<ListeningCreateWithoutUserInput, ListeningUncheckedCreateWithoutUserInput> | ListeningCreateWithoutUserInput[] | ListeningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutUserInput | ListeningCreateOrConnectWithoutUserInput[]
+    createMany?: ListeningCreateManyUserInputEnvelope
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+  }
+
+  export type RecommendationCreateNestedManyWithoutUserInput = {
+    create?: XOR<RecommendationCreateWithoutUserInput, RecommendationUncheckedCreateWithoutUserInput> | RecommendationCreateWithoutUserInput[] | RecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutUserInput | RecommendationCreateOrConnectWithoutUserInput[]
+    createMany?: RecommendationCreateManyUserInputEnvelope
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+  }
+
+  export type RecommendationPlaylistCreateNestedManyWithoutUserInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutUserInput, RecommendationPlaylistUncheckedCreateWithoutUserInput> | RecommendationPlaylistCreateWithoutUserInput[] | RecommendationPlaylistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutUserInput | RecommendationPlaylistCreateOrConnectWithoutUserInput[]
+    createMany?: RecommendationPlaylistCreateManyUserInputEnvelope
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+  }
+
+  export type PlaylistCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<PlaylistCreateWithoutCreatorInput, PlaylistUncheckedCreateWithoutCreatorInput> | PlaylistCreateWithoutCreatorInput[] | PlaylistUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutCreatorInput | PlaylistCreateOrConnectWithoutCreatorInput[]
+    createMany?: PlaylistCreateManyCreatorInputEnvelope
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  }
+
+  export type PlaylistCreateNestedManyWithoutUsersInput = {
+    create?: XOR<PlaylistCreateWithoutUsersInput, PlaylistUncheckedCreateWithoutUsersInput> | PlaylistCreateWithoutUsersInput[] | PlaylistUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutUsersInput | PlaylistCreateOrConnectWithoutUsersInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  }
+
   export type TokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -11706,6 +17767,40 @@ export namespace Prisma {
     create?: XOR<ArtistCreateWithoutFollowersInput, ArtistUncheckedCreateWithoutFollowersInput> | ArtistCreateWithoutFollowersInput[] | ArtistUncheckedCreateWithoutFollowersInput[]
     connectOrCreate?: ArtistCreateOrConnectWithoutFollowersInput | ArtistCreateOrConnectWithoutFollowersInput[]
     connect?: ArtistWhereUniqueInput | ArtistWhereUniqueInput[]
+  }
+
+  export type ListeningUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ListeningCreateWithoutUserInput, ListeningUncheckedCreateWithoutUserInput> | ListeningCreateWithoutUserInput[] | ListeningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutUserInput | ListeningCreateOrConnectWithoutUserInput[]
+    createMany?: ListeningCreateManyUserInputEnvelope
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+  }
+
+  export type RecommendationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RecommendationCreateWithoutUserInput, RecommendationUncheckedCreateWithoutUserInput> | RecommendationCreateWithoutUserInput[] | RecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutUserInput | RecommendationCreateOrConnectWithoutUserInput[]
+    createMany?: RecommendationCreateManyUserInputEnvelope
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+  }
+
+  export type RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutUserInput, RecommendationPlaylistUncheckedCreateWithoutUserInput> | RecommendationPlaylistCreateWithoutUserInput[] | RecommendationPlaylistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutUserInput | RecommendationPlaylistCreateOrConnectWithoutUserInput[]
+    createMany?: RecommendationPlaylistCreateManyUserInputEnvelope
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+  }
+
+  export type PlaylistUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<PlaylistCreateWithoutCreatorInput, PlaylistUncheckedCreateWithoutCreatorInput> | PlaylistCreateWithoutCreatorInput[] | PlaylistUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutCreatorInput | PlaylistCreateOrConnectWithoutCreatorInput[]
+    createMany?: PlaylistCreateManyCreatorInputEnvelope
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  }
+
+  export type PlaylistUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<PlaylistCreateWithoutUsersInput, PlaylistUncheckedCreateWithoutUsersInput> | PlaylistCreateWithoutUsersInput[] | PlaylistUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutUsersInput | PlaylistCreateOrConnectWithoutUsersInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11806,6 +17901,75 @@ export namespace Prisma {
     deleteMany?: ArtistScalarWhereInput | ArtistScalarWhereInput[]
   }
 
+  export type ListeningUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ListeningCreateWithoutUserInput, ListeningUncheckedCreateWithoutUserInput> | ListeningCreateWithoutUserInput[] | ListeningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutUserInput | ListeningCreateOrConnectWithoutUserInput[]
+    upsert?: ListeningUpsertWithWhereUniqueWithoutUserInput | ListeningUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ListeningCreateManyUserInputEnvelope
+    set?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    disconnect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    delete?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    update?: ListeningUpdateWithWhereUniqueWithoutUserInput | ListeningUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ListeningUpdateManyWithWhereWithoutUserInput | ListeningUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ListeningScalarWhereInput | ListeningScalarWhereInput[]
+  }
+
+  export type RecommendationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RecommendationCreateWithoutUserInput, RecommendationUncheckedCreateWithoutUserInput> | RecommendationCreateWithoutUserInput[] | RecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutUserInput | RecommendationCreateOrConnectWithoutUserInput[]
+    upsert?: RecommendationUpsertWithWhereUniqueWithoutUserInput | RecommendationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RecommendationCreateManyUserInputEnvelope
+    set?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    disconnect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    delete?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    update?: RecommendationUpdateWithWhereUniqueWithoutUserInput | RecommendationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RecommendationUpdateManyWithWhereWithoutUserInput | RecommendationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+  }
+
+  export type RecommendationPlaylistUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutUserInput, RecommendationPlaylistUncheckedCreateWithoutUserInput> | RecommendationPlaylistCreateWithoutUserInput[] | RecommendationPlaylistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutUserInput | RecommendationPlaylistCreateOrConnectWithoutUserInput[]
+    upsert?: RecommendationPlaylistUpsertWithWhereUniqueWithoutUserInput | RecommendationPlaylistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RecommendationPlaylistCreateManyUserInputEnvelope
+    set?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    disconnect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    delete?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    update?: RecommendationPlaylistUpdateWithWhereUniqueWithoutUserInput | RecommendationPlaylistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RecommendationPlaylistUpdateManyWithWhereWithoutUserInput | RecommendationPlaylistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RecommendationPlaylistScalarWhereInput | RecommendationPlaylistScalarWhereInput[]
+  }
+
+  export type PlaylistUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<PlaylistCreateWithoutCreatorInput, PlaylistUncheckedCreateWithoutCreatorInput> | PlaylistCreateWithoutCreatorInput[] | PlaylistUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutCreatorInput | PlaylistCreateOrConnectWithoutCreatorInput[]
+    upsert?: PlaylistUpsertWithWhereUniqueWithoutCreatorInput | PlaylistUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: PlaylistCreateManyCreatorInputEnvelope
+    set?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    disconnect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    delete?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    update?: PlaylistUpdateWithWhereUniqueWithoutCreatorInput | PlaylistUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: PlaylistUpdateManyWithWhereWithoutCreatorInput | PlaylistUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
+  export type PlaylistUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<PlaylistCreateWithoutUsersInput, PlaylistUncheckedCreateWithoutUsersInput> | PlaylistCreateWithoutUsersInput[] | PlaylistUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutUsersInput | PlaylistCreateOrConnectWithoutUsersInput[]
+    upsert?: PlaylistUpsertWithWhereUniqueWithoutUsersInput | PlaylistUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    disconnect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    delete?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    update?: PlaylistUpdateWithWhereUniqueWithoutUsersInput | PlaylistUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: PlaylistUpdateManyWithWhereWithoutUsersInput | PlaylistUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
   export type TokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -11884,6 +18048,75 @@ export namespace Prisma {
     deleteMany?: ArtistScalarWhereInput | ArtistScalarWhereInput[]
   }
 
+  export type ListeningUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ListeningCreateWithoutUserInput, ListeningUncheckedCreateWithoutUserInput> | ListeningCreateWithoutUserInput[] | ListeningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutUserInput | ListeningCreateOrConnectWithoutUserInput[]
+    upsert?: ListeningUpsertWithWhereUniqueWithoutUserInput | ListeningUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ListeningCreateManyUserInputEnvelope
+    set?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    disconnect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    delete?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    update?: ListeningUpdateWithWhereUniqueWithoutUserInput | ListeningUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ListeningUpdateManyWithWhereWithoutUserInput | ListeningUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ListeningScalarWhereInput | ListeningScalarWhereInput[]
+  }
+
+  export type RecommendationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RecommendationCreateWithoutUserInput, RecommendationUncheckedCreateWithoutUserInput> | RecommendationCreateWithoutUserInput[] | RecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutUserInput | RecommendationCreateOrConnectWithoutUserInput[]
+    upsert?: RecommendationUpsertWithWhereUniqueWithoutUserInput | RecommendationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RecommendationCreateManyUserInputEnvelope
+    set?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    disconnect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    delete?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    update?: RecommendationUpdateWithWhereUniqueWithoutUserInput | RecommendationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RecommendationUpdateManyWithWhereWithoutUserInput | RecommendationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutUserInput, RecommendationPlaylistUncheckedCreateWithoutUserInput> | RecommendationPlaylistCreateWithoutUserInput[] | RecommendationPlaylistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutUserInput | RecommendationPlaylistCreateOrConnectWithoutUserInput[]
+    upsert?: RecommendationPlaylistUpsertWithWhereUniqueWithoutUserInput | RecommendationPlaylistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RecommendationPlaylistCreateManyUserInputEnvelope
+    set?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    disconnect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    delete?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    update?: RecommendationPlaylistUpdateWithWhereUniqueWithoutUserInput | RecommendationPlaylistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RecommendationPlaylistUpdateManyWithWhereWithoutUserInput | RecommendationPlaylistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RecommendationPlaylistScalarWhereInput | RecommendationPlaylistScalarWhereInput[]
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<PlaylistCreateWithoutCreatorInput, PlaylistUncheckedCreateWithoutCreatorInput> | PlaylistCreateWithoutCreatorInput[] | PlaylistUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutCreatorInput | PlaylistCreateOrConnectWithoutCreatorInput[]
+    upsert?: PlaylistUpsertWithWhereUniqueWithoutCreatorInput | PlaylistUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: PlaylistCreateManyCreatorInputEnvelope
+    set?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    disconnect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    delete?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    update?: PlaylistUpdateWithWhereUniqueWithoutCreatorInput | PlaylistUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: PlaylistUpdateManyWithWhereWithoutCreatorInput | PlaylistUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<PlaylistCreateWithoutUsersInput, PlaylistUncheckedCreateWithoutUsersInput> | PlaylistCreateWithoutUsersInput[] | PlaylistUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutUsersInput | PlaylistCreateOrConnectWithoutUsersInput[]
+    upsert?: PlaylistUpsertWithWhereUniqueWithoutUsersInput | PlaylistUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    disconnect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    delete?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    update?: PlaylistUpdateWithWhereUniqueWithoutUsersInput | PlaylistUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: PlaylistUpdateManyWithWhereWithoutUsersInput | PlaylistUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNotificationsInput = {
     create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
@@ -11958,6 +18191,26 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PlaylistCreateNestedManyWithoutSongsInput = {
+    create?: XOR<PlaylistCreateWithoutSongsInput, PlaylistUncheckedCreateWithoutSongsInput> | PlaylistCreateWithoutSongsInput[] | PlaylistUncheckedCreateWithoutSongsInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutSongsInput | PlaylistCreateOrConnectWithoutSongsInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  }
+
+  export type ListeningCreateNestedManyWithoutSongInput = {
+    create?: XOR<ListeningCreateWithoutSongInput, ListeningUncheckedCreateWithoutSongInput> | ListeningCreateWithoutSongInput[] | ListeningUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutSongInput | ListeningCreateOrConnectWithoutSongInput[]
+    createMany?: ListeningCreateManySongInputEnvelope
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+  }
+
+  export type RecommendationCreateNestedManyWithoutSongInput = {
+    create?: XOR<RecommendationCreateWithoutSongInput, RecommendationUncheckedCreateWithoutSongInput> | RecommendationCreateWithoutSongInput[] | RecommendationUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutSongInput | RecommendationCreateOrConnectWithoutSongInput[]
+    createMany?: RecommendationCreateManySongInputEnvelope
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+  }
+
   export type ArtistUncheckedCreateNestedManyWithoutSongsInput = {
     create?: XOR<ArtistCreateWithoutSongsInput, ArtistUncheckedCreateWithoutSongsInput> | ArtistCreateWithoutSongsInput[] | ArtistUncheckedCreateWithoutSongsInput[]
     connectOrCreate?: ArtistCreateOrConnectWithoutSongsInput | ArtistCreateOrConnectWithoutSongsInput[]
@@ -11968,6 +18221,26 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutFavoriteMusicInput, UserUncheckedCreateWithoutFavoriteMusicInput> | UserCreateWithoutFavoriteMusicInput[] | UserUncheckedCreateWithoutFavoriteMusicInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFavoriteMusicInput | UserCreateOrConnectWithoutFavoriteMusicInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type PlaylistUncheckedCreateNestedManyWithoutSongsInput = {
+    create?: XOR<PlaylistCreateWithoutSongsInput, PlaylistUncheckedCreateWithoutSongsInput> | PlaylistCreateWithoutSongsInput[] | PlaylistUncheckedCreateWithoutSongsInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutSongsInput | PlaylistCreateOrConnectWithoutSongsInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  }
+
+  export type ListeningUncheckedCreateNestedManyWithoutSongInput = {
+    create?: XOR<ListeningCreateWithoutSongInput, ListeningUncheckedCreateWithoutSongInput> | ListeningCreateWithoutSongInput[] | ListeningUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutSongInput | ListeningCreateOrConnectWithoutSongInput[]
+    createMany?: ListeningCreateManySongInputEnvelope
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+  }
+
+  export type RecommendationUncheckedCreateNestedManyWithoutSongInput = {
+    create?: XOR<RecommendationCreateWithoutSongInput, RecommendationUncheckedCreateWithoutSongInput> | RecommendationCreateWithoutSongInput[] | RecommendationUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutSongInput | RecommendationCreateOrConnectWithoutSongInput[]
+    createMany?: RecommendationCreateManySongInputEnvelope
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -12033,6 +18306,47 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOwnMusicInput, UserUpdateWithoutOwnMusicInput>, UserUncheckedUpdateWithoutOwnMusicInput>
   }
 
+  export type PlaylistUpdateManyWithoutSongsNestedInput = {
+    create?: XOR<PlaylistCreateWithoutSongsInput, PlaylistUncheckedCreateWithoutSongsInput> | PlaylistCreateWithoutSongsInput[] | PlaylistUncheckedCreateWithoutSongsInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutSongsInput | PlaylistCreateOrConnectWithoutSongsInput[]
+    upsert?: PlaylistUpsertWithWhereUniqueWithoutSongsInput | PlaylistUpsertWithWhereUniqueWithoutSongsInput[]
+    set?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    disconnect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    delete?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    update?: PlaylistUpdateWithWhereUniqueWithoutSongsInput | PlaylistUpdateWithWhereUniqueWithoutSongsInput[]
+    updateMany?: PlaylistUpdateManyWithWhereWithoutSongsInput | PlaylistUpdateManyWithWhereWithoutSongsInput[]
+    deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
+  export type ListeningUpdateManyWithoutSongNestedInput = {
+    create?: XOR<ListeningCreateWithoutSongInput, ListeningUncheckedCreateWithoutSongInput> | ListeningCreateWithoutSongInput[] | ListeningUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutSongInput | ListeningCreateOrConnectWithoutSongInput[]
+    upsert?: ListeningUpsertWithWhereUniqueWithoutSongInput | ListeningUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: ListeningCreateManySongInputEnvelope
+    set?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    disconnect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    delete?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    update?: ListeningUpdateWithWhereUniqueWithoutSongInput | ListeningUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: ListeningUpdateManyWithWhereWithoutSongInput | ListeningUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: ListeningScalarWhereInput | ListeningScalarWhereInput[]
+  }
+
+  export type RecommendationUpdateManyWithoutSongNestedInput = {
+    create?: XOR<RecommendationCreateWithoutSongInput, RecommendationUncheckedCreateWithoutSongInput> | RecommendationCreateWithoutSongInput[] | RecommendationUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutSongInput | RecommendationCreateOrConnectWithoutSongInput[]
+    upsert?: RecommendationUpsertWithWhereUniqueWithoutSongInput | RecommendationUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: RecommendationCreateManySongInputEnvelope
+    set?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    disconnect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    delete?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    update?: RecommendationUpdateWithWhereUniqueWithoutSongInput | RecommendationUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: RecommendationUpdateManyWithWhereWithoutSongInput | RecommendationUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+  }
+
   export type ArtistUncheckedUpdateManyWithoutSongsNestedInput = {
     create?: XOR<ArtistCreateWithoutSongsInput, ArtistUncheckedCreateWithoutSongsInput> | ArtistCreateWithoutSongsInput[] | ArtistUncheckedCreateWithoutSongsInput[]
     connectOrCreate?: ArtistCreateOrConnectWithoutSongsInput | ArtistCreateOrConnectWithoutSongsInput[]
@@ -12057,6 +18371,141 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutFavoriteMusicInput | UserUpdateWithWhereUniqueWithoutFavoriteMusicInput[]
     updateMany?: UserUpdateManyWithWhereWithoutFavoriteMusicInput | UserUpdateManyWithWhereWithoutFavoriteMusicInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutSongsNestedInput = {
+    create?: XOR<PlaylistCreateWithoutSongsInput, PlaylistUncheckedCreateWithoutSongsInput> | PlaylistCreateWithoutSongsInput[] | PlaylistUncheckedCreateWithoutSongsInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutSongsInput | PlaylistCreateOrConnectWithoutSongsInput[]
+    upsert?: PlaylistUpsertWithWhereUniqueWithoutSongsInput | PlaylistUpsertWithWhereUniqueWithoutSongsInput[]
+    set?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    disconnect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    delete?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+    update?: PlaylistUpdateWithWhereUniqueWithoutSongsInput | PlaylistUpdateWithWhereUniqueWithoutSongsInput[]
+    updateMany?: PlaylistUpdateManyWithWhereWithoutSongsInput | PlaylistUpdateManyWithWhereWithoutSongsInput[]
+    deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
+  export type ListeningUncheckedUpdateManyWithoutSongNestedInput = {
+    create?: XOR<ListeningCreateWithoutSongInput, ListeningUncheckedCreateWithoutSongInput> | ListeningCreateWithoutSongInput[] | ListeningUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: ListeningCreateOrConnectWithoutSongInput | ListeningCreateOrConnectWithoutSongInput[]
+    upsert?: ListeningUpsertWithWhereUniqueWithoutSongInput | ListeningUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: ListeningCreateManySongInputEnvelope
+    set?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    disconnect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    delete?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    connect?: ListeningWhereUniqueInput | ListeningWhereUniqueInput[]
+    update?: ListeningUpdateWithWhereUniqueWithoutSongInput | ListeningUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: ListeningUpdateManyWithWhereWithoutSongInput | ListeningUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: ListeningScalarWhereInput | ListeningScalarWhereInput[]
+  }
+
+  export type RecommendationUncheckedUpdateManyWithoutSongNestedInput = {
+    create?: XOR<RecommendationCreateWithoutSongInput, RecommendationUncheckedCreateWithoutSongInput> | RecommendationCreateWithoutSongInput[] | RecommendationUncheckedCreateWithoutSongInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutSongInput | RecommendationCreateOrConnectWithoutSongInput[]
+    upsert?: RecommendationUpsertWithWhereUniqueWithoutSongInput | RecommendationUpsertWithWhereUniqueWithoutSongInput[]
+    createMany?: RecommendationCreateManySongInputEnvelope
+    set?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    disconnect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    delete?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    update?: RecommendationUpdateWithWhereUniqueWithoutSongInput | RecommendationUpdateWithWhereUniqueWithoutSongInput[]
+    updateMany?: RecommendationUpdateManyWithWhereWithoutSongInput | RecommendationUpdateManyWithWhereWithoutSongInput[]
+    deleteMany?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutListeningsInput = {
+    create?: XOR<UserCreateWithoutListeningsInput, UserUncheckedCreateWithoutListeningsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutListeningsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SongCreateNestedOneWithoutListeningsInput = {
+    create?: XOR<SongCreateWithoutListeningsInput, SongUncheckedCreateWithoutListeningsInput>
+    connectOrCreate?: SongCreateOrConnectWithoutListeningsInput
+    connect?: SongWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutListeningsNestedInput = {
+    create?: XOR<UserCreateWithoutListeningsInput, UserUncheckedCreateWithoutListeningsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutListeningsInput
+    upsert?: UserUpsertWithoutListeningsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutListeningsInput, UserUpdateWithoutListeningsInput>, UserUncheckedUpdateWithoutListeningsInput>
+  }
+
+  export type SongUpdateOneRequiredWithoutListeningsNestedInput = {
+    create?: XOR<SongCreateWithoutListeningsInput, SongUncheckedCreateWithoutListeningsInput>
+    connectOrCreate?: SongCreateOrConnectWithoutListeningsInput
+    upsert?: SongUpsertWithoutListeningsInput
+    connect?: SongWhereUniqueInput
+    update?: XOR<XOR<SongUpdateToOneWithWhereWithoutListeningsInput, SongUpdateWithoutListeningsInput>, SongUncheckedUpdateWithoutListeningsInput>
+  }
+
+  export type UserCreateNestedOneWithoutRecommendationsInput = {
+    create?: XOR<UserCreateWithoutRecommendationsInput, UserUncheckedCreateWithoutRecommendationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecommendationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SongCreateNestedOneWithoutRecommendationsInput = {
+    create?: XOR<SongCreateWithoutRecommendationsInput, SongUncheckedCreateWithoutRecommendationsInput>
+    connectOrCreate?: SongCreateOrConnectWithoutRecommendationsInput
+    connect?: SongWhereUniqueInput
+  }
+
+  export type RecommendationPlaylistCreateNestedManyWithoutRecommendationsInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutRecommendationsInput, RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput> | RecommendationPlaylistCreateWithoutRecommendationsInput[] | RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput | RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput[]
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+  }
+
+  export type RecommendationPlaylistUncheckedCreateNestedManyWithoutRecommendationsInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutRecommendationsInput, RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput> | RecommendationPlaylistCreateWithoutRecommendationsInput[] | RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput | RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput[]
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutRecommendationsNestedInput = {
+    create?: XOR<UserCreateWithoutRecommendationsInput, UserUncheckedCreateWithoutRecommendationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecommendationsInput
+    upsert?: UserUpsertWithoutRecommendationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecommendationsInput, UserUpdateWithoutRecommendationsInput>, UserUncheckedUpdateWithoutRecommendationsInput>
+  }
+
+  export type SongUpdateOneRequiredWithoutRecommendationsNestedInput = {
+    create?: XOR<SongCreateWithoutRecommendationsInput, SongUncheckedCreateWithoutRecommendationsInput>
+    connectOrCreate?: SongCreateOrConnectWithoutRecommendationsInput
+    upsert?: SongUpsertWithoutRecommendationsInput
+    connect?: SongWhereUniqueInput
+    update?: XOR<XOR<SongUpdateToOneWithWhereWithoutRecommendationsInput, SongUpdateWithoutRecommendationsInput>, SongUncheckedUpdateWithoutRecommendationsInput>
+  }
+
+  export type RecommendationPlaylistUpdateManyWithoutRecommendationsNestedInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutRecommendationsInput, RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput> | RecommendationPlaylistCreateWithoutRecommendationsInput[] | RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput | RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput[]
+    upsert?: RecommendationPlaylistUpsertWithWhereUniqueWithoutRecommendationsInput | RecommendationPlaylistUpsertWithWhereUniqueWithoutRecommendationsInput[]
+    set?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    disconnect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    delete?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    update?: RecommendationPlaylistUpdateWithWhereUniqueWithoutRecommendationsInput | RecommendationPlaylistUpdateWithWhereUniqueWithoutRecommendationsInput[]
+    updateMany?: RecommendationPlaylistUpdateManyWithWhereWithoutRecommendationsInput | RecommendationPlaylistUpdateManyWithWhereWithoutRecommendationsInput[]
+    deleteMany?: RecommendationPlaylistScalarWhereInput | RecommendationPlaylistScalarWhereInput[]
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateManyWithoutRecommendationsNestedInput = {
+    create?: XOR<RecommendationPlaylistCreateWithoutRecommendationsInput, RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput> | RecommendationPlaylistCreateWithoutRecommendationsInput[] | RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput[]
+    connectOrCreate?: RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput | RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput[]
+    upsert?: RecommendationPlaylistUpsertWithWhereUniqueWithoutRecommendationsInput | RecommendationPlaylistUpsertWithWhereUniqueWithoutRecommendationsInput[]
+    set?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    disconnect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    delete?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    connect?: RecommendationPlaylistWhereUniqueInput | RecommendationPlaylistWhereUniqueInput[]
+    update?: RecommendationPlaylistUpdateWithWhereUniqueWithoutRecommendationsInput | RecommendationPlaylistUpdateWithWhereUniqueWithoutRecommendationsInput[]
+    updateMany?: RecommendationPlaylistUpdateManyWithWhereWithoutRecommendationsInput | RecommendationPlaylistUpdateManyWithWhereWithoutRecommendationsInput[]
+    deleteMany?: RecommendationPlaylistScalarWhereInput | RecommendationPlaylistScalarWhereInput[]
   }
 
   export type SongCreateNestedManyWithoutArtistsInput = {
@@ -12231,6 +18680,152 @@ export namespace Prisma {
     update?: SongUpdateWithWhereUniqueWithoutAlbumInput | SongUpdateWithWhereUniqueWithoutAlbumInput[]
     updateMany?: SongUpdateManyWithWhereWithoutAlbumInput | SongUpdateManyWithWhereWithoutAlbumInput[]
     deleteMany?: SongScalarWhereInput | SongScalarWhereInput[]
+  }
+
+  export type SongCreateNestedManyWithoutPlaylistsInput = {
+    create?: XOR<SongCreateWithoutPlaylistsInput, SongUncheckedCreateWithoutPlaylistsInput> | SongCreateWithoutPlaylistsInput[] | SongUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: SongCreateOrConnectWithoutPlaylistsInput | SongCreateOrConnectWithoutPlaylistsInput[]
+    connect?: SongWhereUniqueInput | SongWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMyPlaylistsInput = {
+    create?: XOR<UserCreateWithoutMyPlaylistsInput, UserUncheckedCreateWithoutMyPlaylistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyPlaylistsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutFavoritePlaylistsInput = {
+    create?: XOR<UserCreateWithoutFavoritePlaylistsInput, UserUncheckedCreateWithoutFavoritePlaylistsInput> | UserCreateWithoutFavoritePlaylistsInput[] | UserUncheckedCreateWithoutFavoritePlaylistsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFavoritePlaylistsInput | UserCreateOrConnectWithoutFavoritePlaylistsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type SongUncheckedCreateNestedManyWithoutPlaylistsInput = {
+    create?: XOR<SongCreateWithoutPlaylistsInput, SongUncheckedCreateWithoutPlaylistsInput> | SongCreateWithoutPlaylistsInput[] | SongUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: SongCreateOrConnectWithoutPlaylistsInput | SongCreateOrConnectWithoutPlaylistsInput[]
+    connect?: SongWhereUniqueInput | SongWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput = {
+    create?: XOR<UserCreateWithoutFavoritePlaylistsInput, UserUncheckedCreateWithoutFavoritePlaylistsInput> | UserCreateWithoutFavoritePlaylistsInput[] | UserUncheckedCreateWithoutFavoritePlaylistsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFavoritePlaylistsInput | UserCreateOrConnectWithoutFavoritePlaylistsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type EnumPlaylistTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PlaylistType
+  }
+
+  export type SongUpdateManyWithoutPlaylistsNestedInput = {
+    create?: XOR<SongCreateWithoutPlaylistsInput, SongUncheckedCreateWithoutPlaylistsInput> | SongCreateWithoutPlaylistsInput[] | SongUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: SongCreateOrConnectWithoutPlaylistsInput | SongCreateOrConnectWithoutPlaylistsInput[]
+    upsert?: SongUpsertWithWhereUniqueWithoutPlaylistsInput | SongUpsertWithWhereUniqueWithoutPlaylistsInput[]
+    set?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    disconnect?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    delete?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    connect?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    update?: SongUpdateWithWhereUniqueWithoutPlaylistsInput | SongUpdateWithWhereUniqueWithoutPlaylistsInput[]
+    updateMany?: SongUpdateManyWithWhereWithoutPlaylistsInput | SongUpdateManyWithWhereWithoutPlaylistsInput[]
+    deleteMany?: SongScalarWhereInput | SongScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutMyPlaylistsNestedInput = {
+    create?: XOR<UserCreateWithoutMyPlaylistsInput, UserUncheckedCreateWithoutMyPlaylistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyPlaylistsInput
+    upsert?: UserUpsertWithoutMyPlaylistsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMyPlaylistsInput, UserUpdateWithoutMyPlaylistsInput>, UserUncheckedUpdateWithoutMyPlaylistsInput>
+  }
+
+  export type UserUpdateManyWithoutFavoritePlaylistsNestedInput = {
+    create?: XOR<UserCreateWithoutFavoritePlaylistsInput, UserUncheckedCreateWithoutFavoritePlaylistsInput> | UserCreateWithoutFavoritePlaylistsInput[] | UserUncheckedCreateWithoutFavoritePlaylistsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFavoritePlaylistsInput | UserCreateOrConnectWithoutFavoritePlaylistsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutFavoritePlaylistsInput | UserUpsertWithWhereUniqueWithoutFavoritePlaylistsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutFavoritePlaylistsInput | UserUpdateWithWhereUniqueWithoutFavoritePlaylistsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutFavoritePlaylistsInput | UserUpdateManyWithWhereWithoutFavoritePlaylistsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type SongUncheckedUpdateManyWithoutPlaylistsNestedInput = {
+    create?: XOR<SongCreateWithoutPlaylistsInput, SongUncheckedCreateWithoutPlaylistsInput> | SongCreateWithoutPlaylistsInput[] | SongUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: SongCreateOrConnectWithoutPlaylistsInput | SongCreateOrConnectWithoutPlaylistsInput[]
+    upsert?: SongUpsertWithWhereUniqueWithoutPlaylistsInput | SongUpsertWithWhereUniqueWithoutPlaylistsInput[]
+    set?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    disconnect?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    delete?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    connect?: SongWhereUniqueInput | SongWhereUniqueInput[]
+    update?: SongUpdateWithWhereUniqueWithoutPlaylistsInput | SongUpdateWithWhereUniqueWithoutPlaylistsInput[]
+    updateMany?: SongUpdateManyWithWhereWithoutPlaylistsInput | SongUpdateManyWithWhereWithoutPlaylistsInput[]
+    deleteMany?: SongScalarWhereInput | SongScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput = {
+    create?: XOR<UserCreateWithoutFavoritePlaylistsInput, UserUncheckedCreateWithoutFavoritePlaylistsInput> | UserCreateWithoutFavoritePlaylistsInput[] | UserUncheckedCreateWithoutFavoritePlaylistsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFavoritePlaylistsInput | UserCreateOrConnectWithoutFavoritePlaylistsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutFavoritePlaylistsInput | UserUpsertWithWhereUniqueWithoutFavoritePlaylistsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutFavoritePlaylistsInput | UserUpdateWithWhereUniqueWithoutFavoritePlaylistsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutFavoritePlaylistsInput | UserUpdateManyWithWhereWithoutFavoritePlaylistsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type RecommendationCreateNestedManyWithoutPlaylistsInput = {
+    create?: XOR<RecommendationCreateWithoutPlaylistsInput, RecommendationUncheckedCreateWithoutPlaylistsInput> | RecommendationCreateWithoutPlaylistsInput[] | RecommendationUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutPlaylistsInput | RecommendationCreateOrConnectWithoutPlaylistsInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMixesInput = {
+    create?: XOR<UserCreateWithoutMixesInput, UserUncheckedCreateWithoutMixesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMixesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RecommendationUncheckedCreateNestedManyWithoutPlaylistsInput = {
+    create?: XOR<RecommendationCreateWithoutPlaylistsInput, RecommendationUncheckedCreateWithoutPlaylistsInput> | RecommendationCreateWithoutPlaylistsInput[] | RecommendationUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutPlaylistsInput | RecommendationCreateOrConnectWithoutPlaylistsInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+  }
+
+  export type RecommendationUpdateManyWithoutPlaylistsNestedInput = {
+    create?: XOR<RecommendationCreateWithoutPlaylistsInput, RecommendationUncheckedCreateWithoutPlaylistsInput> | RecommendationCreateWithoutPlaylistsInput[] | RecommendationUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutPlaylistsInput | RecommendationCreateOrConnectWithoutPlaylistsInput[]
+    upsert?: RecommendationUpsertWithWhereUniqueWithoutPlaylistsInput | RecommendationUpsertWithWhereUniqueWithoutPlaylistsInput[]
+    set?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    disconnect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    delete?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    update?: RecommendationUpdateWithWhereUniqueWithoutPlaylistsInput | RecommendationUpdateWithWhereUniqueWithoutPlaylistsInput[]
+    updateMany?: RecommendationUpdateManyWithWhereWithoutPlaylistsInput | RecommendationUpdateManyWithWhereWithoutPlaylistsInput[]
+    deleteMany?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutMixesNestedInput = {
+    create?: XOR<UserCreateWithoutMixesInput, UserUncheckedCreateWithoutMixesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMixesInput
+    upsert?: UserUpsertWithoutMixesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMixesInput, UserUpdateWithoutMixesInput>, UserUncheckedUpdateWithoutMixesInput>
+  }
+
+  export type RecommendationUncheckedUpdateManyWithoutPlaylistsNestedInput = {
+    create?: XOR<RecommendationCreateWithoutPlaylistsInput, RecommendationUncheckedCreateWithoutPlaylistsInput> | RecommendationCreateWithoutPlaylistsInput[] | RecommendationUncheckedCreateWithoutPlaylistsInput[]
+    connectOrCreate?: RecommendationCreateOrConnectWithoutPlaylistsInput | RecommendationCreateOrConnectWithoutPlaylistsInput[]
+    upsert?: RecommendationUpsertWithWhereUniqueWithoutPlaylistsInput | RecommendationUpsertWithWhereUniqueWithoutPlaylistsInput[]
+    set?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    disconnect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    delete?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    connect?: RecommendationWhereUniqueInput | RecommendationWhereUniqueInput[]
+    update?: RecommendationUpdateWithWhereUniqueWithoutPlaylistsInput | RecommendationUpdateWithWhereUniqueWithoutPlaylistsInput[]
+    updateMany?: RecommendationUpdateManyWithWhereWithoutPlaylistsInput | RecommendationUpdateManyWithWhereWithoutPlaylistsInput[]
+    deleteMany?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12464,6 +19059,23 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumPlaylistTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaylistType | EnumPlaylistTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaylistTypeFilter<$PrismaModel> | $Enums.PlaylistType
+  }
+
+  export type NestedEnumPlaylistTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaylistType | EnumPlaylistTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaylistType[] | ListEnumPlaylistTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaylistTypeWithAggregatesFilter<$PrismaModel> | $Enums.PlaylistType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPlaylistTypeFilter<$PrismaModel>
+    _max?: NestedEnumPlaylistTypeFilter<$PrismaModel>
+  }
+
   export type TokenCreateWithoutUserInput = {
     id?: string
     token: string
@@ -12553,6 +19165,9 @@ export namespace Prisma {
     artists?: ArtistCreateNestedManyWithoutSongsInput
     album?: AlbumCreateNestedOneWithoutSongsInput
     uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutUsersInput = {
@@ -12569,6 +19184,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutUsersInput = {
@@ -12590,6 +19208,9 @@ export namespace Prisma {
     artists?: ArtistCreateNestedManyWithoutSongsInput
     album?: AlbumCreateNestedOneWithoutSongsInput
     users?: UserCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutUploaderInput = {
@@ -12606,6 +19227,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
     users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutUploaderInput = {
@@ -12643,6 +19267,145 @@ export namespace Prisma {
   export type ArtistCreateOrConnectWithoutFollowersInput = {
     where: ArtistWhereUniqueInput
     create: XOR<ArtistCreateWithoutFollowersInput, ArtistUncheckedCreateWithoutFollowersInput>
+  }
+
+  export type ListeningCreateWithoutUserInput = {
+    id?: string
+    timestamp?: Date | string
+    song: SongCreateNestedOneWithoutListeningsInput
+  }
+
+  export type ListeningUncheckedCreateWithoutUserInput = {
+    id?: string
+    songId: string
+    timestamp?: Date | string
+  }
+
+  export type ListeningCreateOrConnectWithoutUserInput = {
+    where: ListeningWhereUniqueInput
+    create: XOR<ListeningCreateWithoutUserInput, ListeningUncheckedCreateWithoutUserInput>
+  }
+
+  export type ListeningCreateManyUserInputEnvelope = {
+    data: ListeningCreateManyUserInput | ListeningCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RecommendationCreateWithoutUserInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    song: SongCreateNestedOneWithoutRecommendationsInput
+    playlists?: RecommendationPlaylistCreateNestedManyWithoutRecommendationsInput
+  }
+
+  export type RecommendationUncheckedCreateWithoutUserInput = {
+    id?: string
+    songId: string
+    score: number
+    createdAt?: Date | string
+    playlists?: RecommendationPlaylistUncheckedCreateNestedManyWithoutRecommendationsInput
+  }
+
+  export type RecommendationCreateOrConnectWithoutUserInput = {
+    where: RecommendationWhereUniqueInput
+    create: XOR<RecommendationCreateWithoutUserInput, RecommendationUncheckedCreateWithoutUserInput>
+  }
+
+  export type RecommendationCreateManyUserInputEnvelope = {
+    data: RecommendationCreateManyUserInput | RecommendationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RecommendationPlaylistCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    recommendations?: RecommendationCreateNestedManyWithoutPlaylistsInput
+  }
+
+  export type RecommendationPlaylistUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutPlaylistsInput
+  }
+
+  export type RecommendationPlaylistCreateOrConnectWithoutUserInput = {
+    where: RecommendationPlaylistWhereUniqueInput
+    create: XOR<RecommendationPlaylistCreateWithoutUserInput, RecommendationPlaylistUncheckedCreateWithoutUserInput>
+  }
+
+  export type RecommendationPlaylistCreateManyUserInputEnvelope = {
+    data: RecommendationPlaylistCreateManyUserInput | RecommendationPlaylistCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlaylistCreateWithoutCreatorInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    createAt?: Date | string
+    updatedAt?: Date | string
+    songs?: SongCreateNestedManyWithoutPlaylistsInput
+    users?: UserCreateNestedManyWithoutFavoritePlaylistsInput
+  }
+
+  export type PlaylistUncheckedCreateWithoutCreatorInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    createAt?: Date | string
+    updatedAt?: Date | string
+    songs?: SongUncheckedCreateNestedManyWithoutPlaylistsInput
+    users?: UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput
+  }
+
+  export type PlaylistCreateOrConnectWithoutCreatorInput = {
+    where: PlaylistWhereUniqueInput
+    create: XOR<PlaylistCreateWithoutCreatorInput, PlaylistUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type PlaylistCreateManyCreatorInputEnvelope = {
+    data: PlaylistCreateManyCreatorInput | PlaylistCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlaylistCreateWithoutUsersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    createAt?: Date | string
+    updatedAt?: Date | string
+    songs?: SongCreateNestedManyWithoutPlaylistsInput
+    creator: UserCreateNestedOneWithoutMyPlaylistsInput
+  }
+
+  export type PlaylistUncheckedCreateWithoutUsersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    creatorId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    songs?: SongUncheckedCreateNestedManyWithoutPlaylistsInput
+  }
+
+  export type PlaylistCreateOrConnectWithoutUsersInput = {
+    where: PlaylistWhereUniqueInput
+    create: XOR<PlaylistCreateWithoutUsersInput, PlaylistUncheckedCreateWithoutUsersInput>
   }
 
   export type TokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -12806,6 +19569,133 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Artist"> | Date | string
   }
 
+  export type ListeningUpsertWithWhereUniqueWithoutUserInput = {
+    where: ListeningWhereUniqueInput
+    update: XOR<ListeningUpdateWithoutUserInput, ListeningUncheckedUpdateWithoutUserInput>
+    create: XOR<ListeningCreateWithoutUserInput, ListeningUncheckedCreateWithoutUserInput>
+  }
+
+  export type ListeningUpdateWithWhereUniqueWithoutUserInput = {
+    where: ListeningWhereUniqueInput
+    data: XOR<ListeningUpdateWithoutUserInput, ListeningUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ListeningUpdateManyWithWhereWithoutUserInput = {
+    where: ListeningScalarWhereInput
+    data: XOR<ListeningUpdateManyMutationInput, ListeningUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ListeningScalarWhereInput = {
+    AND?: ListeningScalarWhereInput | ListeningScalarWhereInput[]
+    OR?: ListeningScalarWhereInput[]
+    NOT?: ListeningScalarWhereInput | ListeningScalarWhereInput[]
+    id?: StringFilter<"Listening"> | string
+    userId?: StringFilter<"Listening"> | string
+    songId?: StringFilter<"Listening"> | string
+    timestamp?: DateTimeFilter<"Listening"> | Date | string
+  }
+
+  export type RecommendationUpsertWithWhereUniqueWithoutUserInput = {
+    where: RecommendationWhereUniqueInput
+    update: XOR<RecommendationUpdateWithoutUserInput, RecommendationUncheckedUpdateWithoutUserInput>
+    create: XOR<RecommendationCreateWithoutUserInput, RecommendationUncheckedCreateWithoutUserInput>
+  }
+
+  export type RecommendationUpdateWithWhereUniqueWithoutUserInput = {
+    where: RecommendationWhereUniqueInput
+    data: XOR<RecommendationUpdateWithoutUserInput, RecommendationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RecommendationUpdateManyWithWhereWithoutUserInput = {
+    where: RecommendationScalarWhereInput
+    data: XOR<RecommendationUpdateManyMutationInput, RecommendationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RecommendationScalarWhereInput = {
+    AND?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+    OR?: RecommendationScalarWhereInput[]
+    NOT?: RecommendationScalarWhereInput | RecommendationScalarWhereInput[]
+    id?: StringFilter<"Recommendation"> | string
+    userId?: StringFilter<"Recommendation"> | string
+    songId?: StringFilter<"Recommendation"> | string
+    score?: FloatFilter<"Recommendation"> | number
+    createdAt?: DateTimeFilter<"Recommendation"> | Date | string
+  }
+
+  export type RecommendationPlaylistUpsertWithWhereUniqueWithoutUserInput = {
+    where: RecommendationPlaylistWhereUniqueInput
+    update: XOR<RecommendationPlaylistUpdateWithoutUserInput, RecommendationPlaylistUncheckedUpdateWithoutUserInput>
+    create: XOR<RecommendationPlaylistCreateWithoutUserInput, RecommendationPlaylistUncheckedCreateWithoutUserInput>
+  }
+
+  export type RecommendationPlaylistUpdateWithWhereUniqueWithoutUserInput = {
+    where: RecommendationPlaylistWhereUniqueInput
+    data: XOR<RecommendationPlaylistUpdateWithoutUserInput, RecommendationPlaylistUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RecommendationPlaylistUpdateManyWithWhereWithoutUserInput = {
+    where: RecommendationPlaylistScalarWhereInput
+    data: XOR<RecommendationPlaylistUpdateManyMutationInput, RecommendationPlaylistUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RecommendationPlaylistScalarWhereInput = {
+    AND?: RecommendationPlaylistScalarWhereInput | RecommendationPlaylistScalarWhereInput[]
+    OR?: RecommendationPlaylistScalarWhereInput[]
+    NOT?: RecommendationPlaylistScalarWhereInput | RecommendationPlaylistScalarWhereInput[]
+    id?: StringFilter<"RecommendationPlaylist"> | string
+    title?: StringFilter<"RecommendationPlaylist"> | string
+    description?: StringFilter<"RecommendationPlaylist"> | string
+    userId?: StringFilter<"RecommendationPlaylist"> | string
+    createAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+    updatedAt?: DateTimeFilter<"RecommendationPlaylist"> | Date | string
+  }
+
+  export type PlaylistUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: PlaylistWhereUniqueInput
+    update: XOR<PlaylistUpdateWithoutCreatorInput, PlaylistUncheckedUpdateWithoutCreatorInput>
+    create: XOR<PlaylistCreateWithoutCreatorInput, PlaylistUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type PlaylistUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: PlaylistWhereUniqueInput
+    data: XOR<PlaylistUpdateWithoutCreatorInput, PlaylistUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type PlaylistUpdateManyWithWhereWithoutCreatorInput = {
+    where: PlaylistScalarWhereInput
+    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type PlaylistScalarWhereInput = {
+    AND?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+    OR?: PlaylistScalarWhereInput[]
+    NOT?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+    id?: StringFilter<"Playlist"> | string
+    title?: StringFilter<"Playlist"> | string
+    description?: StringNullableFilter<"Playlist"> | string | null
+    type?: EnumPlaylistTypeFilter<"Playlist"> | $Enums.PlaylistType
+    coverUrl?: StringNullableFilter<"Playlist"> | string | null
+    creatorId?: StringFilter<"Playlist"> | string
+    createAt?: DateTimeFilter<"Playlist"> | Date | string
+    updatedAt?: DateTimeFilter<"Playlist"> | Date | string
+  }
+
+  export type PlaylistUpsertWithWhereUniqueWithoutUsersInput = {
+    where: PlaylistWhereUniqueInput
+    update: XOR<PlaylistUpdateWithoutUsersInput, PlaylistUncheckedUpdateWithoutUsersInput>
+    create: XOR<PlaylistCreateWithoutUsersInput, PlaylistUncheckedCreateWithoutUsersInput>
+  }
+
+  export type PlaylistUpdateWithWhereUniqueWithoutUsersInput = {
+    where: PlaylistWhereUniqueInput
+    data: XOR<PlaylistUpdateWithoutUsersInput, PlaylistUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type PlaylistUpdateManyWithWhereWithoutUsersInput = {
+    where: PlaylistScalarWhereInput
+    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyWithoutUsersInput>
+  }
+
   export type UserCreateWithoutNotificationsInput = {
     id?: string
     email: string
@@ -12824,6 +19714,11 @@ export namespace Prisma {
     favoriteMusic?: SongCreateNestedManyWithoutUsersInput
     ownMusic?: SongCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -12844,6 +19739,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
     ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -12880,6 +19780,11 @@ export namespace Prisma {
     favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -12900,6 +19805,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutNotificationSettingsInput = {
@@ -12920,6 +19830,11 @@ export namespace Prisma {
     favoriteMusic?: SongCreateNestedManyWithoutUsersInput
     ownMusic?: SongCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutNotificationSettingsInput = {
@@ -12940,6 +19855,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
     ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutNotificationSettingsInput = {
@@ -12976,6 +19896,11 @@ export namespace Prisma {
     favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
@@ -12996,6 +19921,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutTokensInput = {
@@ -13016,6 +19946,11 @@ export namespace Prisma {
     favoriteMusic?: SongCreateNestedManyWithoutUsersInput
     ownMusic?: SongCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -13036,6 +19971,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
     ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -13072,6 +20012,11 @@ export namespace Prisma {
     favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -13092,6 +20037,11 @@ export namespace Prisma {
     favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type ArtistCreateWithoutSongsInput = {
@@ -13164,6 +20114,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     ownMusic?: SongCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteMusicInput = {
@@ -13184,6 +20139,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
     favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteMusicInput = {
@@ -13209,6 +20169,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     favoriteMusic?: SongCreateNestedManyWithoutUsersInput
     favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutOwnMusicInput = {
@@ -13229,11 +20194,93 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
     favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutOwnMusicInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutOwnMusicInput, UserUncheckedCreateWithoutOwnMusicInput>
+  }
+
+  export type PlaylistCreateWithoutSongsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    createAt?: Date | string
+    updatedAt?: Date | string
+    creator: UserCreateNestedOneWithoutMyPlaylistsInput
+    users?: UserCreateNestedManyWithoutFavoritePlaylistsInput
+  }
+
+  export type PlaylistUncheckedCreateWithoutSongsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    creatorId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFavoritePlaylistsInput
+  }
+
+  export type PlaylistCreateOrConnectWithoutSongsInput = {
+    where: PlaylistWhereUniqueInput
+    create: XOR<PlaylistCreateWithoutSongsInput, PlaylistUncheckedCreateWithoutSongsInput>
+  }
+
+  export type ListeningCreateWithoutSongInput = {
+    id?: string
+    timestamp?: Date | string
+    user: UserCreateNestedOneWithoutListeningsInput
+  }
+
+  export type ListeningUncheckedCreateWithoutSongInput = {
+    id?: string
+    userId: string
+    timestamp?: Date | string
+  }
+
+  export type ListeningCreateOrConnectWithoutSongInput = {
+    where: ListeningWhereUniqueInput
+    create: XOR<ListeningCreateWithoutSongInput, ListeningUncheckedCreateWithoutSongInput>
+  }
+
+  export type ListeningCreateManySongInputEnvelope = {
+    data: ListeningCreateManySongInput | ListeningCreateManySongInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RecommendationCreateWithoutSongInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRecommendationsInput
+    playlists?: RecommendationPlaylistCreateNestedManyWithoutRecommendationsInput
+  }
+
+  export type RecommendationUncheckedCreateWithoutSongInput = {
+    id?: string
+    userId: string
+    score: number
+    createdAt?: Date | string
+    playlists?: RecommendationPlaylistUncheckedCreateNestedManyWithoutRecommendationsInput
+  }
+
+  export type RecommendationCreateOrConnectWithoutSongInput = {
+    where: RecommendationWhereUniqueInput
+    create: XOR<RecommendationCreateWithoutSongInput, RecommendationUncheckedCreateWithoutSongInput>
+  }
+
+  export type RecommendationCreateManySongInputEnvelope = {
+    data: RecommendationCreateManySongInput | RecommendationCreateManySongInput[]
+    skipDuplicates?: boolean
   }
 
   export type ArtistUpsertWithWhereUniqueWithoutSongsInput = {
@@ -13346,6 +20393,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
     favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnMusicInput = {
@@ -13366,6 +20418,514 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
     favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type PlaylistUpsertWithWhereUniqueWithoutSongsInput = {
+    where: PlaylistWhereUniqueInput
+    update: XOR<PlaylistUpdateWithoutSongsInput, PlaylistUncheckedUpdateWithoutSongsInput>
+    create: XOR<PlaylistCreateWithoutSongsInput, PlaylistUncheckedCreateWithoutSongsInput>
+  }
+
+  export type PlaylistUpdateWithWhereUniqueWithoutSongsInput = {
+    where: PlaylistWhereUniqueInput
+    data: XOR<PlaylistUpdateWithoutSongsInput, PlaylistUncheckedUpdateWithoutSongsInput>
+  }
+
+  export type PlaylistUpdateManyWithWhereWithoutSongsInput = {
+    where: PlaylistScalarWhereInput
+    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyWithoutSongsInput>
+  }
+
+  export type ListeningUpsertWithWhereUniqueWithoutSongInput = {
+    where: ListeningWhereUniqueInput
+    update: XOR<ListeningUpdateWithoutSongInput, ListeningUncheckedUpdateWithoutSongInput>
+    create: XOR<ListeningCreateWithoutSongInput, ListeningUncheckedCreateWithoutSongInput>
+  }
+
+  export type ListeningUpdateWithWhereUniqueWithoutSongInput = {
+    where: ListeningWhereUniqueInput
+    data: XOR<ListeningUpdateWithoutSongInput, ListeningUncheckedUpdateWithoutSongInput>
+  }
+
+  export type ListeningUpdateManyWithWhereWithoutSongInput = {
+    where: ListeningScalarWhereInput
+    data: XOR<ListeningUpdateManyMutationInput, ListeningUncheckedUpdateManyWithoutSongInput>
+  }
+
+  export type RecommendationUpsertWithWhereUniqueWithoutSongInput = {
+    where: RecommendationWhereUniqueInput
+    update: XOR<RecommendationUpdateWithoutSongInput, RecommendationUncheckedUpdateWithoutSongInput>
+    create: XOR<RecommendationCreateWithoutSongInput, RecommendationUncheckedCreateWithoutSongInput>
+  }
+
+  export type RecommendationUpdateWithWhereUniqueWithoutSongInput = {
+    where: RecommendationWhereUniqueInput
+    data: XOR<RecommendationUpdateWithoutSongInput, RecommendationUncheckedUpdateWithoutSongInput>
+  }
+
+  export type RecommendationUpdateManyWithWhereWithoutSongInput = {
+    where: RecommendationScalarWhereInput
+    data: XOR<RecommendationUpdateManyMutationInput, RecommendationUncheckedUpdateManyWithoutSongInput>
+  }
+
+  export type UserCreateWithoutListeningsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongCreateNestedManyWithoutUsersInput
+    ownMusic?: SongCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutListeningsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
+    ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutListeningsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutListeningsInput, UserUncheckedCreateWithoutListeningsInput>
+  }
+
+  export type SongCreateWithoutListeningsInput = {
+    id?: string
+    title: string
+    duration: number
+    audioUrl: string
+    status?: $Enums.SongStatus
+    genres?: SongCreategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    artists?: ArtistCreateNestedManyWithoutSongsInput
+    album?: AlbumCreateNestedOneWithoutSongsInput
+    users?: UserCreateNestedManyWithoutFavoriteMusicInput
+    uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
+  }
+
+  export type SongUncheckedCreateWithoutListeningsInput = {
+    id?: string
+    title: string
+    albumId?: string | null
+    duration: number
+    audioUrl: string
+    status?: $Enums.SongStatus
+    genres?: SongCreategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: string | null
+    uploaderId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
+    users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
+  }
+
+  export type SongCreateOrConnectWithoutListeningsInput = {
+    where: SongWhereUniqueInput
+    create: XOR<SongCreateWithoutListeningsInput, SongUncheckedCreateWithoutListeningsInput>
+  }
+
+  export type UserUpsertWithoutListeningsInput = {
+    update: XOR<UserUpdateWithoutListeningsInput, UserUncheckedUpdateWithoutListeningsInput>
+    create: XOR<UserCreateWithoutListeningsInput, UserUncheckedCreateWithoutListeningsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutListeningsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutListeningsInput, UserUncheckedUpdateWithoutListeningsInput>
+  }
+
+  export type UserUpdateWithoutListeningsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutListeningsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type SongUpsertWithoutListeningsInput = {
+    update: XOR<SongUpdateWithoutListeningsInput, SongUncheckedUpdateWithoutListeningsInput>
+    create: XOR<SongCreateWithoutListeningsInput, SongUncheckedCreateWithoutListeningsInput>
+    where?: SongWhereInput
+  }
+
+  export type SongUpdateToOneWithWhereWithoutListeningsInput = {
+    where?: SongWhereInput
+    data: XOR<SongUpdateWithoutListeningsInput, SongUncheckedUpdateWithoutListeningsInput>
+  }
+
+  export type SongUpdateWithoutListeningsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artists?: ArtistUpdateManyWithoutSongsNestedInput
+    album?: AlbumUpdateOneWithoutSongsNestedInput
+    users?: UserUpdateManyWithoutFavoriteMusicNestedInput
+    uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongUncheckedUpdateWithoutListeningsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    albumId?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
+    users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
+  }
+
+  export type UserCreateWithoutRecommendationsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongCreateNestedManyWithoutUsersInput
+    ownMusic?: SongCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutRecommendationsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
+    ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutRecommendationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRecommendationsInput, UserUncheckedCreateWithoutRecommendationsInput>
+  }
+
+  export type SongCreateWithoutRecommendationsInput = {
+    id?: string
+    title: string
+    duration: number
+    audioUrl: string
+    status?: $Enums.SongStatus
+    genres?: SongCreategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    artists?: ArtistCreateNestedManyWithoutSongsInput
+    album?: AlbumCreateNestedOneWithoutSongsInput
+    users?: UserCreateNestedManyWithoutFavoriteMusicInput
+    uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+  }
+
+  export type SongUncheckedCreateWithoutRecommendationsInput = {
+    id?: string
+    title: string
+    albumId?: string | null
+    duration: number
+    audioUrl: string
+    status?: $Enums.SongStatus
+    genres?: SongCreategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: string | null
+    uploaderId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
+    users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+  }
+
+  export type SongCreateOrConnectWithoutRecommendationsInput = {
+    where: SongWhereUniqueInput
+    create: XOR<SongCreateWithoutRecommendationsInput, SongUncheckedCreateWithoutRecommendationsInput>
+  }
+
+  export type RecommendationPlaylistCreateWithoutRecommendationsInput = {
+    id?: string
+    title: string
+    description: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMixesInput
+  }
+
+  export type RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput = {
+    id?: string
+    title: string
+    description: string
+    userId: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RecommendationPlaylistCreateOrConnectWithoutRecommendationsInput = {
+    where: RecommendationPlaylistWhereUniqueInput
+    create: XOR<RecommendationPlaylistCreateWithoutRecommendationsInput, RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput>
+  }
+
+  export type UserUpsertWithoutRecommendationsInput = {
+    update: XOR<UserUpdateWithoutRecommendationsInput, UserUncheckedUpdateWithoutRecommendationsInput>
+    create: XOR<UserCreateWithoutRecommendationsInput, UserUncheckedCreateWithoutRecommendationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRecommendationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRecommendationsInput, UserUncheckedUpdateWithoutRecommendationsInput>
+  }
+
+  export type UserUpdateWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type SongUpsertWithoutRecommendationsInput = {
+    update: XOR<SongUpdateWithoutRecommendationsInput, SongUncheckedUpdateWithoutRecommendationsInput>
+    create: XOR<SongCreateWithoutRecommendationsInput, SongUncheckedCreateWithoutRecommendationsInput>
+    where?: SongWhereInput
+  }
+
+  export type SongUpdateToOneWithWhereWithoutRecommendationsInput = {
+    where?: SongWhereInput
+    data: XOR<SongUpdateWithoutRecommendationsInput, SongUncheckedUpdateWithoutRecommendationsInput>
+  }
+
+  export type SongUpdateWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artists?: ArtistUpdateManyWithoutSongsNestedInput
+    album?: AlbumUpdateOneWithoutSongsNestedInput
+    users?: UserUpdateManyWithoutFavoriteMusicNestedInput
+    uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongUncheckedUpdateWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    albumId?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
+    users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+  }
+
+  export type RecommendationPlaylistUpsertWithWhereUniqueWithoutRecommendationsInput = {
+    where: RecommendationPlaylistWhereUniqueInput
+    update: XOR<RecommendationPlaylistUpdateWithoutRecommendationsInput, RecommendationPlaylistUncheckedUpdateWithoutRecommendationsInput>
+    create: XOR<RecommendationPlaylistCreateWithoutRecommendationsInput, RecommendationPlaylistUncheckedCreateWithoutRecommendationsInput>
+  }
+
+  export type RecommendationPlaylistUpdateWithWhereUniqueWithoutRecommendationsInput = {
+    where: RecommendationPlaylistWhereUniqueInput
+    data: XOR<RecommendationPlaylistUpdateWithoutRecommendationsInput, RecommendationPlaylistUncheckedUpdateWithoutRecommendationsInput>
+  }
+
+  export type RecommendationPlaylistUpdateManyWithWhereWithoutRecommendationsInput = {
+    where: RecommendationPlaylistScalarWhereInput
+    data: XOR<RecommendationPlaylistUpdateManyMutationInput, RecommendationPlaylistUncheckedUpdateManyWithoutRecommendationsInput>
   }
 
   export type SongCreateWithoutArtistsInput = {
@@ -13382,6 +20942,9 @@ export namespace Prisma {
     album?: AlbumCreateNestedOneWithoutSongsInput
     users?: UserCreateNestedManyWithoutFavoriteMusicInput
     uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutArtistsInput = {
@@ -13398,6 +20961,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutArtistsInput = {
@@ -13453,6 +21019,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     favoriteMusic?: SongCreateNestedManyWithoutUsersInput
     ownMusic?: SongCreateNestedManyWithoutUploaderInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteArtistsInput = {
@@ -13473,6 +21044,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
     ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteArtistsInput = {
@@ -13555,6 +21131,9 @@ export namespace Prisma {
     artists?: ArtistCreateNestedManyWithoutSongsInput
     users?: UserCreateNestedManyWithoutFavoriteMusicInput
     uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    playlists?: PlaylistCreateNestedManyWithoutSongsInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
   }
 
   export type SongUncheckedCreateWithoutAlbumInput = {
@@ -13571,6 +21150,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
     users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutSongsInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
   }
 
   export type SongCreateOrConnectWithoutAlbumInput = {
@@ -13659,6 +21241,405 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFavoriteArtistsNestedInput
   }
 
+  export type SongCreateWithoutPlaylistsInput = {
+    id?: string
+    title: string
+    duration: number
+    audioUrl: string
+    status?: $Enums.SongStatus
+    genres?: SongCreategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    artists?: ArtistCreateNestedManyWithoutSongsInput
+    album?: AlbumCreateNestedOneWithoutSongsInput
+    users?: UserCreateNestedManyWithoutFavoriteMusicInput
+    uploader?: UserCreateNestedOneWithoutOwnMusicInput
+    listenings?: ListeningCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationCreateNestedManyWithoutSongInput
+  }
+
+  export type SongUncheckedCreateWithoutPlaylistsInput = {
+    id?: string
+    title: string
+    albumId?: string | null
+    duration: number
+    audioUrl: string
+    status?: $Enums.SongStatus
+    genres?: SongCreategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: string | null
+    uploaderId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    artists?: ArtistUncheckedCreateNestedManyWithoutSongsInput
+    users?: UserUncheckedCreateNestedManyWithoutFavoriteMusicInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutSongInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutSongInput
+  }
+
+  export type SongCreateOrConnectWithoutPlaylistsInput = {
+    where: SongWhereUniqueInput
+    create: XOR<SongCreateWithoutPlaylistsInput, SongUncheckedCreateWithoutPlaylistsInput>
+  }
+
+  export type UserCreateWithoutMyPlaylistsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongCreateNestedManyWithoutUsersInput
+    ownMusic?: SongCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutMyPlaylistsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
+    ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutMyPlaylistsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMyPlaylistsInput, UserUncheckedCreateWithoutMyPlaylistsInput>
+  }
+
+  export type UserCreateWithoutFavoritePlaylistsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongCreateNestedManyWithoutUsersInput
+    ownMusic?: SongCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutFavoritePlaylistsInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
+    ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    mixes?: RecommendationPlaylistUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutFavoritePlaylistsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFavoritePlaylistsInput, UserUncheckedCreateWithoutFavoritePlaylistsInput>
+  }
+
+  export type SongUpsertWithWhereUniqueWithoutPlaylistsInput = {
+    where: SongWhereUniqueInput
+    update: XOR<SongUpdateWithoutPlaylistsInput, SongUncheckedUpdateWithoutPlaylistsInput>
+    create: XOR<SongCreateWithoutPlaylistsInput, SongUncheckedCreateWithoutPlaylistsInput>
+  }
+
+  export type SongUpdateWithWhereUniqueWithoutPlaylistsInput = {
+    where: SongWhereUniqueInput
+    data: XOR<SongUpdateWithoutPlaylistsInput, SongUncheckedUpdateWithoutPlaylistsInput>
+  }
+
+  export type SongUpdateManyWithWhereWithoutPlaylistsInput = {
+    where: SongScalarWhereInput
+    data: XOR<SongUpdateManyMutationInput, SongUncheckedUpdateManyWithoutPlaylistsInput>
+  }
+
+  export type UserUpsertWithoutMyPlaylistsInput = {
+    update: XOR<UserUpdateWithoutMyPlaylistsInput, UserUncheckedUpdateWithoutMyPlaylistsInput>
+    create: XOR<UserCreateWithoutMyPlaylistsInput, UserUncheckedCreateWithoutMyPlaylistsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMyPlaylistsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMyPlaylistsInput, UserUncheckedUpdateWithoutMyPlaylistsInput>
+  }
+
+  export type UserUpdateWithoutMyPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMyPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutFavoritePlaylistsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutFavoritePlaylistsInput, UserUncheckedUpdateWithoutFavoritePlaylistsInput>
+    create: XOR<UserCreateWithoutFavoritePlaylistsInput, UserUncheckedCreateWithoutFavoritePlaylistsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutFavoritePlaylistsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutFavoritePlaylistsInput, UserUncheckedUpdateWithoutFavoritePlaylistsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutFavoritePlaylistsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutFavoritePlaylistsInput>
+  }
+
+  export type RecommendationCreateWithoutPlaylistsInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRecommendationsInput
+    song: SongCreateNestedOneWithoutRecommendationsInput
+  }
+
+  export type RecommendationUncheckedCreateWithoutPlaylistsInput = {
+    id?: string
+    userId: string
+    songId: string
+    score: number
+    createdAt?: Date | string
+  }
+
+  export type RecommendationCreateOrConnectWithoutPlaylistsInput = {
+    where: RecommendationWhereUniqueInput
+    create: XOR<RecommendationCreateWithoutPlaylistsInput, RecommendationUncheckedCreateWithoutPlaylistsInput>
+  }
+
+  export type UserCreateWithoutMixesInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongCreateNestedManyWithoutUsersInput
+    ownMusic?: SongCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutMixesInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    firstName: string
+    lastName: string
+    bio?: string | null
+    dateOfBirth?: Date | string | null
+    avatar?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    favoriteMusic?: SongUncheckedCreateNestedManyWithoutUsersInput
+    ownMusic?: SongUncheckedCreateNestedManyWithoutUploaderInput
+    favoriteArtists?: ArtistUncheckedCreateNestedManyWithoutFollowersInput
+    listenings?: ListeningUncheckedCreateNestedManyWithoutUserInput
+    recommendations?: RecommendationUncheckedCreateNestedManyWithoutUserInput
+    myPlaylists?: PlaylistUncheckedCreateNestedManyWithoutCreatorInput
+    favoritePlaylists?: PlaylistUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutMixesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMixesInput, UserUncheckedCreateWithoutMixesInput>
+  }
+
+  export type RecommendationUpsertWithWhereUniqueWithoutPlaylistsInput = {
+    where: RecommendationWhereUniqueInput
+    update: XOR<RecommendationUpdateWithoutPlaylistsInput, RecommendationUncheckedUpdateWithoutPlaylistsInput>
+    create: XOR<RecommendationCreateWithoutPlaylistsInput, RecommendationUncheckedCreateWithoutPlaylistsInput>
+  }
+
+  export type RecommendationUpdateWithWhereUniqueWithoutPlaylistsInput = {
+    where: RecommendationWhereUniqueInput
+    data: XOR<RecommendationUpdateWithoutPlaylistsInput, RecommendationUncheckedUpdateWithoutPlaylistsInput>
+  }
+
+  export type RecommendationUpdateManyWithWhereWithoutPlaylistsInput = {
+    where: RecommendationScalarWhereInput
+    data: XOR<RecommendationUpdateManyMutationInput, RecommendationUncheckedUpdateManyWithoutPlaylistsInput>
+  }
+
+  export type UserUpsertWithoutMixesInput = {
+    update: XOR<UserUpdateWithoutMixesInput, UserUncheckedUpdateWithoutMixesInput>
+    create: XOR<UserCreateWithoutMixesInput, UserUncheckedCreateWithoutMixesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMixesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMixesInput, UserUncheckedUpdateWithoutMixesInput>
+  }
+
+  export type UserUpdateWithoutMixesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMixesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
   export type TokenCreateManyUserInput = {
     id?: string
     token: string
@@ -13688,6 +21669,37 @@ export namespace Prisma {
     lyrics?: NullableJsonNullValueInput | InputJsonValue
     coverUrl?: string | null
     createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListeningCreateManyUserInput = {
+    id?: string
+    songId: string
+    timestamp?: Date | string
+  }
+
+  export type RecommendationCreateManyUserInput = {
+    id?: string
+    songId: string
+    score: number
+    createdAt?: Date | string
+  }
+
+  export type RecommendationPlaylistCreateManyUserInput = {
+    id?: string
+    title: string
+    description: string
+    createAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlaylistCreateManyCreatorInput = {
+    id?: string
+    title: string
+    description?: string | null
+    type?: $Enums.PlaylistType
+    coverUrl?: string | null
+    createAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -13759,6 +21771,9 @@ export namespace Prisma {
     artists?: ArtistUpdateManyWithoutSongsNestedInput
     album?: AlbumUpdateOneWithoutSongsNestedInput
     uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutUsersInput = {
@@ -13775,6 +21790,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateManyWithoutUsersInput = {
@@ -13806,6 +21824,9 @@ export namespace Prisma {
     artists?: ArtistUpdateManyWithoutSongsNestedInput
     album?: AlbumUpdateOneWithoutSongsNestedInput
     users?: UserUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutUploaderInput = {
@@ -13822,6 +21843,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
     users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateManyWithoutUploaderInput = {
@@ -13867,6 +21891,155 @@ export namespace Prisma {
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneRequiredWithoutListeningsNestedInput
+  }
+
+  export type ListeningUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    song?: SongUpdateOneRequiredWithoutRecommendationsNestedInput
+    playlists?: RecommendationPlaylistUpdateManyWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlists?: RecommendationPlaylistUncheckedUpdateManyWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationPlaylistUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recommendations?: RecommendationUpdateManyWithoutPlaylistsNestedInput
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recommendations?: RecommendationUncheckedUpdateManyWithoutPlaylistsNestedInput
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlaylistUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: SongUpdateManyWithoutPlaylistsNestedInput
+    users?: UserUpdateManyWithoutFavoritePlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: SongUncheckedUpdateManyWithoutPlaylistsNestedInput
+    users?: UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlaylistUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: SongUpdateManyWithoutPlaylistsNestedInput
+    creator?: UserUpdateOneRequiredWithoutMyPlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: SongUncheckedUpdateManyWithoutPlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningCreateManySongInput = {
+    id?: string
+    userId: string
+    timestamp?: Date | string
+  }
+
+  export type RecommendationCreateManySongInput = {
+    id?: string
+    userId: string
+    score: number
+    createdAt?: Date | string
   }
 
   export type ArtistUpdateWithoutSongsInput = {
@@ -13918,6 +22091,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     ownMusic?: SongUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteMusicInput = {
@@ -13938,6 +22116,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
     favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFavoriteMusicInput = {
@@ -13952,6 +22135,109 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlaylistUpdateWithoutSongsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UserUpdateOneRequiredWithoutMyPlaylistsNestedInput
+    users?: UserUpdateManyWithoutFavoritePlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateWithoutSongsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFavoritePlaylistsNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutSongsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPlaylistTypeFieldUpdateOperationsInput | $Enums.PlaylistType
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutListeningsNestedInput
+  }
+
+  export type ListeningUncheckedUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListeningUncheckedUpdateManyWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRecommendationsNestedInput
+    playlists?: RecommendationPlaylistUpdateManyWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlists?: RecommendationPlaylistUncheckedUpdateManyWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateManyWithoutSongInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationPlaylistUpdateWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMixesNestedInput
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationPlaylistUncheckedUpdateManyWithoutRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13978,6 +22264,9 @@ export namespace Prisma {
     album?: AlbumUpdateOneWithoutSongsNestedInput
     users?: UserUpdateManyWithoutFavoriteMusicNestedInput
     uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutArtistsInput = {
@@ -13994,6 +22283,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateManyWithoutArtistsInput = {
@@ -14058,6 +22350,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUpdateManyWithoutUploaderNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteArtistsInput = {
@@ -14078,6 +22375,11 @@ export namespace Prisma {
     notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
     ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+    favoritePlaylists?: PlaylistUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFavoriteArtistsInput = {
@@ -14123,6 +22425,9 @@ export namespace Prisma {
     artists?: ArtistUpdateManyWithoutSongsNestedInput
     users?: UserUpdateManyWithoutFavoriteMusicNestedInput
     uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    playlists?: PlaylistUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateWithoutAlbumInput = {
@@ -14139,6 +22444,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
     users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutSongsNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
   }
 
   export type SongUncheckedUpdateManyWithoutAlbumInput = {
@@ -14153,6 +22461,148 @@ export namespace Prisma {
     uploaderId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SongUpdateWithoutPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artists?: ArtistUpdateManyWithoutSongsNestedInput
+    album?: AlbumUpdateOneWithoutSongsNestedInput
+    users?: UserUpdateManyWithoutFavoriteMusicNestedInput
+    uploader?: UserUpdateOneWithoutOwnMusicNestedInput
+    listenings?: ListeningUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongUncheckedUpdateWithoutPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    albumId?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artists?: ArtistUncheckedUpdateManyWithoutSongsNestedInput
+    users?: UserUncheckedUpdateManyWithoutFavoriteMusicNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutSongNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutSongNestedInput
+  }
+
+  export type SongUncheckedUpdateManyWithoutPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    albumId?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: FloatFieldUpdateOperationsInput | number
+    audioUrl?: StringFieldUpdateOperationsInput | string
+    status?: EnumSongStatusFieldUpdateOperationsInput | $Enums.SongStatus
+    genres?: SongUpdategenresInput | string[]
+    lyrics?: NullableJsonNullValueInput | InputJsonValue
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    uploaderId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpdateWithoutFavoritePlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFavoritePlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    favoriteMusic?: SongUncheckedUpdateManyWithoutUsersNestedInput
+    ownMusic?: SongUncheckedUpdateManyWithoutUploaderNestedInput
+    favoriteArtists?: ArtistUncheckedUpdateManyWithoutFollowersNestedInput
+    listenings?: ListeningUncheckedUpdateManyWithoutUserNestedInput
+    recommendations?: RecommendationUncheckedUpdateManyWithoutUserNestedInput
+    mixes?: RecommendationPlaylistUncheckedUpdateManyWithoutUserNestedInput
+    myPlaylists?: PlaylistUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutFavoritePlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationUpdateWithoutPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRecommendationsNestedInput
+    song?: SongUpdateOneRequiredWithoutRecommendationsNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateWithoutPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecommendationUncheckedUpdateManyWithoutPlaylistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    songId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

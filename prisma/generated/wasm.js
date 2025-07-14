@@ -178,6 +178,21 @@ exports.Prisma.SongScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ListeningScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  songId: 'songId',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.RecommendationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  songId: 'songId',
+  score: 'score',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ArtistScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -194,6 +209,26 @@ exports.Prisma.AlbumScalarFieldEnum = {
   artistId: 'artistId',
   releaseDate: 'releaseDate',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PlaylistScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  coverUrl: 'coverUrl',
+  creatorId: 'creatorId',
+  createAt: 'createAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RecommendationPlaylistScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  userId: 'userId',
+  createAt: 'createAt',
   updatedAt: 'updatedAt'
 };
 
@@ -234,14 +269,23 @@ exports.SongStatus = exports.$Enums.SongStatus = {
   ON_COMPLETED: 'ON_COMPLETED'
 };
 
+exports.PlaylistType = exports.$Enums.PlaylistType = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Notification: 'Notification',
   NotificationSettings: 'NotificationSettings',
   Token: 'Token',
   Song: 'Song',
+  Listening: 'Listening',
+  Recommendation: 'Recommendation',
   Artist: 'Artist',
-  Album: 'Album'
+  Album: 'Album',
+  Playlist: 'Playlist',
+  RecommendationPlaylist: 'RecommendationPlaylist'
 };
 
 /**
