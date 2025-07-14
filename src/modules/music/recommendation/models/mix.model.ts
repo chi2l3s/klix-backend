@@ -25,7 +25,7 @@ export class MixModel implements RecommendationPlaylist {
 	userId: string
 
 	@Field(() => Date)
-	createAt: Date
+	createdAt: Date
 
 	@Field(() => Date)
 	updatedAt: Date
