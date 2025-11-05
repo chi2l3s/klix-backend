@@ -1,5 +1,5 @@
 FROM mirror.gcr.io/library/node:20.17.0-alpine AS base
-ez
+
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
