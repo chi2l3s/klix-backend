@@ -135,6 +135,47 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FriendRequestScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FriendshipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  friendId: 'friendId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChatScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  chatId: 'chatId',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   message: 'message',
@@ -257,6 +298,18 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.FriendRequestStatus = exports.$Enums.FriendRequestStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  CANCELED: 'CANCELED'
+};
+
+exports.ChatType = exports.$Enums.ChatType = {
+  PRIVATE: 'PRIVATE',
+  GROUP: 'GROUP'
+};
+
 exports.TokenType = exports.$Enums.TokenType = {
   EMAIL_VERIFY: 'EMAIL_VERIFY',
   PASSWORD_RESET: 'PASSWORD_RESET',
@@ -276,6 +329,11 @@ exports.PlaylistType = exports.$Enums.PlaylistType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  FriendRequest: 'FriendRequest',
+  Friendship: 'Friendship',
+  Subscription: 'Subscription',
+  Chat: 'Chat',
+  Message: 'Message',
   Notification: 'Notification',
   NotificationSettings: 'NotificationSettings',
   Token: 'Token',

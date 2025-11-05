@@ -1,5 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { IsDate, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator'
+import {
+	IsDate,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+	Matches
+} from 'class-validator'
 
 @InputType()
 export class ChangeInfoInput {
@@ -12,23 +18,23 @@ export class ChangeInfoInput {
 	})
 	username: string
 
-	@Field(() => String)
-    @IsString()
-	@IsNotEmpty()
+	@Field(() => String, { nullable: true })
+	@IsString()
+	@IsOptional()
 	firstName: string
 
-	@Field(() => String)
-    @IsString()
-	@IsNotEmpty()
+	@Field(() => String, { nullable: true })
+	@IsString()
+	@IsOptional()
 	lastName: string
 
 	@Field(() => String, { nullable: true })
-    @IsString()
+	@IsString()
 	@IsOptional()
 	bio: string
 
-	@Field(() => Date)
-    @IsDate()
-    @IsNotEmpty()
+	@Field(() => Date, { nullable: true })
+	@IsDate()
+	@IsOptional()
 	dateOfBirth?: Date
 }

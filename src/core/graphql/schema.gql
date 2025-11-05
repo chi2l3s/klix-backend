@@ -34,9 +34,9 @@ input ChangeEmailInput {
 
 input ChangeInfoInput {
   bio: String
-  dateOfBirth: DateTime!
-  firstName: String!
-  lastName: String!
+  dateOfBirth: DateTime
+  firstName: String
+  lastName: String
   username: String!
 }
 
@@ -49,8 +49,31 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+type ChatModel {
+  createdAt: DateTime!
+  id: String!
+  messages: [MessageModel!]!
+  name: String!
+  type: ChatType!
+  updatedAt: DateTime!
+}
+
+enum ChatType {
+  GROUP
+  PRIVATE
+}
+
+type ConfirmationModel {
+  confirmationUrl: String!
+  type: String!
+}
+
 input CreateArtistInput {
   name: String!
+}
+
+input CreatePaymentInput {
+  method: PaymentMethodsEnum!
 }
 
 input CreatePlaylistInput {
@@ -122,6 +145,16 @@ type LyricsModel {
   lines: [LineModel!]!
 }
 
+type MessageModel {
+  author: UserModel!
+  authorId: String!
+  chatId: String!
+  content: String!
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+}
+
 type MixModel {
   createdAt: DateTime!
   description: String!
@@ -142,6 +175,7 @@ type Mutation {
   changeProfileInfo(data: ChangeInfoInput!): Boolean!
   clearSessionCookie: Boolean!
   createArtist(data: CreateArtistInput!): ArtistModel!
+  createPayement(data: CreatePaymentInput!): PaymentDetailsModel!
   createPlaylist(data: CreatePlaylistInput!): Boolean!
   createUser(data: CreateUserInput!): Boolean!
   ediSong(data: EditSongInput!): Boolean!
@@ -154,6 +188,7 @@ type Mutation {
   resetPassword(data: ResetPasswordInput!): Boolean!
   saveMixPlaylist(mixId: String!): Boolean!
   saveSongToFavorite(songId: String!): Boolean!
+  sendMessage(data: SendMessageInput!): MessageModel!
   uploadCover(cover: Upload!): String!
   uploadPlaylistCover(cover: Upload!): String!
   uploadSong(audio: Upload!): Boolean!
@@ -186,21 +221,65 @@ type NotificationSettingsModel {
   webNotifications: Boolean!
 }
 
+type PaymentDetailsModel {
+  confirmation: ConfirmationModel!
+  description: String!
+  id: String!
+  status: String!
+}
+
+enum PaymentMethodsEnum {
+  alfabank
+  b2b_sberbank
+  bank_card
+  cash
+  electronic_certificate
+  mobile_balance
+  sber_loan
+  sberbank
+  sbp
+  tinkoff_bank
+  yoo_money
+}
+
+type PlaylistModel {
+  coverUrl: String!
+  createdAt: DateTime!
+  creator: UserModel!
+  creatorId: String!
+  description: String!
+  id: ID!
+  songs: [SongModel!]!
+  title: String!
+  type: PlaylistType!
+  updatedAt: DateTime!
+  users: [UserModel!]!
+}
+
+enum PlaylistType {
+  PRIVATE
+  PUBLIC
+}
+
 type Query {
   findArtistsByTerm(filters: FiltersInput!): [ArtistModel!]!
   findCurrentSession: SessionModel!
   findProfile: UserModel!
   findSessionsByUser: [SessionModel!]!
   getAllArtists: [ArtistModel!]!
+  getChatById(chatId: String!): ChatModel!
   getFavoriteMusic(filters: FiltersInput!): [SongModel!]!
   getLyricsById(id: String!): LyricsModel!
   getMixPlaylists(mixId: String!): MixModel!
   getNotificationsByUser: [NotificationModel!]!
+  getPlaylistsByUser(username: String!): [PlaylistModel!]!
   getRecommendationsForMusic(limit: Float!): [RecommendationResponse!]!
   getSongById(id: String!): SongModel!
   getSongStreamUrl(id: String!): StreamModel!
   getSongs(data: FiltersInput!): [SongModel!]!
+  getSongsByUser(input: FiltersInput!, username: String!): [SongModel!]!
   getUnreadNotificationsCount: Float!
+  getUserChats: [ChatModel!]!
   getUserRecommendations: [MixModel!]!
   isSongInFavorite(songId: String!): Boolean!
 }
@@ -222,6 +301,11 @@ type RecommendationResponse {
 
 input ResetPasswordInput {
   email: String!
+}
+
+input SendMessageInput {
+  chatId: ID!
+  content: String!
 }
 
 type SessionMetadataModel {
@@ -270,6 +354,10 @@ enum SongStatus {
 type StreamModel {
   song: SongModel!
   url: String!
+}
+
+type Subscription {
+  messageSent(chatId: String!): MessageModel!
 }
 
 """The `Upload` scalar type represents a file upload."""

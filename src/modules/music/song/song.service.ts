@@ -3,7 +3,6 @@ import {
 	ConflictException,
 	Injectable,
 	NotFoundException,
-	StreamableFile
 } from '@nestjs/common'
 import { Request, Response } from 'express'
 import * as Upload from 'graphql-upload/Upload.js'
@@ -27,6 +26,36 @@ export class SongService {
 		private readonly artistService: ArtistService,
 		private readonly storageService: StorageService
 	) {}
+
+	async getSongsByUser(username: string, input: FiltersInput) {
+		const { take } = input
+
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				username
+			}
+		})
+
+		if (!user) {
+			throw new NotFoundException('Пользователь не найден')
+		}
+
+		const songs = await this.prismaService.song.findMany({
+			take: take ?? 10,
+			where: {
+				users: {
+					some: {
+						username: user.username
+					}
+				}
+			},
+			include: {
+				artists: true
+			}
+		})
+
+		return songs
+	}
 
 	async getSongById(id: string) {
 		return await this.prismaService.song.findUnique({

@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js'
 import * as Upload from 'graphql-upload/Upload.js'
 
@@ -9,10 +9,16 @@ import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe'
 
 import { CreatePlaylistInput } from './inputs/create-playlist.input'
 import { PlaylistService } from './playlist.service'
+import { PlaylistModel } from './models/playlist.model'
 
 @Resolver('Playlist')
 export class PlaylistResolver {
 	constructor(private readonly playlistService: PlaylistService) {}
+
+	@Query(() => [PlaylistModel], { name: 'getPlaylistsByUser' })
+	async getPlaylistsByUser(@Args('username') username: string) {
+		return this.playlistService.getPlaylistsByUser(username)
+	}	
 
 	@Authorization()
 	@Mutation(() => Boolean, { name: 'createPlaylist' })

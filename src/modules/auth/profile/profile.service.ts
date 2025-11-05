@@ -31,16 +31,29 @@ export class ProfileService {
 
 		const fileName = `/users/${user.username}.webp`
 
-		const processedBuffer = await sharp(buffer)
-			.resize(512, 521)
-			.webp()
-			.toBuffer()
+		if (file.filename && file.filename.endsWith('.gif')) {
+			const processedBuffer = await sharp(buffer, { animated: true })
+				.resize(512, 512)
+				.webp()
+				.toBuffer()
 
-		await this.storageService.upload(
-			processedBuffer,
-			fileName,
-			'image/webp'
-		)
+			await this.storageService.upload(
+				processedBuffer,
+				fileName,
+				'image/webp'
+			)
+		} else {
+			const processedBuffer = await sharp(buffer)
+				.resize(512, 512)
+				.webp()
+				.toBuffer()
+
+			await this.storageService.upload(
+				processedBuffer,
+				fileName,
+				'image/webp'
+			)
+		}
 
 		await this.prismaService.user.update({
 			where: {
@@ -78,7 +91,7 @@ export class ProfileService {
 
 		const usernameExists = await this.prismaService.user.findUnique({
 			where: {
-				id: user.id
+				username
 			}
 		})
 

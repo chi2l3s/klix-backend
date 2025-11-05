@@ -23,6 +23,9 @@ import { RecommendationModule } from '../modules/music/recommendation/recommenda
 import { ScheduleModule } from '@nestjs/schedule'
 import { LogModule } from '../modules/music/log/log.module';
 import { ProxyModule } from '../modules/proxy/proxy.module';
+import { YookassaModule } from 'nestjs-yookassa';
+import { SubscriptionModule } from '../modules/subscription/subscription.module';
+import { ChatModule } from '../modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -30,11 +33,19 @@ import { ProxyModule } from '../modules/proxy/proxy.module';
       ignoreEnvFile: !IS_DEV_ENV,
       isGlobal: true
     }),
+    YookassaModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        shopId: configService.getOrThrow<string>("YOOKASSA_SHOP_ID"),
+        apiKey: configService.getOrThrow<string>("YOOKASSA_SECRET_KEY")
+      })
+    }),
     GraphQLModule.forRootAsync({
       driver: ApolloDriver,
       imports: [ConfigModule],
       useFactory: getGraphqlConfig,
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     HttpModule.registerAsync({
       useFactory: () => ({
@@ -59,7 +70,9 @@ import { ProxyModule } from '../modules/proxy/proxy.module';
     PlaylistModule,
     RecommendationModule,
     LogModule,
-    ProxyModule
+    ProxyModule,
+    SubscriptionModule,
+    ChatModule
   ],
 })
 export class CoreModule {}

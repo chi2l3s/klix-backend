@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import * as Upload from 'graphql-upload/Upload.js'
 import * as sharp from 'sharp'
 import { v4 as uuid } from 'uuid'
@@ -16,6 +16,27 @@ export class PlaylistService {
 		private readonly prismaService: PrismaService,
 		private readonly storageService: StorageService
 	) {}
+
+	async getPlaylistsByUser(username: string) {
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				username
+			}
+		})
+
+		if (!user) {
+			throw new NotFoundException('Пользователь не найден')
+		}
+
+		const playlists = await this.prismaService.playlist.findMany({
+			where: {
+				creatorId: user.id,
+				type: PlaylistType.PUBLIC
+			}
+		})
+
+		return playlists
+	}
 
 	async create(user: User, input: CreatePlaylistInput) {
 		const { title, description, isPrivate, songsIds, coverUrl } = input

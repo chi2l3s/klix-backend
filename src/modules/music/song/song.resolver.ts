@@ -8,18 +8,26 @@ import { Authorized } from '@/src/shared/decorators/authorized.decorator'
 import { FileValidationPipe } from '@/src/shared/pipes/file-validation.pipe'
 import { MusicValidationPipe } from '@/src/shared/pipes/music-validations.pipes'
 
-import { FiltersInput } from './inputs/filters.input'
-import { SongModel } from './models/song.model'
-import { UploadSongModel } from './models/upload-song.model'
-import { SongService } from './song.service'
 import { EditSongInput } from './inputs/create-song.input'
-import { StreamModel } from './models/stream.model'
+import { FiltersInput } from './inputs/filters.input'
 import { SongLyricsInput } from './inputs/song-lyrics-input'
 import { LyricsModel } from './models/lyrics.model'
+import { SongModel } from './models/song.model'
+import { StreamModel } from './models/stream.model'
+import { UploadSongModel } from './models/upload-song.model'
+import { SongService } from './song.service'
 
 @Resolver('Song')
 export class SongResolver {
 	constructor(private readonly songService: SongService) {}
+
+	@Query(() => [SongModel], { name: 'getSongsByUser' })
+	async getSongsByUser(
+		@Args('username') username: string,
+		@Args('input') input: FiltersInput
+	) {
+		return this.songService.getSongsByUser(username, input)
+	}
 
 	@Authorization()
 	@Mutation(() => Boolean, { name: 'uploadSong' })
@@ -33,7 +41,10 @@ export class SongResolver {
 
 	@Authorization()
 	@Query(() => [SongModel], { name: 'getFavoriteMusic' })
-	async getFavorites(@Authorized() user: User, @Args('filters') filters: FiltersInput) {
+	async getFavorites(
+		@Authorized() user: User,
+		@Args('filters') filters: FiltersInput
+	) {
 		return this.songService.getFavorites(user, filters)
 	}
 
@@ -43,7 +54,7 @@ export class SongResolver {
 		return this.songService.addLyrics(input)
 	}
 
-	@Query(() => LyricsModel, { name: "getLyricsById" })
+	@Query(() => LyricsModel, { name: 'getLyricsById' })
 	async getLyricsById(@Args('id') id: string) {
 		return this.songService.getLyricsById(id)
 	}
@@ -88,10 +99,7 @@ export class SongResolver {
 
 	@Authorization()
 	@Mutation(() => Boolean, { name: 'saveSongToFavorite' })
-	async saveSong(
-		@Authorized() user: User,
-		@Args('songId') songId: string
-	) {
+	async saveSong(@Authorized() user: User, @Args('songId') songId: string) {
 		return this.songService.saveSong(user, songId)
 	}
 

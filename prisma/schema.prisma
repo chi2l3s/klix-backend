@@ -32,11 +32,90 @@ model User {
   listenings      Listening[]
   recommendations Recommendation[]
   mixes           RecommendationPlaylist[]
+  subscriptions Subscription[]
 
   myPlaylists       Playlist[] @relation("creator")
   favoritePlaylists Playlist[] @relation("follower")
 
+  sentFriendRequests     FriendRequest[] @relation("SentRequests")
+  receivedFriendRequests FriendRequest[] @relation("ReceivedRequests")
+  friendships            Friendship[]    @relation("user_friendships")
+  friendOf               Friendship[]    @relation("friend_friendships")
+
+  messages Message[]
+  chats Chat[] @relation("ChatMembers")
+
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FriendRequest {
+  id String @id @default(uuid())
+
+  sender User @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId String
+
+  receiver User @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId String
+
+  status FriendRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([senderId, receiverId])
+}
+
+model Friendship {
+  id String @id @default(uuid())
+
+  user User @relation("user_friendships", fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  friend User @relation("friend_friendships", fields: [friendId], references: [id], onDelete: Cascade)
+  friendId String
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, friendId])
+}
+
+model Subscription {
+  id String @id @default(uuid())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chat {
+  id String @id @default(uuid())
+
+  name String
+  type ChatType @default(PRIVATE)
+  messages Message[]
+  members User[] @relation("ChatMembers")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id String @id @default(uuid())
+
+  content String
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  chatId String
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  createdAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
@@ -228,4 +307,16 @@ enum SongStatus {
   IN_COMPLETED
   MODERATION
   ON_COMPLETED
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELED
+}
+
+enum ChatType {
+  PRIVATE
+  GROUP
 }
